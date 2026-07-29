@@ -1,0 +1,932 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>科创50 · 周线操作台</title><meta name="description" content="低频、周线、全进全出。每周只回答一次：买、持有、卖，还是等。"/><meta name="application-name" content="科创50 · 周线操作台"/><meta name="category" content="finance"/><meta property="og:title" content="科创50 · 周线操作台"/><meta property="og:description" content="低频、周线、全进全出。每周只回答一次：买、持有、卖，还是等。"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="科创50 · 周线操作台"/><meta name="twitter:description" content="低频、周线、全进全出。每周只回答一次：买、持有、卖，还是等。"/>
+<link rel="canonical" href="https://li-fujian.github.io/kc50-weekly/"/><meta property="og:url" content="https://li-fujian.github.io/kc50-weekly/"/><style>:root {
+  --ink: #142820;
+  --muted: #66746e;
+  --paper: #f3f0e8;
+  --paper-strong: #fffdf7;
+  --line: rgba(20, 40, 32, 0.14);
+  --line-strong: rgba(20, 40, 32, 0.28);
+  --forest: #173f34;
+  --mint: #c9f27a;
+  --amber: #d6a64f;
+  --rise: #c94337;
+  --fall: #258367;
+  --shadow: 0 22px 70px rgba(28, 48, 39, 0.09);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(201, 242, 122, 0.2), transparent 28rem),
+    linear-gradient(rgba(20, 40, 32, 0.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 100% 32px, auto;
+  color: var(--ink);
+  font-family:
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC",
+    sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+main {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding-bottom: 64px;
+}
+
+.topbar {
+  min-height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.brand-mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--forest);
+  color: var(--mint);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.brand > span:last-child,
+.brand strong,
+.brand small {
+  display: block;
+}
+
+.brand strong {
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+
+.brand small {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.topbar-meta {
+  display: flex;
+  gap: 22px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.75fr);
+  gap: 34px;
+  padding: 66px 0 38px;
+  align-items: stretch;
+}
+
+.hero-copy {
+  padding: 12px 0;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.signal-stamp {
+  display: inline-flex;
+  min-width: 88px;
+  justify-content: center;
+  padding: 7px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.signal-WAIT {
+  background: #efe4cc;
+  border-color: #d0ae68;
+}
+
+.signal-BUY_NEXT_OPEN {
+  color: #fff;
+  background: var(--rise);
+  border-color: var(--rise);
+}
+
+.signal-HOLD {
+  color: #fff;
+  background: var(--forest);
+  border-color: var(--forest);
+}
+
+.signal-SELL_NEXT_OPEN {
+  color: #fff;
+  background: var(--fall);
+  border-color: var(--fall);
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin: 25px 0 18px;
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  font-size: clamp(64px, 9vw, 116px);
+  line-height: 0.92;
+  font-weight: 600;
+  letter-spacing: -0.055em;
+}
+
+.hero-summary {
+  max-width: 620px;
+  margin-bottom: 31px;
+  color: #405249;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.hero-action {
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  gap: 3px 18px;
+  max-width: 600px;
+  padding: 18px 20px;
+  border-left: 4px solid var(--amber);
+  background: rgba(255, 253, 247, 0.72);
+}
+
+.hero-action span {
+  grid-row: span 2;
+  align-self: center;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.hero-action strong {
+  font-size: 18px;
+}
+
+.hero-action small {
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.quote-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 400px;
+  padding: 26px;
+  border-radius: 28px;
+  background: var(--forest);
+  box-shadow: var(--shadow);
+  color: #f8f7f1;
+}
+
+.quote-header,
+.quote-main,
+.quote-main > div {
+  display: flex;
+}
+
+.quote-header {
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.66);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.live-dot::before {
+  width: 7px;
+  height: 7px;
+  content: "";
+  display: inline-block;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 0 4px rgba(214, 166, 79, 0.14);
+}
+
+.quote-main {
+  flex-direction: column;
+  gap: 30px;
+  margin: 36px 0;
+}
+
+.quote-main > div {
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.quote-main small,
+.quote-main span {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 11px;
+}
+
+.quote-main strong {
+  margin-left: auto;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 42px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.quote-card > p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.quote-card b {
+  color: var(--mint);
+  font-weight: 600;
+}
+
+.decision-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 22px;
+}
+
+.panel {
+  margin-bottom: 22px;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255, 253, 247, 0.78);
+  box-shadow: 0 9px 32px rgba(25, 48, 39, 0.04);
+  backdrop-filter: blur(12px);
+}
+
+.section-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.section-title > span {
+  padding-top: 3px;
+  color: var(--fall);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.section-title h2 {
+  margin-bottom: 6px;
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.section-title p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.conditions {
+  display: grid;
+  gap: 10px;
+  margin: 26px 0 22px;
+}
+
+.condition {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.44);
+}
+
+.condition > span {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-weight: 800;
+}
+
+.condition-on {
+  background: rgba(37, 131, 103, 0.12);
+  color: var(--fall);
+}
+
+.condition-off {
+  background: rgba(214, 166, 79, 0.16);
+  color: #9d701c;
+}
+
+.condition strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.condition small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.indicator-strip {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.indicator-strip small,
+.indicator-strip strong {
+  display: block;
+}
+
+.indicator-strip small {
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.indicator-strip strong {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+}
+
+.rules {
+  display: grid;
+  gap: 20px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rules li {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 13px;
+}
+
+.rules li > span {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.rules p {
+  margin-bottom: 0;
+  color: #405249;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.risk-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 14px 0 22px;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.metric {
+  min-width: 0;
+  padding: 25px 20px;
+  border-right: 1px solid var(--line);
+}
+
+.metric:first-child {
+  padding-left: 0;
+}
+
+.metric:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.metric span,
+.metric strong,
+.metric small {
+  display: block;
+}
+
+.metric span {
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.metric strong {
+  overflow: hidden;
+  margin-bottom: 6px;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: clamp(23px, 3vw, 34px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  text-overflow: ellipsis;
+}
+
+.metric small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.metric-positive {
+  color: var(--rise) !important;
+}
+
+.metric-negative {
+  color: var(--fall) !important;
+}
+
+.performance-panel {
+  padding: 34px;
+}
+
+.performance-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.sample-warning {
+  padding: 12px 15px;
+  border: 1px solid rgba(214, 166, 79, 0.45);
+  border-radius: 12px;
+  background: rgba(214, 166, 79, 0.09);
+  white-space: nowrap;
+}
+
+.sample-warning strong,
+.sample-warning span {
+  display: block;
+}
+
+.sample-warning strong {
+  margin-bottom: 3px;
+  font-size: 12px;
+}
+
+.sample-warning span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 27px 0 30px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.compare-table {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+}
+
+.compare-row {
+  display: grid;
+  grid-template-columns: 1.25fr repeat(4, 1fr);
+  align-items: center;
+  min-height: 66px;
+  padding: 0 18px;
+  border-top: 1px solid var(--line);
+}
+
+.compare-row:first-child {
+  border-top: 0;
+}
+
+.compare-row > :not(:first-child) {
+  text-align: right;
+}
+
+.compare-row strong {
+  font-size: 13px;
+}
+
+.compare-row small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.compare-row > span {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+}
+
+.compare-head {
+  min-height: 42px;
+  background: rgba(20, 40, 32, 0.045);
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.compare-head > span {
+  font-family: inherit;
+  font-size: 10px;
+}
+
+.benchmark-row {
+  background: rgba(37, 131, 103, 0.035);
+}
+
+.rhythm-panel {
+  padding-bottom: 24px;
+}
+
+.bar-chart {
+  height: 180px;
+  display: grid;
+  grid-template-columns: repeat(26, 1fr);
+  align-items: end;
+  gap: 6px;
+  margin-top: 28px;
+  padding: 16px 10px 0;
+  border-bottom: 1px solid var(--line-strong);
+  background:
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px) 0 0 / 100% 25%;
+}
+
+.week-bar {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.week-bar i {
+  width: 100%;
+  display: block;
+  min-height: 4px;
+  border-radius: 4px 4px 0 0;
+  background: var(--forest);
+  opacity: 0.82;
+}
+
+.week-bar-current i {
+  background: var(--amber);
+  opacity: 1;
+}
+
+.chart-axis {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin-top: 10px;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+}
+
+.chart-axis strong {
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.chart-axis span:last-child {
+  text-align: right;
+}
+
+.trade-table {
+  overflow: hidden;
+  margin-top: 27px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+}
+
+.trade-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1.1fr 0.7fr 0.7fr 1.5fr;
+  align-items: center;
+  min-height: 63px;
+  padding: 0 18px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}
+
+.trade-row:first-child {
+  border-top: 0;
+}
+
+.trade-row > :nth-child(3),
+.trade-row > :nth-child(4) {
+  text-align: right;
+}
+
+.trade-row strong,
+.trade-row small {
+  display: block;
+}
+
+.trade-row small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+}
+
+.trade-head {
+  min-height: 41px;
+  background: rgba(20, 40, 32, 0.045);
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.operating-note {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 50px;
+  margin: 44px 0 22px;
+  padding: 42px;
+  border-radius: 25px;
+  background: var(--forest);
+  color: #fff;
+}
+
+.operating-note span {
+  color: var(--mint);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+
+.operating-note h2 {
+  margin: 13px 0 0;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.operating-note ol {
+  display: grid;
+  gap: 15px;
+  margin: 0;
+  padding-left: 22px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+footer {
+  display: grid;
+  gap: 18px;
+  padding: 26px 4px 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+footer > div:first-child,
+footer strong,
+footer span {
+  display: block;
+}
+
+footer strong {
+  color: var(--ink);
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 17px;
+}
+
+.source-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+}
+
+.source-links a {
+  border-bottom: 1px solid var(--line-strong);
+  color: var(--ink);
+}
+
+footer p {
+  max-width: 900px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 860px) {
+  main {
+    width: min(100% - 24px, 720px);
+  }
+
+  .topbar {
+    min-height: 76px;
+  }
+
+  .topbar-meta {
+    display: none;
+  }
+
+  .hero,
+  .decision-grid,
+  .operating-note {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    gap: 20px;
+    padding-top: 42px;
+  }
+
+  h1 {
+    font-size: clamp(58px, 18vw, 90px);
+  }
+
+  .quote-card {
+    min-height: 340px;
+  }
+
+  .risk-row,
+  .metric-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .risk-row .metric:nth-child(2),
+  .metric-grid .metric:nth-child(2) {
+    border-right: 0;
+  }
+
+  .risk-row .metric:nth-child(n + 3),
+  .metric-grid .metric:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+
+  .risk-row .metric:nth-child(3),
+  .metric-grid .metric:nth-child(3) {
+    padding-left: 0;
+  }
+
+  .compare-row {
+    grid-template-columns: 1.35fr repeat(4, 0.9fr);
+  }
+
+  .trade-row {
+    grid-template-columns: 1fr 1fr 0.65fr 0.7fr;
+  }
+
+  .trade-row > :last-child {
+    display: none;
+  }
+
+  .operating-note {
+    gap: 28px;
+    padding: 30px;
+  }
+}
+
+@media (max-width: 560px) {
+  .brand strong {
+    font-size: 13px;
+  }
+
+  .brand small {
+    font-size: 9px;
+  }
+
+  .hero {
+    padding-top: 34px;
+  }
+
+  .eyebrow {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .hero-summary {
+    font-size: 15px;
+  }
+
+  .hero-action {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-action span {
+    grid-row: auto;
+  }
+
+  .quote-card,
+  .panel {
+    padding: 23px 19px;
+    border-radius: 20px;
+  }
+
+  .quote-main > div {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  .quote-main strong {
+    grid-row: span 2;
+  }
+
+  .condition {
+    grid-template-columns: 28px 1fr;
+  }
+
+  .condition small {
+    display: none;
+  }
+
+  .indicator-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .performance-head {
+    flex-direction: column;
+  }
+
+  .sample-warning {
+    width: 100%;
+  }
+
+  .metric strong {
+    font-size: 22px;
+  }
+
+  .compare-table,
+  .trade-table {
+    overflow-x: auto;
+  }
+
+  .compare-row {
+    min-width: 570px;
+  }
+
+  .trade-row {
+    min-width: 560px;
+  }
+
+  .bar-chart {
+    gap: 3px;
+    padding-inline: 3px;
+  }
+
+  .operating-note h2 {
+    font-size: 25px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+</style></head><body><main><header class="topbar"><a class="brand" href="#top" aria-label="回到顶部"><span class="brand-mark">50</span><span><strong>科创50 · 周线操作台</strong><small>只看 000688 · 完整周线决策</small></span></a><div class="topbar-meta"><span>数据 2026-07-29</span><span>规则 v1.2</span></div></header><section class="hero" id="top"><div class="hero-copy"><div class="eyebrow"><span class="signal-stamp signal-WAIT">WAIT / 等</span><span>完整周截至 2026-07-24</span></div><h1>空仓等待</h1><p class="hero-summary">买点条件未全部满足；没有信号就不操作。</p><div class="hero-action"><span>本周动作</span><strong>不买，不猜，等信号</strong><small>只认完整周线。周中价格不触发主观交易。</small></div></div><aside class="quote-card"><div class="quote-header"><span>000688</span><span class="live-dot">本周形成中</span></div><div class="quote-main"><div><small>上证科创板50成份指数</small><strong>1,678.7</strong><span>截至 2026-07-29</span></div><div><small>最近完整周收盘</small><strong>1,787.2</strong><span>2026-07-24</span></div></div><p>下次真正要做决定：<b>本周最后一个交易日收盘后</b>。若触发，下一交易日开盘执行。</p></aside></section><section class="decision-grid" aria-label="当前决策条件"><div class="panel conditions-panel"><div class="section-title"><span>01</span><div><h2>买点还差什么</h2><p>两个条件同时成立才允许买。</p></div></div><div class="conditions"><div class="condition"><span class="condition-off">—</span><strong>前 3 周 J 均低于 5</strong><small>未满足</small></div><div class="condition"><span class="condition-off">—</span><strong>本周 J 向上拐头</strong><small>未满足</small></div></div><div class="indicator-strip"><div><small>最近4周 J</small><strong>72.2 → 71.0 → 30.4 → 19.5</strong></div></div></div><div class="panel discipline-panel"><div class="section-title"><span>02</span><div><h2>交易纪律</h2><p>把复杂判断压成三条。</p></div></div><ol class="rules"><li><span>买</span><p>前3个完整周的 KDJ J 均 &lt; 5，本周 J 向上拐头；下个交易日开盘买入。</p></li><li><span>守</span><p>成交后立即设置成本价下方12%的保护止损；不因“底部”取消止损。</p></li><li><span>卖</span><p>浮盈未达到30%时，周线J &gt; 90后向下拐头即卖出；一旦最高完整周收盘达到买入价上方30%，切换为大行情模式，仅在完整周收盘较持仓后最高周收盘回撤15%时卖出。</p></li></ol></div></section><section class="risk-row" aria-label="风险与频率"><div class="metric"><span>保护止损</span><strong class="metric-negative">成交价 × 0.88</strong><small>预设，不临场犹豫</small></div><div class="metric"><span>年内动作</span><strong class="">3 / 6</strong><small>还可用 3 次</small></div><div class="metric"><span>历史最高频</span><strong class="">5 次 / 年</strong><small>买、卖分别计1次</small></div><div class="metric"><span>卖出模式</span><strong class="">标准模式</strong><small>浮盈达30%自动切换</small></div></section><section class="panel performance-panel"><div class="performance-head"><div class="section-title"><span>03</span><div><h2>这套规则历史上做得怎样</h2><p>完整周收盘产生信号、下一交易日开盘成交；双边各计10bp摩擦；12%保护止损按日内触价或开盘跳空成交；浮盈达到30%后改用15%周线收盘移动止盈。</p></div></div><div class="sample-warning"><strong>只有 9 笔</strong><span>高胜率是证据，不是保证</span></div></div><div class="metric-grid"><div class="metric"><span>年化收益</span><strong class="metric-positive">+21.4%</strong><small>累计 +256.6%</small></div><div class="metric"><span>胜率</span><strong class="metric-positive">77.8%</strong><small>完整交易 9 笔</small></div><div class="metric"><span>最大回撤</span><strong class="metric-negative">-18.5%</strong><small>账户净值口径</small></div><div class="metric"><span>在场时间</span><strong class="">48.2%</strong><small>大部分时间可以休息</small></div></div><div class="compare-table" role="table" aria-label="分段回测"><div class="compare-row compare-head" role="row"><span>区间</span><span>年化</span><span>最大回撤</span><span>胜率</span><span>交易数</span></div><div class="compare-row" role="row"><strong>训练期<br/><small>2020—2023</small></strong><span class="metric-positive">+15.0%</span><span class="metric-negative">-18.5%</span><span>71.4%</span><span>7</span></div><div class="compare-row" role="row"><strong>验证期<br/><small>2024—至今</small></strong><span class="metric-positive">+32.1%</span><span class="metric-negative">-18.0%</span><span>100.0%</span><span>2</span></div><div class="compare-row benchmark-row" role="row"><strong>同期持有<br/><small>不择时</small></strong><span class="metric-positive">+8.1%</span><span class="metric-negative">-62.7%</span><span>—</span><span>1</span></div></div></section><section class="panel rhythm-panel"><div class="section-title"><span>04</span><div><h2>最近 26 周</h2><p>只看节奏，不用盯盘。最后一根仍是本周形成中的快照。</p></div></div><div class="bar-chart" aria-label="最近26周科创50收盘走势"><div class="week-bar " title="2026-01-30 · 1509.4"><i style="height:43.7%"></i></div><div class="week-bar " title="2026-02-06 · 1422.41"><i style="height:34.9%"></i></div><div class="week-bar " title="2026-02-13 · 1470.33"><i style="height:39.7%"></i></div><div class="week-bar " title="2026-02-27 · 1488.02"><i style="height:41.5%"></i></div><div class="week-bar " title="2026-03-06 · 1414.39"><i style="height:34%"></i></div><div class="week-bar " title="2026-03-13 · 1373.64"><i style="height:29.9%"></i></div><div class="week-bar " title="2026-03-20 · 1318.31"><i style="height:24.3%"></i></div><div class="week-bar " title="2026-03-27 · 1300.76"><i style="height:22.5%"></i></div><div class="week-bar " title="2026-04-03 · 1256.21"><i style="height:18%"></i></div><div class="week-bar " title="2026-04-10 · 1364.49"><i style="height:29%"></i></div><div class="week-bar " title="2026-04-17 · 1423.35"><i style="height:34.9%"></i></div><div class="week-bar " title="2026-04-24 · 1453.69"><i style="height:38%"></i></div><div class="week-bar " title="2026-04-30 · 1571.07"><i style="height:49.9%"></i></div><div class="week-bar " title="2026-05-08 · 1640.46"><i style="height:57%"></i></div><div class="week-bar " title="2026-05-15 · 1696.26"><i style="height:62.6%"></i></div><div class="week-bar " title="2026-05-22 · 1790.77"><i style="height:72.2%"></i></div><div class="week-bar " title="2026-05-29 · 1751.32"><i style="height:68.2%"></i></div><div class="week-bar " title="2026-06-05 · 1668.33"><i style="height:59.8%"></i></div><div class="week-bar " title="2026-06-12 · 1663.22"><i style="height:59.3%"></i></div><div class="week-bar " title="2026-06-18 · 1911.51"><i style="height:84.4%"></i></div><div class="week-bar " title="2026-06-26 · 2032.28"><i style="height:96.7%"></i></div><div class="week-bar " title="2026-07-03 · 1975.6"><i style="height:90.9%"></i></div><div class="week-bar " title="2026-07-10 · 2064.98"><i style="height:100%"></i></div><div class="week-bar " title="2026-07-17 · 1715.4"><i style="height:64.6%"></i></div><div class="week-bar " title="2026-07-24 · 1787.2"><i style="height:71.8%"></i></div><div class="week-bar week-bar-current" title="2026-07-29 · 1678.74"><i style="height:60.8%"></i></div></div><div class="chart-axis"><span>2026-01-30</span><strong>1,678.7</strong><span>2026-07-29</span></div></section><section class="panel ledger-panel"><div class="section-title"><span>05</span><div><h2>全部历史交易</h2><p>不藏亏损。所有买卖点位均按科创50指数历史行情回测。</p></div></div><div class="trade-table" role="table" aria-label="历史交易清单"><div class="trade-row trade-head" role="row"><span>买入</span><span>卖出</span><span>持有</span><span>结果</span><span>原因</span></div><div class="trade-row" role="row"><span><strong>2026-04-13</strong><small>1,358.5</small></span><span><strong>2026-05-11</strong><small>1,687.6</small></span><span>18 天</span><strong class="metric-positive">+24.0%</strong><span>标准模式：周线J高位回落</span></div><div class="trade-row" role="row"><span><strong>2024-09-30</strong><small>782.3</small></span><span><strong>2026-03-23</strong><small>1,292.9</small></span><span>355 天</span><strong class="metric-positive">+64.9%</strong><span>大行情模式：周收盘从峰值回撤15%</span></div><div class="trade-row" role="row"><span><strong>2023-07-31</strong><small>961.7</small></span><span><strong>2023-10-23</strong><small>846.3</small></span><span>55 天</span><strong class="metric-negative">-12.2%</strong><span>12%保护止损</span></div><div class="trade-row" role="row"><span><strong>2022-10-10</strong><small>933.0</small></span><span><strong>2023-04-17</strong><small>1,134.1</small></span><span>129 天</span><strong class="metric-positive">+21.3%</strong><span>标准模式：周线J高位回落</span></div><div class="trade-row" role="row"><span><strong>2022-05-05</strong><small>944.6</small></span><span><strong>2022-06-20</strong><small>1,099.5</small></span><span>32 天</span><strong class="metric-positive">+16.2%</strong><span>标准模式：周线J高位回落</span></div><div class="trade-row" role="row"><span><strong>2022-02-14</strong><small>1,161.8</small></span><span><strong>2022-04-08</strong><small>1,022.4</small></span><span>38 天</span><strong class="metric-negative">-12.2%</strong><span>12%保护止损</span></div><div class="trade-row" role="row"><span><strong>2021-09-27</strong><small>1,386.5</small></span><span><strong>2021-11-29</strong><small>1,448.5</small></span><span>41 天</span><strong class="metric-positive">+4.3%</strong><span>标准模式：周线J高位回落</span></div><div class="trade-row" role="row"><span><strong>2021-03-29</strong><small>1,262.3</small></span><span><strong>2021-06-28</strong><small>1,538.0</small></span><span>61 天</span><strong class="metric-positive">+21.6%</strong><span>标准模式：周线J高位回落</span></div><div class="trade-row" role="row"><span><strong>2020-04-27</strong><small>1,140.2</small></span><span><strong>2020-07-06</strong><small>1,445.6</small></span><span>46 天</span><strong class="metric-positive">+26.5%</strong><span>标准模式：周线J高位回落</span></div></div></section><section class="operating-note"><div><span>每周固定动作</span><h2>周五收盘后打开一次，照页面做。</h2></div><ol><li>看到“空仓等待”或“继续持有”：关闭页面，什么也不做。</li><li>看到“下个交易日开盘买入”：按科创50指数开盘点位记录买入，并设 12% 保护止损。</li><li>看到“下个交易日开盘卖出”：按科创50指数开盘点位一次退出，不改规则。</li></ol></section><footer><div><strong>三周深潜 · 大行情模式</strong><span>单标的、单仓位、一次买完、一次卖完；不加仓、不做T、不预测消息。</span></div><div class="source-links"><a href="https://www.sse.com.cn/market/sseindex/diclosure/c/10077925/files/69a9c8291f1d4bf4adad92318053104d.pdf" target="_blank" rel="noreferrer">上交所：科创50指数编制方案</a></div><p>历史回测不代表未来收益；极端跳空可能使实际亏损超过保护线。 回测区间 2020-01-01 ~ 2026-07-29。行情刷新时间与交易所最终结算可能存在差异， 真正操作只以完整周线为准。</p></footer></main></body></html>
