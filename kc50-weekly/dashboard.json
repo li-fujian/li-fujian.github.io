@@ -1,0 +1,764 @@
+{
+  "meta": {
+    "version": "kc50-weekly-v1.2",
+    "generated_at": "2026-07-29T10:12:19+00:00",
+    "data_as_of": "2026-07-29",
+    "last_completed_week": "2026-07-24",
+    "current_week_is_partial": true,
+    "index_refreshed": true,
+    "source": "腾讯行情接口（前复权日线）；规则与回测脚本可本地复算",
+    "disclaimer": "历史回测不代表未来收益；极端跳空可能使实际亏损超过保护线。"
+  },
+  "instrument": {
+    "index_name": "上证科创板50成份指数",
+    "index_code": "000688",
+    "index_latest_close": 1678.74
+  },
+  "signal": {
+    "state": "WAIT",
+    "title": "空仓等待",
+    "summary": "买点条件未全部满足；没有信号就不操作。",
+    "as_of": "2026-07-24",
+    "index_close": 1787.2,
+    "j_recent": [
+      72.2,
+      71.0,
+      30.4,
+      19.5
+    ],
+    "conditions": [
+      {
+        "label": "前 3 周 J 均低于 5",
+        "met": false
+      },
+      {
+        "label": "本周 J 向上拐头",
+        "met": false
+      }
+    ],
+    "holding": false,
+    "exit_mode": "STANDARD",
+    "exit_mode_label": "标准模式",
+    "runner_activation_pct": 30.0,
+    "runner_trail_pct": 15.0,
+    "peak_weekly_close": null,
+    "runner_exit_level": null,
+    "model_position": null,
+    "planned_stop_index": 1572.74,
+    "actions_this_year": 3,
+    "actions_remaining": 3
+  },
+  "strategy": {
+    "name": "三周深潜 · 大行情模式",
+    "version": "v1.2",
+    "entry": "前3个完整周的 KDJ J 均 < 5，本周 J 向上拐头；下个交易日开盘买入。",
+    "exit": "浮盈未达到30%时，周线J > 90后向下拐头即卖出；一旦最高完整周收盘达到买入价上方30%，切换为大行情模式，仅在完整周收盘较持仓后最高周收盘回撤15%时卖出。",
+    "stop": "成交后立即设置成本价下方12%的保护止损；不因“底部”取消止损。",
+    "frequency": "每周五收盘后看一次；买、卖各算1次，任一自然年最多6次。",
+    "positioning": "单标的、单仓位、一次买完、一次卖完；不加仓、不做T、不预测消息。",
+    "friction_bps_each_side": 10,
+    "max_annual_actions": 6
+  },
+  "backtest": {
+    "period": "2020-01-01 ~ 2026-07-29",
+    "method": "完整周收盘产生信号、下一交易日开盘成交；双边各计10bp摩擦；12%保护止损按日内触价或开盘跳空成交；浮盈达到30%后改用15%周线收盘移动止盈。",
+    "full": {
+      "total_return_pct": 256.55,
+      "cagr_pct": 21.35,
+      "max_drawdown_pct": 18.54,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 17.16,
+      "profit_factor": 7.34,
+      "exposure_pct": 48.2,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2026": 3
+      },
+      "trades": [
+        {
+          "buy_date": "2020-04-27",
+          "buy_price": 1140.194,
+          "sell_date": "2020-07-06",
+          "sell_price": 1445.607,
+          "return_pct": 26.53,
+          "hold_days": 46,
+          "reason": "标准模式：周线J高位回落",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2021-03-29",
+          "buy_price": 1262.29,
+          "sell_date": "2021-06-28",
+          "sell_price": 1538.02,
+          "return_pct": 21.6,
+          "hold_days": 61,
+          "reason": "标准模式：周线J高位回落",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2021-09-27",
+          "buy_price": 1386.52,
+          "sell_date": "2021-11-29",
+          "sell_price": 1448.5,
+          "return_pct": 4.26,
+          "hold_days": 41,
+          "reason": "标准模式：周线J高位回落",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2022-02-14",
+          "buy_price": 1161.84,
+          "sell_date": "2022-04-08",
+          "sell_price": 1022.419,
+          "return_pct": -12.18,
+          "hold_days": 38,
+          "reason": "12%保护止损",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2022-05-05",
+          "buy_price": 944.55,
+          "sell_date": "2022-06-20",
+          "sell_price": 1099.46,
+          "return_pct": 16.17,
+          "hold_days": 32,
+          "reason": "标准模式：周线J高位回落",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2022-10-10",
+          "buy_price": 933.02,
+          "sell_date": "2023-04-17",
+          "sell_price": 1134.05,
+          "return_pct": 21.3,
+          "hold_days": 129,
+          "reason": "标准模式：周线J高位回落",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2023-07-31",
+          "buy_price": 961.69,
+          "sell_date": "2023-10-23",
+          "sell_price": 846.287,
+          "return_pct": -12.18,
+          "hold_days": 55,
+          "reason": "12%保护止损",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2024-09-30",
+          "buy_price": 782.31,
+          "sell_date": "2026-03-23",
+          "sell_price": 1292.89,
+          "return_pct": 64.94,
+          "hold_days": 355,
+          "reason": "大行情模式：周收盘从峰值回撤15%",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2026-04-13",
+          "buy_price": 1358.46,
+          "sell_date": "2026-05-11",
+          "sell_price": 1687.64,
+          "return_pct": 23.98,
+          "hold_days": 18,
+          "reason": "标准模式：周线J高位回落",
+          "status": "closed"
+        }
+      ],
+      "equity_curve": [
+        {
+          "date": "2020-01-23",
+          "equity": 1.0
+        },
+        {
+          "date": "2020-02-28",
+          "equity": 1.0
+        },
+        {
+          "date": "2020-03-31",
+          "equity": 1.0
+        },
+        {
+          "date": "2020-04-30",
+          "equity": 1.0219
+        },
+        {
+          "date": "2020-05-29",
+          "equity": 1.0918
+        },
+        {
+          "date": "2020-06-30",
+          "equity": 1.2686
+        },
+        {
+          "date": "2020-07-31",
+          "equity": 1.2653
+        },
+        {
+          "date": "2020-08-31",
+          "equity": 1.2653
+        },
+        {
+          "date": "2020-09-30",
+          "equity": 1.2653
+        },
+        {
+          "date": "2020-10-30",
+          "equity": 1.2653
+        },
+        {
+          "date": "2020-11-30",
+          "equity": 1.2653
+        },
+        {
+          "date": "2020-12-31",
+          "equity": 1.2653
+        },
+        {
+          "date": "2021-01-29",
+          "equity": 1.2653
+        },
+        {
+          "date": "2021-02-26",
+          "equity": 1.2653
+        },
+        {
+          "date": "2021-03-31",
+          "equity": 1.2501
+        },
+        {
+          "date": "2021-04-30",
+          "equity": 1.3241
+        },
+        {
+          "date": "2021-05-31",
+          "equity": 1.4447
+        },
+        {
+          "date": "2021-06-30",
+          "equity": 1.5386
+        },
+        {
+          "date": "2021-07-30",
+          "equity": 1.5386
+        },
+        {
+          "date": "2021-08-31",
+          "equity": 1.5386
+        },
+        {
+          "date": "2021-09-30",
+          "equity": 1.5174
+        },
+        {
+          "date": "2021-10-29",
+          "equity": 1.5478
+        },
+        {
+          "date": "2021-11-30",
+          "equity": 1.6042
+        },
+        {
+          "date": "2021-12-31",
+          "equity": 1.6042
+        },
+        {
+          "date": "2022-01-28",
+          "equity": 1.6042
+        },
+        {
+          "date": "2022-02-28",
+          "equity": 1.7236
+        },
+        {
+          "date": "2022-03-31",
+          "equity": 1.505
+        },
+        {
+          "date": "2022-04-29",
+          "equity": 1.4089
+        },
+        {
+          "date": "2022-05-31",
+          "equity": 1.5427
+        },
+        {
+          "date": "2022-06-30",
+          "equity": 1.6367
+        },
+        {
+          "date": "2022-07-29",
+          "equity": 1.6367
+        },
+        {
+          "date": "2022-08-31",
+          "equity": 1.6367
+        },
+        {
+          "date": "2022-09-30",
+          "equity": 1.6367
+        },
+        {
+          "date": "2022-10-31",
+          "equity": 1.7705
+        },
+        {
+          "date": "2022-11-30",
+          "equity": 1.7529
+        },
+        {
+          "date": "2022-12-30",
+          "equity": 1.6821
+        },
+        {
+          "date": "2023-01-31",
+          "equity": 1.7776
+        },
+        {
+          "date": "2023-02-28",
+          "equity": 1.7357
+        },
+        {
+          "date": "2023-03-31",
+          "equity": 1.8953
+        },
+        {
+          "date": "2023-04-28",
+          "equity": 1.9853
+        },
+        {
+          "date": "2023-05-31",
+          "equity": 1.9853
+        },
+        {
+          "date": "2023-06-30",
+          "equity": 1.9853
+        },
+        {
+          "date": "2023-07-31",
+          "equity": 1.9984
+        },
+        {
+          "date": "2023-08-31",
+          "equity": 1.944
+        },
+        {
+          "date": "2023-09-28",
+          "equity": 1.831
+        },
+        {
+          "date": "2023-10-31",
+          "equity": 1.7436
+        },
+        {
+          "date": "2023-11-30",
+          "equity": 1.7436
+        },
+        {
+          "date": "2023-12-29",
+          "equity": 1.7436
+        },
+        {
+          "date": "2024-01-31",
+          "equity": 1.7436
+        },
+        {
+          "date": "2024-02-29",
+          "equity": 1.7436
+        },
+        {
+          "date": "2024-03-29",
+          "equity": 1.7436
+        },
+        {
+          "date": "2024-04-30",
+          "equity": 1.7436
+        },
+        {
+          "date": "2024-05-31",
+          "equity": 1.7436
+        },
+        {
+          "date": "2024-06-28",
+          "equity": 1.7436
+        },
+        {
+          "date": "2024-07-31",
+          "equity": 1.7436
+        },
+        {
+          "date": "2024-08-30",
+          "equity": 1.7436
+        },
+        {
+          "date": "2024-09-30",
+          "equity": 1.9424
+        },
+        {
+          "date": "2024-10-31",
+          "equity": 2.1585
+        },
+        {
+          "date": "2024-11-29",
+          "equity": 2.243
+        },
+        {
+          "date": "2024-12-31",
+          "equity": 2.2019
+        },
+        {
+          "date": "2025-01-27",
+          "equity": 2.1266
+        },
+        {
+          "date": "2025-02-28",
+          "equity": 2.402
+        },
+        {
+          "date": "2025-03-31",
+          "equity": 2.2771
+        },
+        {
+          "date": "2025-04-30",
+          "equity": 2.2542
+        },
+        {
+          "date": "2025-05-30",
+          "equity": 2.1754
+        },
+        {
+          "date": "2025-06-30",
+          "equity": 2.2342
+        },
+        {
+          "date": "2025-07-31",
+          "equity": 2.3331
+        },
+        {
+          "date": "2025-08-29",
+          "equity": 2.9865
+        },
+        {
+          "date": "2025-09-30",
+          "equity": 3.3294
+        },
+        {
+          "date": "2025-10-31",
+          "equity": 3.1518
+        },
+        {
+          "date": "2025-11-28",
+          "equity": 2.955
+        },
+        {
+          "date": "2025-12-31",
+          "equity": 2.9929
+        },
+        {
+          "date": "2026-01-30",
+          "equity": 3.3608
+        },
+        {
+          "date": "2026-02-27",
+          "equity": 3.3132
+        },
+        {
+          "date": "2026-03-31",
+          "equity": 2.8758
+        },
+        {
+          "date": "2026-04-30",
+          "equity": 3.3226
+        },
+        {
+          "date": "2026-05-29",
+          "equity": 3.5655
+        },
+        {
+          "date": "2026-06-30",
+          "equity": 3.5655
+        },
+        {
+          "date": "2026-07-29",
+          "equity": 3.5655
+        }
+      ]
+    },
+    "train": {
+      "total_return_pct": 74.36,
+      "cagr_pct": 14.95,
+      "max_drawdown_pct": 18.54,
+      "win_rate_pct": 71.4,
+      "trade_count": 7,
+      "avg_trade_pct": 9.36,
+      "profit_factor": 3.69,
+      "exposure_pct": 40.9,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3
+      },
+      "trades": [
+        {
+          "buy_date": "2020-04-27",
+          "buy_price": 1140.194,
+          "sell_date": "2020-07-06",
+          "sell_price": 1445.607,
+          "return_pct": 26.53,
+          "hold_days": 46,
+          "reason": "标准模式：周线J高位回落",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2021-03-29",
+          "buy_price": 1262.29,
+          "sell_date": "2021-06-28",
+          "sell_price": 1538.02,
+          "return_pct": 21.6,
+          "hold_days": 61,
+          "reason": "标准模式：周线J高位回落",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2021-09-27",
+          "buy_price": 1386.52,
+          "sell_date": "2021-11-29",
+          "sell_price": 1448.5,
+          "return_pct": 4.26,
+          "hold_days": 41,
+          "reason": "标准模式：周线J高位回落",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2022-02-14",
+          "buy_price": 1161.84,
+          "sell_date": "2022-04-08",
+          "sell_price": 1022.419,
+          "return_pct": -12.18,
+          "hold_days": 38,
+          "reason": "12%保护止损",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2022-05-05",
+          "buy_price": 944.55,
+          "sell_date": "2022-06-20",
+          "sell_price": 1099.46,
+          "return_pct": 16.17,
+          "hold_days": 32,
+          "reason": "标准模式：周线J高位回落",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2022-10-10",
+          "buy_price": 933.02,
+          "sell_date": "2023-04-17",
+          "sell_price": 1134.05,
+          "return_pct": 21.3,
+          "hold_days": 129,
+          "reason": "标准模式：周线J高位回落",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2023-07-31",
+          "buy_price": 961.69,
+          "sell_date": "2023-10-23",
+          "sell_price": 846.287,
+          "return_pct": -12.18,
+          "hold_days": 55,
+          "reason": "12%保护止损",
+          "status": "closed"
+        }
+      ]
+    },
+    "validation": {
+      "total_return_pct": 104.49,
+      "cagr_pct": 32.08,
+      "max_drawdown_pct": 17.98,
+      "win_rate_pct": 100.0,
+      "trade_count": 2,
+      "avg_trade_pct": 44.46,
+      "profit_factor": null,
+      "exposure_pct": 59.6,
+      "max_actions_in_year": 3,
+      "annual_actions": {
+        "2024": 1,
+        "2026": 3
+      },
+      "trades": [
+        {
+          "buy_date": "2024-09-30",
+          "buy_price": 782.31,
+          "sell_date": "2026-03-23",
+          "sell_price": 1292.89,
+          "return_pct": 64.94,
+          "hold_days": 355,
+          "reason": "大行情模式：周收盘从峰值回撤15%",
+          "status": "closed"
+        },
+        {
+          "buy_date": "2026-04-13",
+          "buy_price": 1358.46,
+          "sell_date": "2026-05-11",
+          "sell_price": 1687.64,
+          "return_pct": 23.98,
+          "hold_days": 18,
+          "reason": "标准模式：周线J高位回落",
+          "status": "closed"
+        }
+      ]
+    },
+    "buy_hold": {
+      "total_return_pct": 66.6,
+      "cagr_pct": 8.08,
+      "max_drawdown_pct": 62.66
+    }
+  },
+  "recent_weekly": [
+    {
+      "date": "2026-01-30",
+      "close": 1509.4,
+      "height_pct": 43.7
+    },
+    {
+      "date": "2026-02-06",
+      "close": 1422.41,
+      "height_pct": 34.9
+    },
+    {
+      "date": "2026-02-13",
+      "close": 1470.33,
+      "height_pct": 39.7
+    },
+    {
+      "date": "2026-02-27",
+      "close": 1488.02,
+      "height_pct": 41.5
+    },
+    {
+      "date": "2026-03-06",
+      "close": 1414.39,
+      "height_pct": 34.0
+    },
+    {
+      "date": "2026-03-13",
+      "close": 1373.64,
+      "height_pct": 29.9
+    },
+    {
+      "date": "2026-03-20",
+      "close": 1318.31,
+      "height_pct": 24.3
+    },
+    {
+      "date": "2026-03-27",
+      "close": 1300.76,
+      "height_pct": 22.5
+    },
+    {
+      "date": "2026-04-03",
+      "close": 1256.21,
+      "height_pct": 18.0
+    },
+    {
+      "date": "2026-04-10",
+      "close": 1364.49,
+      "height_pct": 29.0
+    },
+    {
+      "date": "2026-04-17",
+      "close": 1423.35,
+      "height_pct": 34.9
+    },
+    {
+      "date": "2026-04-24",
+      "close": 1453.69,
+      "height_pct": 38.0
+    },
+    {
+      "date": "2026-04-30",
+      "close": 1571.07,
+      "height_pct": 49.9
+    },
+    {
+      "date": "2026-05-08",
+      "close": 1640.46,
+      "height_pct": 57.0
+    },
+    {
+      "date": "2026-05-15",
+      "close": 1696.26,
+      "height_pct": 62.6
+    },
+    {
+      "date": "2026-05-22",
+      "close": 1790.77,
+      "height_pct": 72.2
+    },
+    {
+      "date": "2026-05-29",
+      "close": 1751.32,
+      "height_pct": 68.2
+    },
+    {
+      "date": "2026-06-05",
+      "close": 1668.33,
+      "height_pct": 59.8
+    },
+    {
+      "date": "2026-06-12",
+      "close": 1663.22,
+      "height_pct": 59.3
+    },
+    {
+      "date": "2026-06-18",
+      "close": 1911.51,
+      "height_pct": 84.4
+    },
+    {
+      "date": "2026-06-26",
+      "close": 2032.28,
+      "height_pct": 96.7
+    },
+    {
+      "date": "2026-07-03",
+      "close": 1975.6,
+      "height_pct": 90.9
+    },
+    {
+      "date": "2026-07-10",
+      "close": 2064.98,
+      "height_pct": 100.0
+    },
+    {
+      "date": "2026-07-17",
+      "close": 1715.4,
+      "height_pct": 64.6
+    },
+    {
+      "date": "2026-07-24",
+      "close": 1787.2,
+      "height_pct": 71.8
+    },
+    {
+      "date": "2026-07-29",
+      "close": 1678.74,
+      "height_pct": 60.8
+    }
+  ],
+  "sources": [
+    {
+      "label": "上交所：科创50指数编制方案",
+      "url": "https://www.sse.com.cn/market/sseindex/diclosure/c/10077925/files/69a9c8291f1d4bf4adad92318053104d.pdf"
+    }
+  ]
+}
