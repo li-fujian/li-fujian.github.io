@@ -2,6 +2,12 @@ name: Update KC50 weekly dashboard
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/update-kc50-weekly.yml"
+      - "kc50-weekly/app.js"
+      - "kc50-weekly/scripts/**"
   schedule:
     # Avoid the top of the hour, when scheduled workflows are more likely to queue.
     - cron: "37 8 * * 5"
