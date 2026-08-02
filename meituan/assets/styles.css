@@ -1,0 +1,61 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #f5f6f8;
+  --ink: #1a1d26;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --card: #ffffff;
+  --up: #c0392b;
+  --down: #1e8449;
+  --wait: #b9770e;
+  --blue: #2c6fbb;
+  --dark: #2c3e50;
+}
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.7; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 28px 20px 72px; }
+.head { border-bottom: 3px solid var(--ink); padding-bottom: 14px; margin-bottom: 18px; }
+.head h1 { font-size: 25px; letter-spacing: .4px; }
+.head .sub { color: var(--muted); font-size: 13px; margin-top: 6px; }
+.head .sub.warn { color: var(--wait); font-weight: 600; }
+.nav { position: sticky; top: 0; z-index: 5; background: rgba(245,246,248,.96); backdrop-filter: blur(6px); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+.nav a { color: var(--blue); text-decoration: none; font-size: 13px; padding: 4px 8px; border-radius: 6px; }
+.nav a:hover { background: #eaf2fb; }
+.verdict { background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--up); border-radius: 8px; padding: 20px 24px; margin-bottom: 18px; }
+.verdict h2 { font-size: 18px; margin-bottom: 10px; }
+.verdict h2 .tag { display: inline-block; background: var(--up); color: #fff; font-size: 13px; padding: 2px 10px; border-radius: 4px; margin-right: 8px; vertical-align: 2px; }
+.verdict p { font-size: 14.5px; color: #374151; }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+.kpi { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+.kpi .v { font-size: 22px; font-weight: 700; }
+.kpi .l { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.up { color: var(--up); } .down { color: var(--down); } .wait { color: var(--wait); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 20px 24px; margin-bottom: 18px; }
+.card h3 { font-size: 16px; border-left: 4px solid var(--dark); padding-left: 10px; margin-bottom: 14px; }
+.card h4 { font-size: 14px; margin: 14px 0 8px; color: var(--dark); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { background: #f0f2f5; text-align: left; padding: 8px 10px; border-bottom: 2px solid #d8dce2; white-space: nowrap; }
+td { padding: 8px 10px; border-bottom: 1px solid #eef0f3; vertical-align: top; }
+tr:hover td { background: #fafbfc; }
+.chart { width: 100%; }
+.note { font-size: 12px; color: #8a919e; margin-top: 8px; }
+.pill { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 10px; margin-right: 4px; white-space: nowrap; }
+.pill.ok { background: #fdecea; color: var(--up); }
+.pill.wait { background: #fef6e0; color: var(--wait); }
+.pill.no { background: #eafaf1; color: var(--down); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.mini { background: #fafbfc; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #4b5563; }
+.mini b { color: var(--ink); }
+.src { font-size: 12px; color: #8a919e; border-top: 1px solid var(--line); margin-top: 8px; padding-top: 12px; }
+a { color: var(--blue); }
+.week { border-left: 5px solid var(--blue); }
+.weekgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.weekcard { background: #fafbfc; border: 1px solid var(--line); border-radius: 8px; padding: 13px 14px; }
+.weekcard .l { font-size: 12px; color: var(--muted); }
+.weekcard .v { font-size: 18px; font-weight: 700; margin: 3px 0 6px; color: var(--dark); }
+.weekcard .n { font-size: 13px; color: #4b5563; }
+.verdict.compact { padding: 14px 18px; border-left-color: var(--wait); }
+.verdict.compact h2 { font-size: 15px; margin-bottom: 6px; }
+.verdict.compact p { font-size: 13.5px; }
+.footer { color: var(--muted); font-size: 12px; margin-top: 18px; }
+@media (max-width: 900px) { .kpis, .grid2, .grid3, .weekgrid { grid-template-columns: 1fr; } .wrap { padding: 20px 14px 56px; } }

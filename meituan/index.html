@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美团死多头</title>
+<link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="wrap" id="app">
+  <div class="head">
+    <h1 id="pageTitle">美团-W（03690.HK）持续研判与复盘系统</h1>
+    <div class="sub" id="subLine"></div>
+    <div class="sub" id="dataNote"></div>
+    <div class="sub" id="weekStatusNote"></div>
+  </div>
+
+  <div class="nav">
+    <a href="#verdict">核心结论</a>
+    <a href="#panorama">全景复盘</a>
+    <a href="#tech">技术状态</a>
+    <a href="#levels">价位与情景</a>
+    <a href="#playbook">执行框架</a>
+    <a href="#trading">虚拟操盘</a>
+    <a href="#review">持续更新与复盘</a>
+    <a href="baseline/meituan_03690_analysis_v2.html">v2 基线</a>
+    <a href="updates/2026-07-27-review.md">复盘日志</a>
+  </div>
+
+  <div class="card week" id="weekOverview">
+    <h3 id="weekTitle">本周总览与操作建议</h3>
+    <div class="weekgrid" id="weekCards"></div>
+  </div>
+
+  <div class="verdict compact" id="verdict">
+    <h2><span class="tag" id="verdictTag">核心结论</span><span id="verdictTitle"></span></h2>
+    <p id="verdictBody"></p>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="card" id="panorama">
+    <h3>一、上市以来全景走势：泡沫—出清—筑底大循环</h3>
+    <div id="chartFull" class="chart" style="height:420px"></div>
+    <div class="note">周线收盘价（前复权，港元）。背景色带为阶段划分；数据由 scripts/build_dashboard_data.py 从 raw 快照复算生成。</div>
+  </div>
+
+  <div class="card">
+    <h3>二、历史七阶段复盘</h3>
+    <table>
+      <thead><tr><th>阶段</th><th>区间</th><th>价格路径</th><th>性质</th><th>驱动因素</th></tr></thead>
+      <tbody id="stageRows"></tbody>
+    </table>
+  </div>
+
+  <div class="card" id="tech">
+    <h3>三、近 70 周 K 线结构：双底 + 放量突破</h3>
+    <div id="chartK" class="chart" style="height:440px"></div>
+    <div class="note">周线蜡烛图 + MA20/30/60 + 成交量（亿股）。红涨绿跌。</div>
+  </div>
+
+  <div class="card">
+    <h3>四、周线 MACD：零轴下方金叉，柱状体加速扩张</h3>
+    <div id="chartMACD" class="chart" style="height:300px"></div>
+  </div>
+
+  <div class="card">
+    <h3>五、周线上升初期验证清单</h3>
+    <table>
+      <thead><tr><th>检验条件</th><th>状态</th><th>证据</th></tr></thead>
+      <tbody id="checklistRows"></tbody>
+    </table>
+  </div>
+
+  <div class="card" id="levels">
+    <h3>六、关键价位地图</h3>
+    <table>
+      <thead><tr><th>价位（港元）</th><th>性质</th><th>意义</th></tr></thead>
+      <tbody id="levelRows"></tbody>
+    </table>
+    <h4>情景推演（按概率排序，非操作建议）</h4>
+    <table>
+      <thead><tr><th>情景</th><th>主观概率</th><th>路径</th></tr></thead>
+      <tbody id="scenarioRows"></tbody>
+    </table>
+  </div>
+
+  <div class="card" id="playbook">
+    <h3>七、趋势跟随实操框架</h3>
+    <p class="mini" id="trendPremise"></p>
+    <h4>分批建仓计划（空仓视角，总仓位拆 3 笔）</h4>
+    <table>
+      <thead><tr><th>批次</th><th>触发条件</th><th>参考买区</th><th>初始止损</th><th>说明</th></tr></thead>
+      <tbody id="trendBatchRows"></tbody>
+    </table>
+    <h4>持有与退出规则</h4>
+    <table>
+      <thead><tr><th>规则</th><th>具体标准</th></tr></thead>
+      <tbody id="trendRuleRows"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>八、波段交易实操框架</h3>
+    <p class="mini" id="swingPremise"></p>
+    <table>
+      <thead><tr><th>方案</th><th>进场条件</th><th>止损</th><th>目标/减仓</th><th>盈亏比</th></tr></thead>
+      <tbody id="swingPlanRows"></tbody>
+    </table>
+    <h4>波段纪律</h4>
+    <table>
+      <thead><tr><th>纪律</th><th>标准</th></tr></thead>
+      <tbody id="swingDisciplineRows"></tbody>
+    </table>
+  </div>
+
+  <div class="card" id="trading">
+    <h3>九、虚拟操盘成绩单（模拟盘：10万港元 / 上限10手 / 次日开盘成交 / 双边0.15%）</h3>
+    <div class="kpis" id="tradingKpis" style="margin-bottom:14px"></div>
+    <div class="grid2">
+      <div>
+        <h4>净值曲线 vs 买入持有</h4>
+        <div id="chartEquity" class="chart" style="height:260px"></div>
+      </div>
+      <div>
+        <h4>当前持仓</h4>
+        <table>
+          <thead><tr><th>引擎</th><th>股数</th><th>成本(含费)</th><th>止损</th><th>目标</th></tr></thead>
+          <tbody id="positionRows"></tbody>
+        </table>
+        <div class="note" id="tradingNote"></div>
+      </div>
+    </div>
+    <h4>挂单与最近订单（先记录后成交，理由即决策依据）</h4>
+    <table>
+      <thead><tr><th>日期</th><th>方向</th><th>引擎</th><th>股数</th><th>规则</th><th>理由</th><th>状态</th></tr></thead>
+      <tbody id="orderRows"></tbody>
+    </table>
+    <h4>最近成交</h4>
+    <table>
+      <thead><tr><th>成交日</th><th>方向</th><th>引擎</th><th>股数</th><th>价格</th><th>费用</th><th>规则</th></tr></thead>
+      <tbody id="fillRows"></tbody>
+    </table>
+    <div class="src">章程见 <a href="trading/README.md">trading/README.md</a>；账本：trading/orders.jsonl / fills.jsonl / equity.jsonl；成绩单：trading/performance.json（脚本生成，禁止手改）。</div>
+  </div>
+
+  <div class="card" id="review">
+    <h3>十、持续更新与复盘机制</h3>
+    <div class="grid3">
+      <div class="mini"><b>数据层</b><br>data/daily.json、data/weekly.json 为 raw 快照；chart_data.json 只能由脚本生成，禁止手改。</div>
+      <div class="mini"><b>分析层</b><br>dashboard_config.json 承载结论、清单、价位、情景、执行框架与来源；每次更新必须改版本与 asof。</div>
+      <div class="mini"><b>复盘层</b><br>updates/ 按日期沉淀事实—解释—变化—错误—下一步触发条件；模板见 templates/。</div>
+    </div>
+    <h4>更新节奏</h4>
+    <table>
+      <thead><tr><th>频率</th><th>动作</th></tr></thead>
+      <tbody id="cadenceRows"></tbody>
+    </table>
+    <div class="grid2">
+      <div>
+        <h4>每次更新检查清单</h4>
+        <ul id="updateChecklist"></ul>
+      </div>
+      <div>
+        <h4>thesis 状态定义</h4>
+        <table>
+          <thead><tr><th>状态</th><th>含义</th></tr></thead>
+          <tbody id="statusRows"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>十一、风险提示与数据可信度声明</h3>
+    <ul id="riskList"></ul>
+    <p style="font-size:13.5px;color:#4b5563;margin-top:10px"><b>数据可信度</b>：技术指标由 raw 周线复算；基本面数字仍引自媒体报道，未经公司公告核对，以 8 月财报为准。<b>声明：本页面仅为基于公开数据的技术面与信息流分析，不构成投资建议。</b></p>
+    <table>
+      <thead><tr><th>来源</th><th>类型</th><th>说明</th></tr></thead>
+      <tbody id="sourceRows"></tbody>
+    </table>
+    <div class="src">生成路径：data raw → scripts/build_dashboard_data.py → data/chart_data.json → scripts/sync_browser_data.py → 页面渲染。复盘路径：updates/ 日志 → 月度归纳 → README/框架条款迭代。</div>
+  </div>
+
+  <div class="footer">内部研究沉淀页；红涨绿跌；货币单位为港元。若直接以 file:// 打开页面，图表依赖 data/*.js 包装文件；团队展示建议用本地静态服务或部署静态站点。</div>
+</div>
+<script src="data/chart_data.js"></script>
+<script src="data/dashboard_config.js"></script>
+<script src="data/trading_data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

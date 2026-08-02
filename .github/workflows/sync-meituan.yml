@@ -1,0 +1,48 @@
+name: Sync Meituan dashboard
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 9 * * 5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-meituan
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Clone mtsdt from Gitee
+        run: git clone --depth 1 https://gitee.com/liwu16/mtsdt.git /tmp/mtsdt
+
+      - name: Sync publish surface into meituan/
+        run: |
+          mkdir -p meituan/assets meituan/data meituan/baseline meituan/trading
+          cp /tmp/mtsdt/index.html meituan/index.html
+          cp /tmp/mtsdt/assets/app.js /tmp/mtsdt/assets/styles.css /tmp/mtsdt/assets/favicon.ico meituan/assets/
+          cp /tmp/mtsdt/data/chart_data.js /tmp/mtsdt/data/chart_data.json \
+             /tmp/mtsdt/data/dashboard_config.js /tmp/mtsdt/data/dashboard_config.json \
+             /tmp/mtsdt/data/trading_data.js \
+             meituan/data/
+          cp /tmp/mtsdt/baseline/meituan_03690_analysis_v2.html meituan/baseline/
+          cp /tmp/mtsdt/trading/README.md meituan/trading/
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add meituan/
+          if git diff --staged --quiet; then
+            echo "No meituan changes."
+            exit 0
+          fi
+          git commit -m "Sync Meituan dashboard from Gitee mtsdt"
+          git pull --rebase origin main
+          git push
