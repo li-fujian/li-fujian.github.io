@@ -9,24 +9,21 @@ on:
       - "kc50-weekly/app.js"
       - "kc50-weekly/scripts/**"
   schedule:
-    # Avoid the top of the hour, when scheduled workflows are more likely to queue.
     - cron: "37 8 * * 5"
     - cron: "37 8 * * 1"
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: pages
+  group: update-kc50-weekly
   cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the Pages repository
+      - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -37,34 +34,17 @@ jobs:
       - name: Fetch index data and rebuild the strategy
         run: python kc50-weekly/scripts/build_strategy.py
 
-      - name: Assemble the Pages artifact
+      - name: Sync dashboard.json into the site tree
+        run: cp kc50-weekly/public/data/dashboard.json kc50-weekly/dashboard.json
+
+      - name: Commit and push updated dashboard
         run: |
-          cp kc50-weekly/public/data/dashboard.json kc50-weekly/dashboard.json
-          mkdir _site
-          rsync -a \
-            --exclude=".git" \
-            --exclude=".github" \
-            --exclude="_site" \
-            --exclude="kc50-weekly/scripts" \
-            --exclude="kc50-weekly/data" \
-            --exclude="kc50-weekly/public" \
-            ./ _site/
-
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add kc50-weekly/dashboard.json
+          if git diff --staged --quiet; then
+            echo "No dashboard changes."
+            exit 0
+          fi
+          git commit -m "Update KC50 weekly dashboard data"
+          git push
