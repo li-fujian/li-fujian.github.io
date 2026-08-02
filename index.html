@@ -1,92 +1,234 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>开发者简介</title>
+<title>JEEN LEE</title>
+<meta name="description" content="Jeen Lee — AI Researcher & Builder">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=JetBrains+Mono:wght@300;400;700&family=Noto+Sans+SC:wght@300;500;900&display=swap" rel="stylesheet">
 <style>
-    body {
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 0;
-        background: #f0f0f0;
-        color: #333;
-    }
-    .container {
-        max-width: 960px;
-        margin: auto;
-        padding: 50px;
-        background: white;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .header {
-        background: linear-gradient(45deg, #6D5ACF 0%, #25A6F7 100%);
-        color: white;
-        padding: 30px 0;
-        text-align: center;
-    }
-    .header h1 {
-        margin: 0;
-    }
-    .profile-pic {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        background: #ddd;
-        margin: 30px auto;
-    }
-    .skills {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 30px;
-    }
-    .skills .skill {
-        flex: 1;
-        margin: 0 10px;
-        text-align: center;
-    }
-    .skill h3 {
-        margin-bottom: 20px;
-    }
-    .skill-bar {
-        height: 20px;
-        background: #ddd;
-        border-radius: 10px;
-        overflow: hidden;
-        position: relative;
-    }
-    .skill-bar::after {
-        content: '';
-        display: block;
-        height: 100%;
-        background: linear-gradient(45deg, #6D5ACF, #25A6F7);
-        width: 80%; /* Example skill level */
-        position: absolute;
-    }
+:root{
+  --bg:#050508;
+  --line:rgba(255,255,255,.08);
+  --txt:#e8e8f0;
+  --dim:#8b8b9e;
+  --cyan:#00f0ff;
+  --violet:#7b2fff;
+  --magenta:#ff2fb3;
+  --green:#00ff9d;
+  --grad:linear-gradient(135deg,#00f0ff 0%,#7b2fff 50%,#ff2fb3 100%);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--bg);color:var(--txt);
+  font-family:'Space Grotesk','Noto Sans SC',sans-serif;
+  overflow:hidden;cursor:none;
+}
+::selection{background:var(--cyan);color:#000}
+
+/* cursor */
+.cursor-dot{position:fixed;top:0;left:0;width:8px;height:8px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen}
+.cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border:1px solid rgba(0,240,255,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s}
+body.hovering .cursor-ring{width:60px;height:60px;border-color:var(--magenta)}
+@media(hover:none){.cursor-dot,.cursor-ring{display:none}body{cursor:auto}}
+
+/* preloader */
+#preloader{position:fixed;inset:0;background:var(--bg);z-index:10000;display:flex;align-items:center;justify-content:center;transition:opacity .7s,visibility .7s}
+#preloader.done{opacity:0;visibility:hidden}
+.pre-num{font-size:clamp(40px,7vw,80px);font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-variant-numeric:tabular-nums}
+
+/* background */
+#neural{position:fixed;inset:0;z-index:0}
+.grid-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 75% 65% at 50% 45%,#000 25%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 45%,#000 25%,transparent 100%);
+}
+.noise{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.aurora{position:fixed;z-index:1;border-radius:50%;filter:blur(120px);pointer-events:none;opacity:.16}
+.aurora.a{width:44vw;height:44vw;background:var(--violet);top:-14vw;left:-10vw;animation:drift1 18s ease-in-out infinite alternate}
+.aurora.b{width:36vw;height:36vw;background:var(--cyan);bottom:-16vw;right:-8vw;animation:drift2 22s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(9vw,7vh) scale(1.15)}}
+@keyframes drift2{to{transform:translate(-8vw,-6vh) scale(.9)}}
+
+/* layout */
+.stage{position:relative;z-index:3;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 6vw}
+
+/* top bar */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:22px 4vw;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em}
+.logo{display:flex;align-items:center;gap:10px;color:var(--txt);text-decoration:none;font-weight:700}
+.logo .dot{width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.status{color:var(--green);display:flex;align-items:center;gap:8px;font-size:11px}
+.status::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 1.6s infinite}
+@media(max-width:600px){.status{display:none}}
+
+/* hero */
+.tag{font-family:'JetBrains Mono',monospace;font-size:clamp(10px,1.4vw,13px);letter-spacing:.5em;color:var(--cyan);margin-bottom:3vh;display:flex;align-items:center;gap:16px}
+.tag::before,.tag::after{content:'';width:clamp(24px,4vw,48px);height:1px;background:linear-gradient(90deg,transparent,var(--cyan))}
+.tag::after{background:linear-gradient(90deg,var(--cyan),transparent)}
+.glitch{font-size:clamp(52px,13vw,150px);font-weight:700;line-height:.95;letter-spacing:-.02em;position:relative;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;inset:0;background:none;-webkit-text-fill-color:initial}
+.glitch::before{color:var(--cyan);animation:gl1 3.5s infinite linear alternate-reverse;opacity:.8}
+.glitch::after{color:var(--magenta);animation:gl2 2.8s infinite linear alternate-reverse;opacity:.8}
+@keyframes gl1{0%,92%,100%{clip-path:inset(100% 0 0 0);transform:none}93%{clip-path:inset(10% 0 60% 0);transform:translate(-4px,2px)}95%{clip-path:inset(50% 0 20% 0);transform:translate(4px,-2px)}97%{clip-path:inset(80% 0 5% 0);transform:translate(-2px,1px)}}
+@keyframes gl2{0%,90%,100%{clip-path:inset(100% 0 0 0);transform:none}91%{clip-path:inset(60% 0 10% 0);transform:translate(4px,2px)}94%{clip-path:inset(20% 0 65% 0);transform:translate(-4px,-1px)}97%{clip-path:inset(5% 0 85% 0);transform:translate(2px,2px)}}
+.sub{margin-top:3.2vh;font-family:'JetBrains Mono',monospace;font-size:clamp(13px,1.8vw,18px);color:var(--dim);min-height:1.6em}
+.sub .typed{color:var(--txt)}
+.sub .caret{display:inline-block;width:9px;height:1.1em;background:var(--cyan);vertical-align:text-bottom;margin-left:4px;animation:blink .8s step-end infinite;box-shadow:0 0 8px var(--cyan)}
+@keyframes blink{50%{opacity:0}}
+
+/* chips */
+.chips{margin-top:4.5vh;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;color:var(--dim);border:1px solid var(--line);border-radius:99px;padding:9px 20px;background:rgba(255,255,255,.02);backdrop-filter:blur(6px);transition:all .3s}
+.chip:hover{color:var(--cyan);border-color:rgba(0,240,255,.5);box-shadow:0 0 20px rgba(0,240,255,.15);transform:translateY(-2px)}
+
+/* socials */
+.socials{margin-top:4.5vh;display:flex;gap:14px}
+.soc{width:46px;height:46px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:12px;color:var(--dim);text-decoration:none;transition:all .3s;background:rgba(255,255,255,.02)}
+.soc svg{width:18px;height:18px;fill:currentColor}
+.soc:hover{color:var(--cyan);border-color:var(--cyan);box-shadow:0 0 24px rgba(0,240,255,.2);transform:translateY(-4px)}
+.soc:nth-child(2):hover{color:var(--magenta);border-color:var(--magenta);box-shadow:0 0 24px rgba(255,47,179,.2)}
+.soc:nth-child(3):hover{color:var(--green);border-color:var(--green);box-shadow:0 0 24px rgba(0,255,157,.2)}
+
+/* bottom */
+.bottombar{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;padding:20px 4vw;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;color:var(--dim)}
+.bottombar .beat{color:var(--green)}
+@media(max-width:600px){.bottombar .coord{display:none}}
 </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>开发者简介</h1>
-    </div>
-    <div class="profile-pic"></div>
-    <h2>JeenLee</h2>
-    <p>我是一名充满激情的开发工程师，专注于创造美观、用户友好的网页和应用程序。我对新技术充满好奇心，并且总是追求最新的开发趋势。</p>
-    <div class="skills">
-        <div class="skill">
-            <h3>HTML</h3>
-            <div class="skill-bar"></div>
-        </div>
-        <div class="skill">
-            <h3>CSS</h3>
-            <div class="skill-bar"></div>
-        </div>
-        <div class="skill">
-            <h3>JavaScript</h3>
-            <div class="skill-bar"></div>
-        </div>
-    </div>
+
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+<div id="preloader"><div class="pre-num">0%</div></div>
+
+<canvas id="neural"></canvas>
+<div class="aurora a"></div>
+<div class="aurora b"></div>
+<div class="grid-overlay"></div>
+<div class="noise"></div>
+
+<div class="topbar">
+  <a class="logo" href="#"><span class="dot"></span>JEEN_LEE<span style="color:var(--dim)">.ai</span></a>
+  <div class="status">SYSTEM ONLINE</div>
 </div>
+
+<main class="stage">
+  <div class="tag">ARTIFICIAL INTELLIGENCE</div>
+  <h1 class="glitch" data-text="JEEN LEE">JEEN LEE</h1>
+  <div class="sub"><span style="color:var(--violet)">&gt;_</span> <span class="typed"></span><span class="caret"></span></div>
+  <div class="chips">
+    <span class="chip">LLM</span>
+    <span class="chip">AGENTS</span>
+    <span class="chip">ALIGNMENT</span>
+    <span class="chip">WORLD MODELS</span>
+  </div>
+  <div class="socials">
+    <a class="soc" href="https://github.com/li-fujian" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 24 24"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.66.41.36.78 1.05.78 2.13v3.16c0 .31.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+    </a>
+    <a class="soc" href="mailto:hi@jeenlee.ai" aria-label="Email">
+      <svg viewBox="0 0 24 24"><path d="M2 4h20v16H2V4zm2 2v.4l8 5.6 8-5.6V6H4zm16 12V9.1l-8 5.6-8-5.6V18h16z"/></svg>
+    </a>
+    <a class="soc" href="#" onclick="return false" aria-label="X">
+      <svg viewBox="0 0 24 24"><path d="M17.5 3h3.1l-6.8 7.8L21.8 21h-6.3l-4.9-6.4L5 21H1.9l7.3-8.3L2.2 3h6.4l4.4 5.9L17.5 3zm-1.1 16.1h1.7L7.7 4.8H5.9l10.5 14.3z"/></svg>
+    </a>
+  </div>
+</main>
+
+<div class="bottombar">
+  <span>© 2026 JEEN LEE</span>
+  <span class="coord">39.9042°N 116.4074°E — BEIJING</span>
+  <span class="beat">▮ DREAMING OF ELECTRIC SHEEP</span>
+</div>
+
+<script>
+/* preloader */
+(function(){
+  var num=document.querySelector('.pre-num'),p=0;
+  var t=setInterval(function(){
+    p+=Math.random()*22+8;
+    if(p>=100){p=100;clearInterval(t);setTimeout(function(){document.getElementById('preloader').classList.add('done');},300);}
+    num.textContent=Math.floor(p)+'%';
+  },80);
+})();
+
+/* neural network canvas */
+(function(){
+  var cv=document.getElementById('neural'),ctx=cv.getContext('2d'),W,H,nodes=[],mouse={x:-9999,y:-9999};
+  var N=innerWidth<768?45:90,LINK=150;
+  function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;}
+  rs();addEventListener('resize',rs);
+  function Node(){
+    this.x=Math.random()*W;this.y=Math.random()*H;
+    this.vx=(Math.random()-.5)*.35;this.vy=(Math.random()-.5)*.35;
+    this.r=Math.random()*1.6+.6;
+    this.hue=Math.random()<.75?185:(Math.random()<.5?275:320);
+  }
+  for(var i=0;i<N;i++)nodes.push(new Node());
+  addEventListener('mousemove',function(e){mouse.x=e.clientX;mouse.y=e.clientY;});
+  addEventListener('mouseout',function(){mouse.x=-9999;mouse.y=-9999;});
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    var i,j,a,b,dx,dy,d;
+    for(i=0;i<nodes.length;i++){
+      a=nodes[i];a.x+=a.vx;a.y+=a.vy;
+      if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1;
+      dx=mouse.x-a.x;dy=mouse.y-a.y;d=Math.sqrt(dx*dx+dy*dy);
+      if(d<140&&d>0.001){a.x+=dx/d*.6;a.y+=dy/d*.6;}
+    }
+    for(i=0;i<nodes.length;i++)for(j=i+1;j<nodes.length;j++){
+      a=nodes[i];b=nodes[j];dx=a.x-b.x;dy=a.y-b.y;d=dx*dx+dy*dy;
+      if(d<LINK*LINK){
+        var o=(1-Math.sqrt(d)/LINK)*.35;
+        ctx.strokeStyle='hsla('+a.hue+',100%,65%,'+o+')';ctx.lineWidth=.7;
+        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+      }
+    }
+    for(i=0;i<nodes.length;i++){
+      a=nodes[i];
+      ctx.fillStyle='hsla('+a.hue+',100%,70%,.9)';
+      ctx.shadowColor='hsla('+a.hue+',100%,60%,1)';ctx.shadowBlur=6;
+      ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,6.283);ctx.fill();ctx.shadowBlur=0;
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+/* custom cursor */
+(function(){
+  var dot=document.querySelector('.cursor-dot'),ring=document.querySelector('.cursor-ring');
+  var x=0,y=0,rx=0,ry=0;
+  addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;dot.style.left=x+'px';dot.style.top=y+'px';});
+  (function loop(){rx+=(x-rx)*.16;ry+=(y-ry)*.16;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,.chip').forEach(function(el){
+    el.addEventListener('mouseenter',function(){document.body.classList.add('hovering');});
+    el.addEventListener('mouseleave',function(){document.body.classList.remove('hovering');});
+  });
+})();
+
+/* typewriter */
+(function(){
+  var el=document.querySelector('.typed');
+  var lines=['AI Researcher & Builder','Exploring the Edge of AGI','让智能涌现，让未来发生'];
+  var li=0,ci=0,del=false;
+  function step(){
+    var s=lines[li];
+    el.textContent=s.slice(0,ci);
+    if(!del){ci++;if(ci>s.length){del=true;setTimeout(step,2200);return;}}
+    else{ci--;if(ci===0){del=false;li=(li+1)%lines.length;}}
+    setTimeout(step,del?30:75);
+  }
+  setTimeout(step,1200);
+})();
+</script>
 </body>
 </html>
