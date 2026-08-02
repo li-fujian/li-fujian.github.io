@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategies — JEEN LEE</title>
+<meta name="description" content="策略看板目录">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@300;400;700&family=Noto+Sans+SC:wght@300;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050508;
+  --line:rgba(255,255,255,.08);
+  --txt:#e8e8f0;
+  --dim:#8b8b9e;
+  --cyan:#00f0ff;
+  --violet:#7b2fff;
+  --magenta:#ff2fb3;
+  --green:#00ff9d;
+  --grad:linear-gradient(135deg,#00f0ff 0%,#7b2fff 50%,#ff2fb3 100%);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  min-height:100vh;background:var(--bg);color:var(--txt);
+  font-family:'Space Grotesk','Noto Sans SC',sans-serif;
+}
+a{color:inherit;text-decoration:none}
+.grid-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 20%,transparent 100%);
+}
+.aurora{position:fixed;z-index:0;border-radius:50%;filter:blur(120px);pointer-events:none;opacity:.14}
+.aurora.a{width:40vw;height:40vw;background:var(--violet);top:-12vw;left:-8vw}
+.aurora.b{width:32vw;height:32vw;background:var(--cyan);bottom:-14vw;right:-6vw}
+.wrap{position:relative;z-index:1;width:min(720px,calc(100% - 48px));margin:0 auto;padding:48px 0 80px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:56px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}
+.logo .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.back{color:var(--dim);transition:color .2s}
+.back:hover{color:var(--cyan)}
+h1{font-size:clamp(28px,5vw,42px);font-weight:700;letter-spacing:-.02em;margin-bottom:10px}
+.desc{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--dim);margin-bottom:40px}
+.list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.item{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 4px;border-bottom:1px solid var(--line);transition:background .2s,padding-left .2s}
+.item:hover{background:rgba(0,240,255,.03);padding-left:8px}
+.item .meta{display:flex;flex-direction:column;gap:6px;min-width:0}
+.item .id{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:var(--txt)}
+.item .name{font-size:13px;color:var(--dim)}
+.item .arrow{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--cyan);opacity:.5;transition:opacity .2s,transform .2s;flex-shrink:0}
+.item:hover .arrow{opacity:1;transform:translateX(4px)}
+.item .tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--green);border:1px solid rgba(0,255,157,.25);padding:3px 8px;border-radius:4px;width:fit-content}
+</style>
+</head>
+<body>
+<div class="aurora a"></div>
+<div class="aurora b"></div>
+<div class="grid-overlay"></div>
+<div class="wrap">
+  <div class="top">
+    <a class="logo" href="../"><span class="dot"></span>JEEN_LEE<span style="color:var(--dim)">.ai</span></a>
+    <a class="back" href="../">← HOME</a>
+  </div>
+  <h1>Strategies</h1>
+  <p class="desc">策略看板 · 按标的检索</p>
+  <div class="list">
+    <a class="item" href="https://li-fujian.github.io/kc50-weekly/">
+      <div class="meta">
+        <span class="id">kc50-weekly</span>
+        <span class="name">科创50 · 周线操作台</span>
+        <span class="tag">LIVE</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+</div>
+</body>
+</html>
