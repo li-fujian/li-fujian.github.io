@@ -1,10 +1,10 @@
 {
   "meta": {
     "version": "kc50-weekly-v1.2",
-    "generated_at": "2026-08-07T09:34:56+00:00",
-    "data_as_of": "2026-08-07",
+    "generated_at": "2026-08-10T09:59:29+00:00",
+    "data_as_of": "2026-08-10",
     "last_completed_week": "2026-08-07",
-    "current_week_is_partial": false,
+    "current_week_is_partial": true,
     "index_refreshed": true,
     "source": "腾讯行情接口（前复权日线）；规则与回测脚本可本地复算",
     "disclaimer": "历史回测不代表未来收益；极端跳空可能使实际亏损超过保护线。"
@@ -12,7 +12,7 @@
   "instrument": {
     "index_name": "上证科创板50成份指数",
     "index_code": "000688",
-    "index_latest_close": 1744.02
+    "index_latest_close": 1737.77
   },
   "signal": {
     "state": "WAIT",
@@ -60,11 +60,11 @@
     "max_annual_actions": 6
   },
   "backtest": {
-    "period": "2020-01-01 ~ 2026-08-07",
+    "period": "2020-01-01 ~ 2026-08-10",
     "method": "完整周收盘产生信号、下一交易日开盘成交；双边各计10bp摩擦；12%保护止损按日内触价或开盘跳空成交；浮盈达到30%后改用15%周线收盘移动止盈。",
     "full": {
       "total_return_pct": 256.55,
-      "cagr_pct": 21.26,
+      "cagr_pct": 21.23,
       "max_drawdown_pct": 18.54,
       "win_rate_pct": 77.8,
       "trade_count": 9,
@@ -490,7 +490,7 @@
           "equity": 3.5655
         },
         {
-          "date": "2026-08-07",
+          "date": "2026-08-10",
           "equity": 3.5655
         }
       ]
@@ -586,13 +586,13 @@
     },
     "validation": {
       "total_return_pct": 104.49,
-      "cagr_pct": 31.73,
+      "cagr_pct": 31.62,
       "max_drawdown_pct": 17.98,
       "win_rate_pct": 100.0,
       "trade_count": 2,
       "avg_trade_pct": 44.46,
       "profit_factor": null,
-      "exposure_pct": 59.0,
+      "exposure_pct": 58.9,
       "max_actions_in_year": 3,
       "annual_actions": {
         "2024": 1,
@@ -622,17 +622,12 @@
       ]
     },
     "buy_hold": {
-      "total_return_pct": 73.08,
-      "cagr_pct": 8.67,
+      "total_return_pct": 72.46,
+      "cagr_pct": 8.6,
       "max_drawdown_pct": 62.66
     }
   },
   "recent_weekly": [
-    {
-      "date": "2026-02-06",
-      "close": 1422.41,
-      "height_pct": 34.9
-    },
     {
       "date": "2026-02-13",
       "close": 1470.33,
@@ -757,6 +752,11 @@
       "date": "2026-08-07",
       "close": 1744.02,
       "height_pct": 67.5
+    },
+    {
+      "date": "2026-08-10",
+      "close": 1737.77,
+      "height_pct": 66.8
     }
   ],
   "sources": [
