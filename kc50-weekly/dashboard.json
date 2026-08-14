@@ -1,10 +1,10 @@
 {
   "meta": {
     "version": "kc50-weekly-v1.2",
-    "generated_at": "2026-08-10T09:59:29+00:00",
-    "data_as_of": "2026-08-10",
-    "last_completed_week": "2026-08-07",
-    "current_week_is_partial": true,
+    "generated_at": "2026-08-14T09:38:01+00:00",
+    "data_as_of": "2026-08-14",
+    "last_completed_week": "2026-08-14",
+    "current_week_is_partial": false,
     "index_refreshed": true,
     "source": "腾讯行情接口（前复权日线）；规则与回测脚本可本地复算",
     "disclaimer": "历史回测不代表未来收益；极端跳空可能使实际亏损超过保护线。"
@@ -12,19 +12,19 @@
   "instrument": {
     "index_name": "上证科创板50成份指数",
     "index_code": "000688",
-    "index_latest_close": 1737.77
+    "index_latest_close": 1717.68
   },
   "signal": {
     "state": "WAIT",
     "title": "空仓等待",
     "summary": "买点条件未全部满足；没有信号就不操作。",
-    "as_of": "2026-08-07",
-    "index_close": 1744.02,
+    "as_of": "2026-08-14",
+    "index_close": 1717.68,
     "j_recent": [
-      30.4,
       19.5,
       0.2,
-      5.9
+      5.9,
+      8.0
     ],
     "conditions": [
       {
@@ -44,7 +44,7 @@
     "peak_weekly_close": null,
     "runner_exit_level": null,
     "model_position": null,
-    "planned_stop_index": 1534.74,
+    "planned_stop_index": 1511.56,
     "actions_this_year": 3,
     "actions_remaining": 3
   },
@@ -60,17 +60,17 @@
     "max_annual_actions": 6
   },
   "backtest": {
-    "period": "2020-01-01 ~ 2026-08-10",
+    "period": "2020-01-01 ~ 2026-08-14",
     "method": "完整周收盘产生信号、下一交易日开盘成交；双边各计10bp摩擦；12%保护止损按日内触价或开盘跳空成交；浮盈达到30%后改用15%周线收盘移动止盈。",
     "full": {
       "total_return_pct": 256.55,
-      "cagr_pct": 21.23,
+      "cagr_pct": 21.19,
       "max_drawdown_pct": 18.54,
       "win_rate_pct": 77.8,
       "trade_count": 9,
       "avg_trade_pct": 17.16,
       "profit_factor": 7.34,
-      "exposure_pct": 48.0,
+      "exposure_pct": 47.9,
       "max_actions_in_year": 5,
       "annual_actions": {
         "2020": 2,
@@ -490,7 +490,7 @@
           "equity": 3.5655
         },
         {
-          "date": "2026-08-10",
+          "date": "2026-08-14",
           "equity": 3.5655
         }
       ]
@@ -586,13 +586,13 @@
     },
     "validation": {
       "total_return_pct": 104.49,
-      "cagr_pct": 31.62,
+      "cagr_pct": 31.47,
       "max_drawdown_pct": 17.98,
       "win_rate_pct": 100.0,
       "trade_count": 2,
       "avg_trade_pct": 44.46,
       "profit_factor": null,
-      "exposure_pct": 58.9,
+      "exposure_pct": 58.5,
       "max_actions_in_year": 3,
       "annual_actions": {
         "2024": 1,
@@ -622,8 +622,8 @@
       ]
     },
     "buy_hold": {
-      "total_return_pct": 72.46,
-      "cagr_pct": 8.6,
+      "total_return_pct": 70.47,
+      "cagr_pct": 8.4,
       "max_drawdown_pct": 62.66
     }
   },
@@ -754,9 +754,9 @@
       "height_pct": 67.5
     },
     {
-      "date": "2026-08-10",
-      "close": 1737.77,
-      "height_pct": 66.8
+      "date": "2026-08-14",
+      "close": 1717.68,
+      "height_pct": 64.8
     }
   ],
   "sources": [
