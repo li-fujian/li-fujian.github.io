@@ -16,3 +16,5 @@ python -B -m unittest discover -s kc50-weekly/tests -p 'test_*.py'
 ```
 
 未平仓记录的`sell_date`、`sell_price`是回测期末估值，只有`status=closed`才表示真实的模型退出；前端据此区分“持有中/浮动收益”和已平仓交易。
+
+历史分段表现、参数敏感性和审计结论存于[历史研究](research/README.md)，作为后续改进的参考。操作页面仅展示整体回测及同期持有对比，不展示“训练期/验证期”，也不提供研究入口。自动刷新只更新操作数据，不覆盖带日期的研究记录。

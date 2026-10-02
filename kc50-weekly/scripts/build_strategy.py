@@ -719,12 +719,6 @@ def build_dashboard(refresh: bool) -> dict:
     full = run_backtest(
         index_daily, start_date="2020-01-01", end_date=end_date
     )
-    train = run_backtest(
-        index_daily, start_date="2020-01-01", end_date="2023-12-31"
-    )
-    validation = run_backtest(
-        index_daily, start_date="2024-01-01", end_date=end_date
-    )
     weekly = aggregate_weekly(index_daily)
     complete_count = completed_week_count(index_daily, weekly)
     kdj = compute_kdj(weekly)
@@ -790,8 +784,6 @@ def build_dashboard(refresh: bool) -> dict:
                 "15%周线收盘移动止盈。"
             ),
             "full": metrics_payload(full, include_curve=True),
-            "train": metrics_payload(train),
-            "validation": metrics_payload(validation),
             "buy_hold": buy_and_hold_metrics(
                 index_daily, start_date="2020-01-01", end_date=end_date
             ),

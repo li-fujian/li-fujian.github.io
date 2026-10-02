@@ -1,0 +1,2173 @@
+{
+  "data": {
+    "count": 1637,
+    "first": "2019-12-31",
+    "last": "2026-09-30"
+  },
+  "base": {
+    "total_return_pct": 226.17,
+    "cagr_pct": 19.16,
+    "max_drawdown_pct": 18.54,
+    "win_rate_pct": 77.8,
+    "trade_count": 9,
+    "avg_trade_pct": 17.16,
+    "profit_factor": 7.34,
+    "exposure_pct": 47.4,
+    "max_actions_in_year": 5,
+    "annual_actions": {
+      "2020": 2,
+      "2021": 4,
+      "2022": 5,
+      "2023": 3,
+      "2024": 1,
+      "2026": 4
+    }
+  },
+  "published_matches": true,
+  "benchmark": {
+    "total_return_pct": 51.84,
+    "cagr_pct": 6.39,
+    "max_drawdown_pct": 62.66
+  },
+  "etf_available_index_proxy": {
+    "total_return_pct": 157.77,
+    "cagr_pct": 17.51,
+    "max_drawdown_pct": 18.54,
+    "win_rate_pct": 75.0,
+    "trade_count": 8,
+    "avg_trade_pct": 15.99,
+    "profit_factor": 6.25,
+    "exposure_pct": 51.2,
+    "max_actions_in_year": 5,
+    "annual_actions": {
+      "2021": 4,
+      "2022": 5,
+      "2023": 3,
+      "2024": 1,
+      "2026": 4
+    }
+  },
+  "grid": [
+    {
+      "params": [
+        0,
+        2,
+        80,
+        0.1
+      ],
+      "total_return_pct": 13.56,
+      "cagr_pct": 1.9,
+      "max_drawdown_pct": 27.39,
+      "win_rate_pct": 62.5,
+      "trade_count": 8,
+      "avg_trade_pct": 3.46,
+      "profit_factor": 1.91,
+      "exposure_pct": 19.4,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2020": 1,
+        "2021": 3,
+        "2022": 4,
+        "2023": 2,
+        "2024": 2,
+        "2025": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        0,
+        2,
+        80,
+        0.12
+      ],
+      "total_return_pct": 6.15,
+      "cagr_pct": 0.89,
+      "max_drawdown_pct": 32.12,
+      "win_rate_pct": 62.5,
+      "trade_count": 8,
+      "avg_trade_pct": 2.71,
+      "profit_factor": 1.59,
+      "exposure_pct": 21.6,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2020": 1,
+        "2021": 3,
+        "2022": 4,
+        "2023": 2,
+        "2024": 2,
+        "2025": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        0,
+        2,
+        90,
+        0.1
+      ],
+      "total_return_pct": 66.63,
+      "cagr_pct": 7.87,
+      "max_drawdown_pct": 26.55,
+      "win_rate_pct": 57.1,
+      "trade_count": 7,
+      "avg_trade_pct": 11.57,
+      "profit_factor": 3.65,
+      "exposure_pct": 44.1,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2020": 1,
+        "2021": 3,
+        "2022": 3,
+        "2023": 3,
+        "2024": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        0,
+        2,
+        90,
+        0.12
+      ],
+      "total_return_pct": 55.77,
+      "cagr_pct": 6.79,
+      "max_drawdown_pct": 29.78,
+      "win_rate_pct": 57.1,
+      "trade_count": 7,
+      "avg_trade_pct": 10.72,
+      "profit_factor": 3.05,
+      "exposure_pct": 46.3,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2020": 1,
+        "2021": 3,
+        "2022": 3,
+        "2023": 3,
+        "2024": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        0,
+        2,
+        100,
+        0.1
+      ],
+      "total_return_pct": 37.37,
+      "cagr_pct": 4.82,
+      "max_drawdown_pct": 30.98,
+      "win_rate_pct": 50.0,
+      "trade_count": 6,
+      "avg_trade_pct": 9.95,
+      "profit_factor": 2.96,
+      "exposure_pct": 50.5,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2020": 1,
+        "2021": 3,
+        "2022": 3,
+        "2023": 1,
+        "2024": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        0,
+        2,
+        100,
+        0.12
+      ],
+      "total_return_pct": 28.41,
+      "cagr_pct": 3.78,
+      "max_drawdown_pct": 35.48,
+      "win_rate_pct": 50.0,
+      "trade_count": 6,
+      "avg_trade_pct": 8.95,
+      "profit_factor": 2.47,
+      "exposure_pct": 53.7,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2020": 1,
+        "2021": 3,
+        "2022": 3,
+        "2024": 2,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        0,
+        3,
+        80,
+        0.1
+      ],
+      "total_return_pct": 41.41,
+      "cagr_pct": 5.27,
+      "max_drawdown_pct": 21.0,
+      "win_rate_pct": 71.4,
+      "trade_count": 7,
+      "avg_trade_pct": 5.74,
+      "profit_factor": 2.97,
+      "exposure_pct": 11.4,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2021": 2,
+        "2022": 4,
+        "2023": 2,
+        "2024": 2,
+        "2025": 1,
+        "2026": 3
+      }
+    },
+    {
+      "params": [
+        0,
+        3,
+        80,
+        0.12
+      ],
+      "total_return_pct": 35.19,
+      "cagr_pct": 4.57,
+      "max_drawdown_pct": 24.47,
+      "win_rate_pct": 71.4,
+      "trade_count": 7,
+      "avg_trade_pct": 5.17,
+      "profit_factor": 2.48,
+      "exposure_pct": 13.6,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2021": 2,
+        "2022": 4,
+        "2023": 2,
+        "2024": 2,
+        "2025": 1,
+        "2026": 3
+      }
+    },
+    {
+      "params": [
+        0,
+        3,
+        90,
+        0.1
+      ],
+      "total_return_pct": 108.65,
+      "cagr_pct": 11.52,
+      "max_drawdown_pct": 20.09,
+      "win_rate_pct": 66.7,
+      "trade_count": 6,
+      "avg_trade_pct": 15.69,
+      "profit_factor": 5.62,
+      "exposure_pct": 36.4,
+      "max_actions_in_year": 3,
+      "annual_actions": {
+        "2021": 2,
+        "2022": 3,
+        "2023": 3,
+        "2024": 1,
+        "2026": 3
+      }
+    },
+    {
+      "params": [
+        0,
+        3,
+        90,
+        0.12
+      ],
+      "total_return_pct": 99.48,
+      "cagr_pct": 10.78,
+      "max_drawdown_pct": 21.87,
+      "win_rate_pct": 66.7,
+      "trade_count": 6,
+      "avg_trade_pct": 15.02,
+      "profit_factor": 4.7,
+      "exposure_pct": 38.6,
+      "max_actions_in_year": 3,
+      "annual_actions": {
+        "2021": 2,
+        "2022": 3,
+        "2023": 3,
+        "2024": 1,
+        "2026": 3
+      }
+    },
+    {
+      "params": [
+        0,
+        3,
+        100,
+        0.1
+      ],
+      "total_return_pct": 72.01,
+      "cagr_pct": 8.38,
+      "max_drawdown_pct": 27.99,
+      "win_rate_pct": 60.0,
+      "trade_count": 5,
+      "avg_trade_pct": 14.56,
+      "profit_factor": 4.58,
+      "exposure_pct": 42.8,
+      "max_actions_in_year": 3,
+      "annual_actions": {
+        "2021": 2,
+        "2022": 3,
+        "2023": 1,
+        "2024": 1,
+        "2026": 3
+      }
+    },
+    {
+      "params": [
+        0,
+        3,
+        100,
+        0.12
+      ],
+      "total_return_pct": 64.45,
+      "cagr_pct": 7.66,
+      "max_drawdown_pct": 29.59,
+      "win_rate_pct": 60.0,
+      "trade_count": 5,
+      "avg_trade_pct": 13.76,
+      "profit_factor": 3.83,
+      "exposure_pct": 46.1,
+      "max_actions_in_year": 3,
+      "annual_actions": {
+        "2021": 2,
+        "2022": 3,
+        "2024": 2,
+        "2026": 3
+      }
+    },
+    {
+      "params": [
+        0,
+        4,
+        80,
+        0.1
+      ],
+      "total_return_pct": -1.47,
+      "cagr_pct": -0.22,
+      "max_drawdown_pct": 20.09,
+      "win_rate_pct": 66.7,
+      "trade_count": 3,
+      "avg_trade_pct": -0.24,
+      "profit_factor": 0.93,
+      "exposure_pct": 6.8,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2021": 2,
+        "2022": 4
+      }
+    },
+    {
+      "params": [
+        0,
+        4,
+        80,
+        0.12
+      ],
+      "total_return_pct": -3.66,
+      "cagr_pct": -0.55,
+      "max_drawdown_pct": 21.87,
+      "win_rate_pct": 66.7,
+      "trade_count": 3,
+      "avg_trade_pct": -0.9,
+      "profit_factor": 0.78,
+      "exposure_pct": 6.9,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2021": 2,
+        "2022": 4
+      }
+    },
+    {
+      "params": [
+        0,
+        4,
+        90,
+        0.1
+      ],
+      "total_return_pct": 13.6,
+      "cagr_pct": 1.91,
+      "max_drawdown_pct": 20.09,
+      "win_rate_pct": 66.7,
+      "trade_count": 3,
+      "avg_trade_pct": 5.13,
+      "profit_factor": 2.51,
+      "exposure_pct": 12.5,
+      "max_actions_in_year": 3,
+      "annual_actions": {
+        "2021": 2,
+        "2022": 3,
+        "2023": 1
+      }
+    },
+    {
+      "params": [
+        0,
+        4,
+        90,
+        0.12
+      ],
+      "total_return_pct": 11.07,
+      "cagr_pct": 1.57,
+      "max_drawdown_pct": 21.87,
+      "win_rate_pct": 66.7,
+      "trade_count": 3,
+      "avg_trade_pct": 4.46,
+      "profit_factor": 2.1,
+      "exposure_pct": 12.6,
+      "max_actions_in_year": 3,
+      "annual_actions": {
+        "2021": 2,
+        "2022": 3,
+        "2023": 1
+      }
+    },
+    {
+      "params": [
+        0,
+        4,
+        100,
+        0.1
+      ],
+      "total_return_pct": -15.89,
+      "cagr_pct": -2.53,
+      "max_drawdown_pct": 27.99,
+      "win_rate_pct": 33.3,
+      "trade_count": 3,
+      "avg_trade_pct": -5.37,
+      "profit_factor": 0.21,
+      "exposure_pct": 20.2,
+      "max_actions_in_year": 3,
+      "annual_actions": {
+        "2021": 2,
+        "2022": 3,
+        "2023": 1
+      }
+    },
+    {
+      "params": [
+        0,
+        4,
+        100,
+        0.12
+      ],
+      "total_return_pct": -19.58,
+      "cagr_pct": -3.18,
+      "max_drawdown_pct": 29.59,
+      "win_rate_pct": 33.3,
+      "trade_count": 3,
+      "avg_trade_pct": -6.7,
+      "profit_factor": 0.17,
+      "exposure_pct": 23.4,
+      "max_actions_in_year": 3,
+      "annual_actions": {
+        "2021": 2,
+        "2022": 3,
+        "2024": 1
+      }
+    },
+    {
+      "params": [
+        5,
+        2,
+        80,
+        0.1
+      ],
+      "total_return_pct": 26.85,
+      "cagr_pct": 3.59,
+      "max_drawdown_pct": 40.39,
+      "win_rate_pct": 57.1,
+      "trade_count": 14,
+      "avg_trade_pct": 3.15,
+      "profit_factor": 1.72,
+      "exposure_pct": 30.4,
+      "max_actions_in_year": 6,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 6,
+        "2023": 6,
+        "2024": 4,
+        "2025": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        5,
+        2,
+        80,
+        0.12
+      ],
+      "total_return_pct": 25.75,
+      "cagr_pct": 3.46,
+      "max_drawdown_pct": 38.19,
+      "win_rate_pct": 61.5,
+      "trade_count": 13,
+      "avg_trade_pct": 3.38,
+      "profit_factor": 1.72,
+      "exposure_pct": 33.1,
+      "max_actions_in_year": 6,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 6,
+        "2023": 4,
+        "2024": 4,
+        "2025": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        5,
+        2,
+        90,
+        0.1
+      ],
+      "total_return_pct": 144.78,
+      "cagr_pct": 14.2,
+      "max_drawdown_pct": 29.29,
+      "win_rate_pct": 58.3,
+      "trade_count": 12,
+      "avg_trade_pct": 10.61,
+      "profit_factor": 3.5,
+      "exposure_pct": 55.0,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 5,
+        "2023": 5,
+        "2024": 3,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        5,
+        2,
+        90,
+        0.12
+      ],
+      "total_return_pct": 117.95,
+      "cagr_pct": 12.25,
+      "max_drawdown_pct": 34.15,
+      "win_rate_pct": 58.3,
+      "trade_count": 12,
+      "avg_trade_pct": 9.75,
+      "profit_factor": 2.91,
+      "exposure_pct": 59.5,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 5,
+        "2023": 5,
+        "2024": 3,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        5,
+        2,
+        100,
+        0.1
+      ],
+      "total_return_pct": 124.66,
+      "cagr_pct": 12.75,
+      "max_drawdown_pct": 35.32,
+      "win_rate_pct": 60.0,
+      "trade_count": 10,
+      "avg_trade_pct": 11.62,
+      "profit_factor": 3.85,
+      "exposure_pct": 59.4,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 5,
+        "2023": 1,
+        "2024": 3,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        5,
+        2,
+        100,
+        0.12
+      ],
+      "total_return_pct": 105.35,
+      "cagr_pct": 11.26,
+      "max_drawdown_pct": 38.16,
+      "win_rate_pct": 60.0,
+      "trade_count": 10,
+      "avg_trade_pct": 10.82,
+      "profit_factor": 3.22,
+      "exposure_pct": 62.7,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 5,
+        "2024": 4,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        5,
+        3,
+        80,
+        0.1
+      ],
+      "total_return_pct": 75.82,
+      "cagr_pct": 8.73,
+      "max_drawdown_pct": 26.11,
+      "win_rate_pct": 72.7,
+      "trade_count": 11,
+      "avg_trade_pct": 6.81,
+      "profit_factor": 3.45,
+      "exposure_pct": 20.3,
+      "max_actions_in_year": 6,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 6,
+        "2023": 4,
+        "2024": 2,
+        "2025": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        5,
+        3,
+        80,
+        0.12
+      ],
+      "total_return_pct": 87.14,
+      "cagr_pct": 9.74,
+      "max_drawdown_pct": 19.56,
+      "win_rate_pct": 80.0,
+      "trade_count": 10,
+      "avg_trade_pct": 8.11,
+      "profit_factor": 4.33,
+      "exposure_pct": 20.7,
+      "max_actions_in_year": 6,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 6,
+        "2023": 2,
+        "2024": 2,
+        "2025": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        5,
+        3,
+        90,
+        0.1
+      ],
+      "total_return_pct": 206.43,
+      "cagr_pct": 18.07,
+      "max_drawdown_pct": 21.28,
+      "win_rate_pct": 70.0,
+      "trade_count": 10,
+      "avg_trade_pct": 14.82,
+      "profit_factor": 5.85,
+      "exposure_pct": 47.0,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 5,
+        "2024": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        5,
+        3,
+        90,
+        0.12
+      ],
+      "total_return_pct": 226.17,
+      "cagr_pct": 19.16,
+      "max_drawdown_pct": 18.54,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 17.16,
+      "profit_factor": 7.34,
+      "exposure_pct": 47.4,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        5,
+        3,
+        100,
+        0.1
+      ],
+      "total_return_pct": 181.25,
+      "cagr_pct": 16.57,
+      "max_drawdown_pct": 27.99,
+      "win_rate_pct": 75.0,
+      "trade_count": 8,
+      "avg_trade_pct": 17.14,
+      "profit_factor": 7.73,
+      "exposure_pct": 51.6,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 1,
+        "2024": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        5,
+        3,
+        100,
+        0.12
+      ],
+      "total_return_pct": 168.89,
+      "cagr_pct": 15.8,
+      "max_drawdown_pct": 29.59,
+      "win_rate_pct": 75.0,
+      "trade_count": 8,
+      "avg_trade_pct": 16.64,
+      "profit_factor": 6.46,
+      "exposure_pct": 54.8,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2024": 2,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        5,
+        4,
+        80,
+        0.1
+      ],
+      "total_return_pct": -4.75,
+      "cagr_pct": -0.72,
+      "max_drawdown_pct": 27.66,
+      "win_rate_pct": 60.0,
+      "trade_count": 5,
+      "avg_trade_pct": 1.35,
+      "profit_factor": 1.33,
+      "exposure_pct": 11.6,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2021": 4,
+        "2022": 4,
+        "2023": 2,
+        "2026": 1
+      }
+    },
+    {
+      "params": [
+        5,
+        4,
+        80,
+        0.12
+      ],
+      "total_return_pct": -8.94,
+      "cagr_pct": -1.38,
+      "max_drawdown_pct": 30.84,
+      "win_rate_pct": 60.0,
+      "trade_count": 5,
+      "avg_trade_pct": 0.55,
+      "profit_factor": 1.11,
+      "exposure_pct": 13.8,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2021": 4,
+        "2022": 4,
+        "2023": 2,
+        "2026": 1
+      }
+    },
+    {
+      "params": [
+        5,
+        4,
+        90,
+        0.1
+      ],
+      "total_return_pct": 9.82,
+      "cagr_pct": 1.4,
+      "max_drawdown_pct": 20.09,
+      "win_rate_pct": 60.0,
+      "trade_count": 5,
+      "avg_trade_pct": 4.57,
+      "profit_factor": 2.12,
+      "exposure_pct": 17.2,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2021": 4,
+        "2022": 3,
+        "2023": 3,
+        "2026": 1
+      }
+    },
+    {
+      "params": [
+        5,
+        4,
+        90,
+        0.12
+      ],
+      "total_return_pct": 4.99,
+      "cagr_pct": 0.72,
+      "max_drawdown_pct": 21.87,
+      "win_rate_pct": 60.0,
+      "trade_count": 5,
+      "avg_trade_pct": 3.77,
+      "profit_factor": 1.77,
+      "exposure_pct": 19.4,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2021": 4,
+        "2022": 3,
+        "2023": 3,
+        "2026": 1
+      }
+    },
+    {
+      "params": [
+        5,
+        4,
+        100,
+        0.1
+      ],
+      "total_return_pct": -9.47,
+      "cagr_pct": -1.46,
+      "max_drawdown_pct": 34.06,
+      "win_rate_pct": 50.0,
+      "trade_count": 4,
+      "avg_trade_pct": 0.39,
+      "profit_factor": 1.08,
+      "exposure_pct": 24.0,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2021": 4,
+        "2022": 3,
+        "2023": 1,
+        "2026": 1
+      }
+    },
+    {
+      "params": [
+        5,
+        4,
+        100,
+        0.12
+      ],
+      "total_return_pct": -13.45,
+      "cagr_pct": -2.12,
+      "max_drawdown_pct": 35.53,
+      "win_rate_pct": 50.0,
+      "trade_count": 4,
+      "avg_trade_pct": -0.61,
+      "profit_factor": 0.9,
+      "exposure_pct": 27.2,
+      "max_actions_in_year": 4,
+      "annual_actions": {
+        "2021": 4,
+        "2022": 3,
+        "2024": 1,
+        "2026": 1
+      }
+    },
+    {
+      "params": [
+        10,
+        2,
+        80,
+        0.1
+      ],
+      "total_return_pct": 81.31,
+      "cagr_pct": 9.22,
+      "max_drawdown_pct": 30.1,
+      "win_rate_pct": 64.7,
+      "trade_count": 17,
+      "avg_trade_pct": 4.26,
+      "profit_factor": 2.18,
+      "exposure_pct": 36.8,
+      "max_actions_in_year": 6,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 6,
+        "2023": 6,
+        "2024": 6,
+        "2025": 3,
+        "2026": 5
+      }
+    },
+    {
+      "params": [
+        10,
+        2,
+        80,
+        0.12
+      ],
+      "total_return_pct": 59.49,
+      "cagr_pct": 7.17,
+      "max_drawdown_pct": 34.9,
+      "win_rate_pct": 68.8,
+      "trade_count": 16,
+      "avg_trade_pct": 4.52,
+      "profit_factor": 2.18,
+      "exposure_pct": 42.1,
+      "max_actions_in_year": 6,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 6,
+        "2023": 6,
+        "2024": 6,
+        "2025": 3,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        10,
+        2,
+        90,
+        0.1
+      ],
+      "total_return_pct": 149.25,
+      "cagr_pct": 14.5,
+      "max_drawdown_pct": 30.1,
+      "win_rate_pct": 57.1,
+      "trade_count": 14,
+      "avg_trade_pct": 8.63,
+      "profit_factor": 2.98,
+      "exposure_pct": 57.5,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 5,
+        "2023": 5,
+        "2024": 5,
+        "2026": 5
+      }
+    },
+    {
+      "params": [
+        10,
+        2,
+        90,
+        0.12
+      ],
+      "total_return_pct": 119.25,
+      "cagr_pct": 12.35,
+      "max_drawdown_pct": 34.9,
+      "win_rate_pct": 61.5,
+      "trade_count": 13,
+      "avg_trade_pct": 9.29,
+      "profit_factor": 2.97,
+      "exposure_pct": 62.8,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 5,
+        "2023": 5,
+        "2024": 5,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        10,
+        2,
+        100,
+        0.1
+      ],
+      "total_return_pct": 128.77,
+      "cagr_pct": 13.06,
+      "max_drawdown_pct": 36.06,
+      "win_rate_pct": 58.3,
+      "trade_count": 12,
+      "avg_trade_pct": 9.14,
+      "profit_factor": 3.15,
+      "exposure_pct": 61.9,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 5,
+        "2023": 1,
+        "2024": 5,
+        "2026": 5
+      }
+    },
+    {
+      "params": [
+        10,
+        2,
+        100,
+        0.12
+      ],
+      "total_return_pct": 66.63,
+      "cagr_pct": 7.87,
+      "max_drawdown_pct": 38.92,
+      "win_rate_pct": 63.6,
+      "trade_count": 11,
+      "avg_trade_pct": 7.28,
+      "profit_factor": 2.64,
+      "exposure_pct": 61.5,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 5,
+        "2024": 5,
+        "2025": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        10,
+        3,
+        80,
+        0.1
+      ],
+      "total_return_pct": 54.33,
+      "cagr_pct": 6.65,
+      "max_drawdown_pct": 41.07,
+      "win_rate_pct": 62.5,
+      "trade_count": 16,
+      "avg_trade_pct": 3.85,
+      "profit_factor": 2.01,
+      "exposure_pct": 33.6,
+      "max_actions_in_year": 6,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 6,
+        "2023": 6,
+        "2024": 6,
+        "2025": 3,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        10,
+        3,
+        80,
+        0.12
+      ],
+      "total_return_pct": 52.99,
+      "cagr_pct": 6.51,
+      "max_drawdown_pct": 38.9,
+      "win_rate_pct": 66.7,
+      "trade_count": 15,
+      "avg_trade_pct": 4.09,
+      "profit_factor": 2.0,
+      "exposure_pct": 36.2,
+      "max_actions_in_year": 6,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 6,
+        "2023": 4,
+        "2024": 6,
+        "2025": 3,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        10,
+        3,
+        90,
+        0.1
+      ],
+      "total_return_pct": 168.7,
+      "cagr_pct": 15.79,
+      "max_drawdown_pct": 30.1,
+      "win_rate_pct": 61.5,
+      "trade_count": 13,
+      "avg_trade_pct": 10.31,
+      "profit_factor": 3.63,
+      "exposure_pct": 57.0,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 5,
+        "2023": 5,
+        "2024": 5,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        10,
+        3,
+        90,
+        0.12
+      ],
+      "total_return_pct": 139.25,
+      "cagr_pct": 13.81,
+      "max_drawdown_pct": 34.9,
+      "win_rate_pct": 61.5,
+      "trade_count": 13,
+      "avg_trade_pct": 9.51,
+      "profit_factor": 3.02,
+      "exposure_pct": 61.4,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 5,
+        "2023": 5,
+        "2024": 5,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        10,
+        3,
+        100,
+        0.1
+      ],
+      "total_return_pct": 146.62,
+      "cagr_pct": 14.32,
+      "max_drawdown_pct": 36.06,
+      "win_rate_pct": 63.6,
+      "trade_count": 11,
+      "avg_trade_pct": 11.17,
+      "profit_factor": 4.02,
+      "exposure_pct": 61.4,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 5,
+        "2023": 1,
+        "2024": 5,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        10,
+        3,
+        100,
+        0.12
+      ],
+      "total_return_pct": 81.39,
+      "cagr_pct": 9.23,
+      "max_drawdown_pct": 39.07,
+      "win_rate_pct": 63.6,
+      "trade_count": 11,
+      "avg_trade_pct": 7.51,
+      "profit_factor": 2.7,
+      "exposure_pct": 59.8,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 3,
+        "2021": 5,
+        "2022": 5,
+        "2024": 5,
+        "2025": 1,
+        "2026": 4
+      }
+    },
+    {
+      "params": [
+        10,
+        4,
+        80,
+        0.1
+      ],
+      "total_return_pct": 41.3,
+      "cagr_pct": 5.26,
+      "max_drawdown_pct": 18.67,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 5.06,
+      "profit_factor": 3.24,
+      "exposure_pct": 20.4,
+      "max_actions_in_year": 6,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 6,
+        "2023": 2,
+        "2024": 2,
+        "2025": 1,
+        "2026": 2
+      }
+    },
+    {
+      "params": [
+        10,
+        4,
+        80,
+        0.12
+      ],
+      "total_return_pct": 35.09,
+      "cagr_pct": 4.56,
+      "max_drawdown_pct": 20.48,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 4.61,
+      "profit_factor": 2.7,
+      "exposure_pct": 20.5,
+      "max_actions_in_year": 6,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 6,
+        "2023": 2,
+        "2024": 2,
+        "2025": 1,
+        "2026": 2
+      }
+    },
+    {
+      "params": [
+        10,
+        4,
+        90,
+        0.1
+      ],
+      "total_return_pct": 92.43,
+      "cagr_pct": 10.19,
+      "max_drawdown_pct": 16.69,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 9.0,
+      "profit_factor": 4.98,
+      "exposure_pct": 27.8,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 2,
+        "2025": 1,
+        "2026": 2
+      }
+    },
+    {
+      "params": [
+        10,
+        4,
+        90,
+        0.12
+      ],
+      "total_return_pct": 83.98,
+      "cagr_pct": 9.46,
+      "max_drawdown_pct": 18.54,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 8.56,
+      "profit_factor": 4.16,
+      "exposure_pct": 27.9,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 2,
+        "2025": 1,
+        "2026": 2
+      }
+    },
+    {
+      "params": [
+        10,
+        4,
+        100,
+        0.1
+      ],
+      "total_return_pct": 58.64,
+      "cagr_pct": 7.08,
+      "max_drawdown_pct": 28.81,
+      "win_rate_pct": 75.0,
+      "trade_count": 8,
+      "avg_trade_pct": 7.47,
+      "profit_factor": 3.93,
+      "exposure_pct": 33.1,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 1,
+        "2024": 2,
+        "2025": 1,
+        "2026": 2
+      }
+    },
+    {
+      "params": [
+        10,
+        4,
+        100,
+        0.12
+      ],
+      "total_return_pct": 51.67,
+      "cagr_pct": 6.37,
+      "max_drawdown_pct": 30.39,
+      "win_rate_pct": 75.0,
+      "trade_count": 8,
+      "avg_trade_pct": 6.97,
+      "profit_factor": 3.29,
+      "exposure_pct": 36.3,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2024": 3,
+        "2025": 1,
+        "2026": 2
+      }
+    }
+  ],
+  "grid_summary": {
+    "cagr_pct": {
+      "min": -3.18,
+      "median": 7.125,
+      "max": 19.16
+    },
+    "max_drawdown_pct": {
+      "min": 16.69,
+      "median": 29.59,
+      "max": 41.07
+    },
+    "trade_count": {
+      "min": 3,
+      "median": 8.0,
+      "max": 17
+    }
+  },
+  "friction": [
+    {
+      "each_side_bps": 10.0,
+      "total_return_pct": 226.17,
+      "cagr_pct": 19.16,
+      "max_drawdown_pct": 18.54,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 17.16,
+      "profit_factor": 7.34,
+      "exposure_pct": 47.4,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2026": 4
+      }
+    },
+    {
+      "each_side_bps": 20.0,
+      "total_return_pct": 219.71,
+      "cagr_pct": 18.81,
+      "max_drawdown_pct": 18.71,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 16.93,
+      "profit_factor": 7.17,
+      "exposure_pct": 47.4,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2026": 4
+      }
+    },
+    {
+      "each_side_bps": 50.0,
+      "total_return_pct": 201.09,
+      "cagr_pct": 17.76,
+      "max_drawdown_pct": 19.19,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 16.22,
+      "profit_factor": 6.67,
+      "exposure_pct": 47.4,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2026": 4
+      }
+    },
+    {
+      "each_side_bps": 100.0,
+      "total_return_pct": 172.44,
+      "cagr_pct": 16.02,
+      "max_drawdown_pct": 20.0,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 15.07,
+      "profit_factor": 5.94,
+      "exposure_pct": 47.4,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2026": 4
+      }
+    }
+  ],
+  "stop_sensitivity": [
+    {
+      "stop": 0.06,
+      "total_return_pct": 105.29,
+      "cagr_pct": 11.26,
+      "max_drawdown_pct": 19.14,
+      "win_rate_pct": 45.5,
+      "trade_count": 11,
+      "avg_trade_pct": 8.53,
+      "profit_factor": 3.53,
+      "exposure_pct": 34.0,
+      "max_actions_in_year": 6,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 6,
+        "2023": 4,
+        "2024": 1,
+        "2026": 5
+      }
+    },
+    {
+      "stop": 0.09,
+      "total_return_pct": 127.35,
+      "cagr_pct": 12.95,
+      "max_drawdown_pct": 19.52,
+      "win_rate_pct": 60.0,
+      "trade_count": 10,
+      "avg_trade_pct": 11.55,
+      "profit_factor": 4.15,
+      "exposure_pct": 44.3,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 5,
+        "2024": 1,
+        "2026": 4
+      }
+    },
+    {
+      "stop": 0.12,
+      "total_return_pct": 226.17,
+      "cagr_pct": 19.16,
+      "max_drawdown_pct": 18.54,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 17.16,
+      "profit_factor": 7.34,
+      "exposure_pct": 47.4,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2026": 4
+      }
+    },
+    {
+      "stop": 0.15,
+      "total_return_pct": 204.31,
+      "cagr_pct": 17.94,
+      "max_drawdown_pct": 21.32,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 16.49,
+      "profit_factor": 5.89,
+      "exposure_pct": 50.7,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 2,
+        "2024": 2,
+        "2026": 4
+      }
+    },
+    {
+      "stop": 0.18,
+      "total_return_pct": 183.21,
+      "cagr_pct": 16.69,
+      "max_drawdown_pct": 24.1,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 15.83,
+      "profit_factor": 4.92,
+      "exposure_pct": 51.3,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 2,
+        "2024": 2,
+        "2026": 4
+      }
+    }
+  ],
+  "runner_sensitivity": [
+    {
+      "activation": 0.2,
+      "trail": 0.1,
+      "total_return_pct": 140.44,
+      "cagr_pct": 13.89,
+      "max_drawdown_pct": 26.89,
+      "win_rate_pct": 80.0,
+      "trade_count": 10,
+      "avg_trade_pct": 11.1,
+      "profit_factor": 5.56,
+      "exposure_pct": 44.6,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2025": 2,
+        "2026": 4
+      }
+    },
+    {
+      "activation": 0.2,
+      "trail": 0.15,
+      "total_return_pct": 141.1,
+      "cagr_pct": 13.94,
+      "max_drawdown_pct": 28.15,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 13.41,
+      "profit_factor": 5.96,
+      "exposure_pct": 58.9,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2026": 4
+      }
+    },
+    {
+      "activation": 0.2,
+      "trail": 0.2,
+      "total_return_pct": 95.15,
+      "cagr_pct": 10.42,
+      "max_drawdown_pct": 33.14,
+      "win_rate_pct": 50.0,
+      "trade_count": 6,
+      "avg_trade_pct": 18.98,
+      "profit_factor": 5.43,
+      "exposure_pct": 53.6,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 1,
+        "2022": 5,
+        "2023": 2,
+        "2024": 1,
+        "2026": 2
+      }
+    },
+    {
+      "activation": 0.3,
+      "trail": 0.1,
+      "total_return_pct": 180.27,
+      "cagr_pct": 16.51,
+      "max_drawdown_pct": 18.54,
+      "win_rate_pct": 80.0,
+      "trade_count": 10,
+      "avg_trade_pct": 12.8,
+      "profit_factor": 6.26,
+      "exposure_pct": 36.9,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2025": 2,
+        "2026": 4
+      }
+    },
+    {
+      "activation": 0.3,
+      "trail": 0.15,
+      "total_return_pct": 226.17,
+      "cagr_pct": 19.16,
+      "max_drawdown_pct": 18.54,
+      "win_rate_pct": 77.8,
+      "trade_count": 9,
+      "avg_trade_pct": 17.16,
+      "profit_factor": 7.34,
+      "exposure_pct": 47.4,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2026": 4
+      }
+    },
+    {
+      "activation": 0.3,
+      "trail": 0.2,
+      "total_return_pct": 229.49,
+      "cagr_pct": 19.34,
+      "max_drawdown_pct": 32.91,
+      "win_rate_pct": 75.0,
+      "trade_count": 8,
+      "avg_trade_pct": 21.51,
+      "profit_factor": 8.06,
+      "exposure_pct": 51.8,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2026": 2
+      }
+    },
+    {
+      "activation": 0.4,
+      "trail": 0.1,
+      "total_return_pct": 204.33,
+      "cagr_pct": 17.94,
+      "max_drawdown_pct": 18.54,
+      "win_rate_pct": 80.0,
+      "trade_count": 10,
+      "avg_trade_pct": 13.89,
+      "profit_factor": 6.7,
+      "exposure_pct": 33.7,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2025": 2,
+        "2026": 4
+      }
+    },
+    {
+      "activation": 0.4,
+      "trail": 0.15,
+      "total_return_pct": 204.33,
+      "cagr_pct": 17.94,
+      "max_drawdown_pct": 18.54,
+      "win_rate_pct": 80.0,
+      "trade_count": 10,
+      "avg_trade_pct": 13.89,
+      "profit_factor": 6.7,
+      "exposure_pct": 33.7,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2025": 2,
+        "2026": 4
+      }
+    },
+    {
+      "activation": 0.4,
+      "trail": 0.2,
+      "total_return_pct": 204.33,
+      "cagr_pct": 17.94,
+      "max_drawdown_pct": 18.54,
+      "win_rate_pct": 80.0,
+      "trade_count": 10,
+      "avg_trade_pct": 13.89,
+      "profit_factor": 6.7,
+      "exposure_pct": 33.7,
+      "max_actions_in_year": 5,
+      "annual_actions": {
+        "2020": 2,
+        "2021": 4,
+        "2022": 5,
+        "2023": 3,
+        "2024": 1,
+        "2025": 2,
+        "2026": 4
+      }
+    }
+  ],
+  "no_runner": {
+    "total_return_pct": 204.33,
+    "cagr_pct": 17.94,
+    "max_drawdown_pct": 18.54,
+    "win_rate_pct": 80.0,
+    "trade_count": 10,
+    "avg_trade_pct": 13.89,
+    "profit_factor": 6.7,
+    "exposure_pct": 33.7,
+    "max_actions_in_year": 5,
+    "annual_actions": {
+      "2020": 2,
+      "2021": 4,
+      "2022": 5,
+      "2023": 3,
+      "2024": 1,
+      "2025": 2,
+      "2026": 4
+    }
+  },
+  "annual": [
+    {
+      "year": "2020",
+      "last": "2020-12-31",
+      "return_pct": 26.53
+    },
+    {
+      "year": "2021",
+      "last": "2021-12-31",
+      "return_pct": 26.78
+    },
+    {
+      "year": "2022",
+      "last": "2022-12-30",
+      "return_pct": 4.86
+    },
+    {
+      "year": "2023",
+      "last": "2023-12-29",
+      "return_pct": 3.65
+    },
+    {
+      "year": "2024",
+      "last": "2024-12-31",
+      "return_pct": 26.29
+    },
+    {
+      "year": "2025",
+      "last": "2025-12-31",
+      "return_pct": 35.92
+    },
+    {
+      "year": "2026",
+      "last": "2026-09-30",
+      "return_pct": 9.09
+    }
+  ],
+  "post_freeze": {
+    "from": "2026-07-29",
+    "to": "2026-09-30",
+    "return_pct": -8.43,
+    "trades": [
+      {
+        "buy_date": "2026-09-21",
+        "buy_price": 1669.2,
+        "sell_date": "2026-09-30",
+        "sell_price": 1530.01,
+        "return_pct": -8.52,
+        "hold_days": 7,
+        "reason": "期末估值（未触发卖出）",
+        "status": "open"
+      }
+    ]
+  },
+  "remove_best_trade_counterfactual": {
+    "removed_buy_date": "2024-09-30",
+    "removed_return_pct": 64.94,
+    "terminal_return_pct": 97.75
+  },
+  "win_rate_wilson_95_pct": [
+    45.3,
+    93.7
+  ],
+  "signal_replays": [
+    {
+      "date": "2026-03-20",
+      "generator_state": "SELL_NEXT_OPEN",
+      "frontend_action": "HOLD",
+      "holding": true,
+      "last_completed": "2026-03-20"
+    },
+    {
+      "date": "2026-09-18",
+      "generator_state": "BUY_NEXT_OPEN",
+      "frontend_action": "WAIT",
+      "holding": false,
+      "last_completed": "2026-09-18"
+    },
+    {
+      "date": "2026-09-30",
+      "generator_state": "HOLD",
+      "frontend_action": "HOLD",
+      "holding": true,
+      "last_completed": "2026-09-24"
+    }
+  ],
+  "independent_index_replay": {
+    "total_return_pct": 226.17,
+    "cagr_pct": 19.16,
+    "max_drawdown_pct": 18.54,
+    "closed_count": 9,
+    "trades": [
+      {
+        "buy_date": "2020-04-27",
+        "buy_price": 1140.194,
+        "buy_i": 75,
+        "sell_date": "2020-07-06",
+        "sell_price": 1445.607,
+        "reason": "weekly",
+        "return_pct": 26.532736913689646
+      },
+      {
+        "buy_date": "2021-03-29",
+        "buy_price": 1262.29,
+        "buy_i": 298,
+        "sell_date": "2021-06-28",
+        "sell_price": 1538.02,
+        "reason": "weekly",
+        "return_pct": 21.600189573476225
+      },
+      {
+        "buy_date": "2021-09-27",
+        "buy_price": 1386.52,
+        "buy_i": 421,
+        "sell_date": "2021-11-29",
+        "sell_price": 1448.5,
+        "reason": "weekly",
+        "return_pct": 4.2614527093654875
+      },
+      {
+        "buy_date": "2022-02-14",
+        "buy_price": 1161.84,
+        "buy_i": 510,
+        "sell_date": "2022-04-08",
+        "sell_price": 1022.4191999999999,
+        "reason": "stop",
+        "return_pct": -12.175824175824168
+      },
+      {
+        "buy_date": "2022-05-05",
+        "buy_price": 944.55,
+        "buy_i": 563,
+        "sell_date": "2022-06-20",
+        "sell_price": 1099.46,
+        "reason": "weekly",
+        "return_pct": 16.167834071597788
+      },
+      {
+        "buy_date": "2022-10-10",
+        "buy_price": 933.02,
+        "buy_i": 668,
+        "sell_date": "2023-04-17",
+        "sell_price": 1134.05,
+        "reason": "weekly",
+        "return_pct": 21.303312451412193
+      },
+      {
+        "buy_date": "2023-07-31",
+        "buy_price": 961.69,
+        "buy_i": 866,
+        "sell_date": "2023-10-23",
+        "sell_price": 846.2872000000001,
+        "reason": "stop",
+        "return_pct": -12.175824175824157
+      },
+      {
+        "buy_date": "2024-09-30",
+        "buy_price": 782.31,
+        "buy_i": 1150,
+        "sell_date": "2026-03-23",
+        "sell_price": 1292.89,
+        "reason": "weekly",
+        "return_pct": 64.93548634132296
+      },
+      {
+        "buy_date": "2026-04-13",
+        "buy_price": 1358.46,
+        "buy_i": 1518,
+        "sell_date": "2026-05-11",
+        "sell_price": 1687.64,
+        "reason": "weekly",
+        "return_pct": 23.983635286139602
+      }
+    ],
+    "open_trade": {
+      "buy_date": "2026-09-21",
+      "buy_price": 1669.2,
+      "buy_i": 1629
+    }
+  },
+  "delay_one_trading_day": {
+    "total_return_pct": 126.85,
+    "cagr_pct": 12.92,
+    "max_drawdown_pct": 26.18,
+    "closed_count": 10,
+    "trades": [
+      {
+        "buy_date": "2020-04-28",
+        "buy_price": 1130.615,
+        "buy_i": 76,
+        "sell_date": "2020-07-07",
+        "sell_price": 1550.296,
+        "reason": "weekly",
+        "return_pct": 36.8457437319075
+      },
+      {
+        "buy_date": "2021-03-30",
+        "buy_price": 1250.28,
+        "buy_i": 299,
+        "sell_date": "2021-06-29",
+        "sell_price": 1567.88,
+        "reason": "weekly",
+        "return_pct": 25.151755816886844
+      },
+      {
+        "buy_date": "2021-09-28",
+        "buy_price": 1362.33,
+        "buy_i": 422,
+        "sell_date": "2021-11-30",
+        "sell_price": 1477.8,
+        "reason": "weekly",
+        "return_pct": 8.259184826536359
+      },
+      {
+        "buy_date": "2022-02-15",
+        "buy_price": 1172.77,
+        "buy_i": 511,
+        "sell_date": "2022-04-08",
+        "sell_price": 1032.0375999999999,
+        "reason": "stop",
+        "return_pct": -12.175824175824179
+      },
+      {
+        "buy_date": "2022-05-06",
+        "buy_price": 933.01,
+        "buy_i": 564,
+        "sell_date": "2022-06-21",
+        "sell_price": 1094.33,
+        "reason": "weekly",
+        "return_pct": 17.055929354832934
+      },
+      {
+        "buy_date": "2022-10-11",
+        "buy_price": 898.37,
+        "buy_i": 669,
+        "sell_date": "2023-04-18",
+        "sell_price": 1130.81,
+        "reason": "weekly",
+        "return_pct": 25.622030940552264
+      },
+      {
+        "buy_date": "2023-08-01",
+        "buy_price": 969.41,
+        "buy_i": 867,
+        "sell_date": "2023-10-23",
+        "sell_price": 853.0808,
+        "reason": "stop",
+        "return_pct": -12.175824175824179
+      },
+      {
+        "buy_date": "2024-10-08",
+        "buy_price": 1045.05,
+        "buy_i": 1151,
+        "sell_date": "2024-10-11",
+        "sell_price": 919.644,
+        "reason": "stop",
+        "return_pct": -12.175824175824157
+      },
+      {
+        "buy_date": "2025-12-16",
+        "buy_price": 1313.53,
+        "buy_i": 1443,
+        "sell_date": "2026-02-03",
+        "sell_price": 1475.57,
+        "reason": "weekly",
+        "return_pct": 12.11177576391922
+      },
+      {
+        "buy_date": "2026-04-14",
+        "buy_price": 1398.4,
+        "buy_i": 1519,
+        "sell_date": "2026-05-12",
+        "sell_price": 1708.21,
+        "reason": "weekly",
+        "return_pct": 21.91054011777698
+      }
+    ],
+    "open_trade": {
+      "buy_date": "2026-09-22",
+      "buy_price": 1699.05,
+      "buy_i": 1630
+    }
+  },
+  "etf_raw_diagnostic": {
+    "total_return_pct": 152.05,
+    "cagr_pct": 17.06,
+    "max_drawdown_pct": 19.04,
+    "closed_count": 8,
+    "trades": [
+      {
+        "buy_date": "2021-03-29",
+        "buy_price": 1.292,
+        "buy_i": 89,
+        "sell_date": "2021-06-28",
+        "sell_price": 1.592,
+        "reason": "weekly",
+        "return_pct": 22.973620806438166
+      },
+      {
+        "buy_date": "2021-09-27",
+        "buy_price": 1.435,
+        "buy_i": 212,
+        "sell_date": "2021-11-29",
+        "sell_price": 1.505,
+        "reason": "weekly",
+        "return_pct": 4.668502229477833
+      },
+      {
+        "buy_date": "2022-02-14",
+        "buy_price": 1.21,
+        "buy_i": 301,
+        "sell_date": "2022-04-08",
+        "sell_price": 1.0648,
+        "reason": "stop",
+        "return_pct": -12.175824175824168
+      },
+      {
+        "buy_date": "2022-05-05",
+        "buy_price": 0.984,
+        "buy_i": 354,
+        "sell_date": "2022-06-20",
+        "sell_price": 1.144,
+        "reason": "weekly",
+        "return_pct": 16.027874564459932
+      },
+      {
+        "buy_date": "2022-10-10",
+        "buy_price": 0.979,
+        "buy_i": 459,
+        "sell_date": "2023-04-17",
+        "sell_price": 1.176,
+        "reason": "weekly",
+        "return_pct": 19.88256891219098
+      },
+      {
+        "buy_date": "2023-07-31",
+        "buy_price": 1.01,
+        "buy_i": 657,
+        "sell_date": "2023-10-23",
+        "sell_price": 0.8888,
+        "reason": "stop",
+        "return_pct": -12.175824175824168
+      },
+      {
+        "buy_date": "2024-09-30",
+        "buy_price": 0.85,
+        "buy_i": 941,
+        "sell_date": "2026-03-23",
+        "sell_price": 1.366,
+        "reason": "weekly",
+        "return_pct": 60.38479167890935
+      },
+      {
+        "buy_date": "2026-04-13",
+        "buy_price": 1.428,
+        "buy_i": 1309,
+        "sell_date": "2026-05-11",
+        "sell_price": 1.777,
+        "reason": "weekly",
+        "return_pct": 24.19114498946435
+      }
+    ],
+    "open_trade": {
+      "buy_date": "2026-09-21",
+      "buy_price": 1.76,
+      "buy_i": 1420
+    }
+  },
+  "etf_raw_buy_hold_diagnostic": {
+    "total_return_pct": 3.65,
+    "cagr_pct": 0.61,
+    "max_drawdown_pct": 59.64
+  },
+  "data_checks": {
+    "duplicate_dates": 0,
+    "invalid_ohlc": 0,
+    "same_day_closed": 0,
+    "source": "Tencent current endpoint; not an independent vendor cross-check"
+  }
+}

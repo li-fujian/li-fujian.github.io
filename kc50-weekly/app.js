@@ -59,24 +59,14 @@
 
   function updateComparison(backtest) {
     const rows = all(".compare-table .compare-row:not(.compare-head)");
-    const datasets = [
-      backtest.train,
-      backtest.validation,
-      backtest.buy_hold,
-    ];
+    const datasets = [backtest.full, backtest.buy_hold];
     datasets.forEach((data, index) => {
       const row = rows[index];
       if (!row || !data) return;
       const values = all(":scope > span", row);
-      if (index < 2) {
-        values[0].textContent = percent(data.cagr_pct);
-        values[1].textContent = `-${number(data.max_drawdown_pct)}%`;
-        values[2].textContent = `${number(data.win_rate_pct)}%`;
-        values[3].textContent = String(data.trade_count);
-      } else {
-        values[0].textContent = percent(data.cagr_pct);
-        values[1].textContent = `-${number(data.max_drawdown_pct)}%`;
-      }
+      values[0].textContent = percent(data.cagr_pct);
+      values[1].textContent = `-${number(data.max_drawdown_pct)}%`;
+      metricClass(values[0], data.cagr_pct);
     });
   }
 
@@ -239,6 +229,7 @@
     );
 
     updateComparison(backtest);
+    setText(".comparison-period", `对比区间 ${backtest.period}`);
     updateChart(recent_weekly, meta.current_week_is_partial);
     setText(
       ".rhythm-panel .section-title p",
