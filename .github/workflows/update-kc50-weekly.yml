@@ -7,10 +7,10 @@ on:
     paths:
       - ".github/workflows/update-kc50-weekly.yml"
       - "kc50-weekly/app.js"
+      - "kc50-weekly/trading-calendar.json"
       - "kc50-weekly/scripts/**"
   schedule:
-    - cron: "37 8 * * 5"
-    - cron: "37 8 * * 1"
+    - cron: "37 8 * * 1-5"
 
 permissions:
   contents: write

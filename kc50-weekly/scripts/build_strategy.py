@@ -25,7 +25,7 @@ import statistics
 import urllib.request
 from collections import defaultdict
 from dataclasses import asdict, dataclass
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Iterable
 
@@ -35,6 +35,10 @@ RAW_DIR = ROOT / "data" / "raw"
 PUBLIC_DATA_DIR = ROOT / "public" / "data"
 
 INDEX_SYMBOL = "sh000688"
+SHANGHAI_TZ = timezone(timedelta(hours=8))
+TRADING_CALENDAR = json.loads(
+    (ROOT / "trading-calendar.json").read_text(encoding="utf-8")
+)
 INDEX_URL = (
     "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get"
     "?param=sh000688,day,,,2000,qfq"
@@ -198,20 +202,31 @@ def completed_week_count(
 ) -> int:
     """Return the count of weeks safe to use for signals.
 
-    Any week before the latest data week is complete. The latest week is accepted
-    only when its last bar is Friday or later; a Friday holiday can delay the
-    signal to the next data update, never move it earlier.
+    Use the exchange calendar for the latest week, including holiday-shortened
+    weeks. Older years without a maintained calendar retain the Friday fallback.
+    Input bars must be finalized daily bars (the scheduled build runs after close).
     """
     if not weekly:
         return 0
     latest = datetime.strptime(daily[-1].date, "%Y-%m-%d").date()
-    reference = as_of or date.today()
+    reference = as_of or datetime.now(SHANGHAI_TZ).date()
     latest_iso = latest.isocalendar()
     reference_iso = reference.isocalendar()
     if (latest_iso.year, latest_iso.week) < (reference_iso.year, reference_iso.week):
         return len(weekly)
     if latest.weekday() >= 4:
         return len(weekly)
+    closures = TRADING_CALENDAR["closures"].get(str(latest.year))
+    if closures is not None and latest <= reference:
+        remaining = [
+            latest + timedelta(days=offset)
+            for offset in range(1, 5 - latest.weekday())
+        ]
+        if all(
+            any(start <= day.isoformat() <= end for start, end in closures)
+            for day in remaining
+        ):
+            return len(weekly)
     return max(0, len(weekly) - 1)
 
 
@@ -565,7 +580,9 @@ def current_signal_payload(
         else None
     )
     sell = exit_reason is not None
-    current_year_actions = full_metrics.annual_actions.get(str(date.today().year), 0)
+    current_year_actions = full_metrics.annual_actions.get(
+        str(datetime.now(SHANGHAI_TZ).year), 0
+    )
 
     if sell:
         state = "SELL_NEXT_OPEN"
@@ -760,7 +777,7 @@ def build_dashboard(refresh: bool) -> dict:
                 "仅在完整周收盘较持仓后最高周收盘回撤15%时卖出。"
             ),
             "stop": "成交后立即设置成本价下方12%的保护止损；不因“底部”取消止损。",
-            "frequency": "每周五收盘后看一次；买、卖各算1次，任一自然年最多6次。",
+            "frequency": "每周最后一个交易日收盘后看一次；买、卖各算1次，任一自然年最多6次。",
             "positioning": "单标的、单仓位、一次买完、一次卖完；不加仓、不做T、不预测消息。",
             "friction_bps_each_side": int(FRICTION * 10000),
             "max_annual_actions": MAX_ANNUAL_ACTIONS,

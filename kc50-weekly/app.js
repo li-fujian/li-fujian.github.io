@@ -22,10 +22,10 @@
   };
 
   function currentAction(signal) {
-    if (signal.state === "BUY") {
+    if (signal.state === "BUY_NEXT_OPEN") {
       return ["下个交易日开盘买入", "买入后立即设置 12% 保护止损。"];
     }
-    if (signal.state === "SELL") {
+    if (signal.state === "SELL_NEXT_OPEN") {
       return ["下个交易日开盘卖出", "一次退出，不临场改变规则。"];
     }
     if (signal.holding) {
@@ -80,14 +80,16 @@
     });
   }
 
-  function updateChart(data) {
+  function updateChart(data, isPartial) {
     const root = one(".bar-chart");
     if (!root || !data.length) return;
     root.replaceChildren(
       ...data.map((week, index) => {
         const bar = document.createElement("div");
         bar.className =
-          index === data.length - 1 ? "week-bar week-bar-current" : "week-bar";
+          isPartial && index === data.length - 1
+            ? "week-bar week-bar-current"
+            : "week-bar";
         bar.title = `${week.date} · ${number(week.close, 2)}`;
         const fill = document.createElement("i");
         fill.style.height = `${week.height_pct}%`;
@@ -123,18 +125,21 @@
       const sell = document.createElement("span");
       const sellDate = document.createElement("strong");
       const sellPrice = document.createElement("small");
-      sellDate.textContent = trade.sell_date || "持有中";
-      sellPrice.textContent = trade.sell_date ? number(trade.sell_price) : "—";
+      const closed = trade.status === "closed";
+      sellDate.textContent = closed ? trade.sell_date : "持有中";
+      sellPrice.textContent = closed ? number(trade.sell_price) : "未卖出";
       sell.append(sellDate, sellPrice);
 
       const days = document.createElement("span");
-      days.textContent = `${trade.hold_days} 天`;
+      days.textContent = `${trade.hold_days} 交易日`;
       const result = document.createElement("strong");
-      result.textContent = percent(trade.return_pct);
+      result.textContent = `${closed ? "" : "浮动 "}${percent(trade.return_pct)}`;
       result.className =
         trade.return_pct >= 0 ? "metric-positive" : "metric-negative";
       const reason = document.createElement("span");
-      reason.textContent = trade.reason;
+      reason.textContent = closed
+        ? trade.reason
+        : `期末估值 ${trade.sell_date} · ${number(trade.sell_price)}`;
       row.append(buy, sell, days, result, reason);
       root.append(row);
     });
@@ -151,9 +156,9 @@
     if (stamp) {
       stamp.className = `signal-stamp signal-${signal.state}`;
       stamp.textContent = `${signal.state} / ${
-        signal.state === "BUY"
+        signal.state === "BUY_NEXT_OPEN"
           ? "买"
-          : signal.state === "SELL"
+          : signal.state === "SELL_NEXT_OPEN"
             ? "卖"
             : signal.holding
               ? "持"
@@ -234,7 +239,13 @@
     );
 
     updateComparison(backtest);
-    updateChart(recent_weekly);
+    updateChart(recent_weekly, meta.current_week_is_partial);
+    setText(
+      ".rhythm-panel .section-title p",
+      meta.current_week_is_partial
+        ? "只看节奏，不用盯盘。最后一根仍是本周形成中的快照。"
+        : "只看节奏，不用盯盘。图中均为已结束交易周。",
+    );
     updateTrades(full.trades);
     setText("footer strong", strategy.name);
     setText("footer span", strategy.positioning);
@@ -245,13 +256,119 @@
     document.documentElement.dataset.dataAsOf = meta.data_as_of;
   }
 
-  fetch(`./dashboard.json?v=${Date.now()}`, { cache: "no-store" })
-    .then((response) => {
-      if (!response.ok) throw new Error(`dashboard.json: ${response.status}`);
-      return response.json();
+  function shiftDate(value, offset) {
+    const day = new Date(`${value}T00:00:00Z`);
+    day.setUTCDate(day.getUTCDate() + offset);
+    return day.toISOString().slice(0, 10);
+  }
+
+  function isTradingDay(value, calendar) {
+    const closures = calendar.closures[value.slice(0, 4)];
+    if (!Array.isArray(closures)) throw new Error("交易日历尚未更新到当前年份");
+    const weekday = new Date(`${value}T00:00:00Z`).getUTCDay();
+    return weekday !== 0 && weekday !== 6 &&
+      !closures.some(([start, end]) => start <= value && value <= end);
+  }
+
+  function shanghaiClock(now) {
+    const parts = Object.fromEntries(
+      new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Asia/Shanghai", year: "numeric", month: "2-digit",
+        day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23",
+      }).formatToParts(now).map(({ type, value }) => [type, value]),
+    );
+    return {
+      date: `${parts.year}-${parts.month}-${parts.day}`,
+      minutes: Number(parts.hour) * 60 + Number(parts.minute),
+    };
+  }
+
+  function expectedSession(calendar, now) {
+    const clock = shanghaiClock(now);
+    // Require the current year's calendar even during a year-end weekend.
+    isTradingDay(clock.date, calendar);
+    let candidate = clock.minutes >= 15 * 60 ? clock.date : shiftDate(clock.date, -1);
+    for (let i = 0; i < 370; i += 1) {
+      if (isTradingDay(candidate, calendar)) return candidate;
+      candidate = shiftDate(candidate, -1);
+    }
+    throw new Error("无法确认最近收盘交易日");
+  }
+
+  function verifyData(data, calendar, now = new Date()) {
+    const expected = expectedSession(calendar, now);
+    const asOf = data.meta.data_as_of;
+    if (asOf !== expected) {
+      throw new Error(`行情截至 ${asOf}，最近收盘交易日为 ${expected}；等待更新后再查看信号`);
+    }
+    if (!["BUY_NEXT_OPEN", "SELL_NEXT_OPEN", "HOLD", "WAIT"].includes(data.signal.state)) {
+      throw new Error("信号状态无法识别");
+    }
+    if (["BUY_NEXT_OPEN", "SELL_NEXT_OPEN"].includes(data.signal.state)) {
+      let execution = shiftDate(data.signal.as_of, 1);
+      while (!isTradingDay(execution, calendar)) execution = shiftDate(execution, 1);
+      const clock = shanghaiClock(now);
+      if (clock.date > execution ||
+          (clock.date === execution && clock.minutes >= 9 * 60 + 30)) {
+        throw new Error(`该信号的计划执行日为 ${execution}，开盘执行时点已过；等待更新`);
+      }
+    }
+    return expected;
+  }
+
+  function showUnavailable(message) {
+    document.documentElement.dataset.signalAvailability = "unavailable";
+    const status = one(".data-status");
+    if (status) { status.className = "data-status data-status-warning"; status.textContent = message; }
+    const stamp = one(".signal-stamp");
+    if (stamp) { stamp.className = "signal-stamp signal-UNAVAILABLE"; stamp.textContent = "信号暂停"; }
+    setText(".hero-copy h1", "当前信号不可用");
+    setText(".hero-summary", "页面中的行情与回测仅供历史参考，请等待数据校验通过。");
+    setText(".hero-action strong", "暂停显示操作指令");
+    setText(".hero-action small", "加载失败或数据过期时，不依据旧快照操作。");
+    setText(".eyebrow span:last-child", "历史快照 · 当前信号未确认");
+    setText(".quote-header span:last-child", "历史行情");
+    const note = one(".operating-note");
+    if (note) note.hidden = true;
+  }
+
+  async function loadJson(path) {
+    const response = await fetch(`${path}?v=${Date.now()}`, {
+      cache: "no-store", signal: AbortSignal.timeout(15000),
+    });
+    if (!response.ok) throw new Error(`${path}: ${response.status}`);
+    return response.json();
+  }
+
+  let loadedData;
+  let loadedCalendar;
+  function refreshAvailability() {
+    try {
+      const expected = verifyData(loadedData, loadedCalendar);
+      render(loadedData);
+      document.documentElement.dataset.signalAvailability = "available";
+      const status = one(".data-status");
+      if (status) {
+        status.className = "data-status";
+        status.textContent = `行情已核验至 ${expected} · 持仓为模型推演，请核对实际账户`;
+      }
+      const note = one(".operating-note");
+      if (note) note.hidden = false;
+    } catch (error) {
+      showUnavailable(error.message);
+    }
+  }
+
+  showUnavailable("正在加载并校验行情；校验通过后显示当前信号。");
+  Promise.all([loadJson("./dashboard.json"), loadJson("./trading-calendar.json")])
+    .then(([data, calendar]) => {
+      loadedData = data; loadedCalendar = calendar;
+      refreshAvailability();
+      // An open page must stop showing yesterday's action after today's close.
+      setInterval(refreshAvailability, 60000);
     })
-    .then(render)
     .catch((error) => {
-      console.error("自动行情载入失败，页面继续显示上次发布快照。", error);
+      console.error("行情或交易日历载入失败。", error);
+      showUnavailable("数据加载失败；暂停显示当前信号，请刷新页面重试。");
     });
 })();

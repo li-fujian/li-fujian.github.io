@@ -3,8 +3,8 @@
     "version": "kc50-weekly-v1.2",
     "generated_at": "2026-10-02T14:56:08+00:00",
     "data_as_of": "2026-09-30",
-    "last_completed_week": "2026-09-24",
-    "current_week_is_partial": true,
+    "last_completed_week": "2026-09-30",
+    "current_week_is_partial": false,
     "index_refreshed": true,
     "source": "腾讯行情接口（前复权日线）；规则与回测脚本可本地复算",
     "disclaimer": "历史回测不代表未来收益；极端跳空可能使实际亏损超过保护线。"
@@ -18,13 +18,13 @@
     "state": "HOLD",
     "title": "继续持有",
     "summary": "尚未进入大行情模式，也未触发J高位回落；继续按周持有。",
-    "as_of": "2026-09-24",
-    "index_close": 1621.87,
+    "as_of": "2026-09-30",
+    "index_close": 1530.01,
     "j_recent": [
-      -4.0,
       -4.9,
       16.5,
-      29.8
+      29.8,
+      12.7
     ],
     "conditions": [
       {
@@ -33,7 +33,7 @@
       },
       {
         "label": "本周 J 向上拐头",
-        "met": true
+        "met": false
       }
     ],
     "holding": true,
@@ -63,7 +63,7 @@
     "entry": "前3个完整周的 KDJ J 均 < 5，本周 J 向上拐头；下个交易日开盘买入。",
     "exit": "浮盈未达到30%时，周线J > 90后向下拐头即卖出；一旦最高完整周收盘达到买入价上方30%，切换为大行情模式，仅在完整周收盘较持仓后最高周收盘回撤15%时卖出。",
     "stop": "成交后立即设置成本价下方12%的保护止损；不因“底部”取消止损。",
-    "frequency": "每周五收盘后看一次；买、卖各算1次，任一自然年最多6次。",
+    "frequency": "每周最后一个交易日收盘后看一次；买、卖各算1次，任一自然年最多6次。",
     "positioning": "单标的、单仓位、一次买完、一次卖完；不加仓、不做T、不预测消息。",
     "friction_bps_each_side": 10,
     "max_annual_actions": 6
