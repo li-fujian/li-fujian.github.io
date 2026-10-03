@@ -1,0 +1,47 @@
+{
+  "period_end": "2026-06-30",
+  "published_at": "2026-08-28",
+  "verified_at": "2026-10-03",
+  "unit": "人民币千元",
+  "source_title": "美团截至2026年6月30日止三个月及六个月业绩公告（未经审核）",
+  "source_url": "https://media-meituan.todayir.com/20260828164801490412304052_tc.pdf",
+  "local_source": "research/2026-10-03/q2-results.pdf",
+  "quarter": {
+    "revenue": 104643044,
+    "operating_profit": 2691166,
+    "net_profit": 2155222,
+    "adjusted_net_profit": 2523716
+  },
+  "prior_quarter_year": {
+    "revenue": 91490217,
+    "operating_profit": 226350,
+    "net_profit": 365296,
+    "adjusted_net_profit": 1493035
+  },
+  "half_year": {
+    "revenue": 195681950,
+    "operating_profit": -3778645,
+    "net_profit": -4672036,
+    "adjusted_net_profit": -2444270
+  },
+  "segments": {
+    "core_local_revenue": 71530555,
+    "core_local_operating_profit": 5668275,
+    "new_revenue": 33112489,
+    "new_operating_profit": -1738915,
+    "unallocated_operating_profit": -1238194
+  },
+  "pages": {
+    "quarter": 1,
+    "half_year": 2,
+    "segments": 3
+  },
+  "interpretation": "二季度集团及核心本地商业经营利润为正，但上半年集团仍亏损。核心本地商业包含多项业务，不能据此认定外卖单项已经盈利。单季改善尚不能证明盈利持续性，也不是价格反转信号。",
+  "source_sha256": "4e362ced1d39aa341ad89f22a125bc6e572ef452254acf4db4c91fafda5dffa8",
+  "reported_yoy_pct": {
+    "revenue": 14.4,
+    "operating_profit": null,
+    "net_profit": 490.0,
+    "adjusted_net_profit": 69.0
+  }
+}
