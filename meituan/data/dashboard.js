@@ -7,9 +7,9 @@ window.MEITUAN_DASHBOARD = {
     "adjustment": "none",
     "price_basis": "不复权",
     "volume_unit": "股",
-    "generated_at": "2026-10-08T00:51:27.718155+08:00",
-    "as_of": "2026-10-07",
-    "expected_session": "2026-10-07",
+    "generated_at": "2026-10-09T00:50:26.107844+08:00",
+    "as_of": "2026-10-08",
+    "expected_session": "2026-10-08",
     "confirmed_week": "2026-10-02",
     "latest_week_complete": false,
     "weekly_rows": 421,
@@ -17,16 +17,16 @@ window.MEITUAN_DASHBOARD = {
     "note": "以 2026-10-02 已收官周为准。当周K线尚未收官，仅作图展示，不参与周线判断。"
   },
   "quote": {
-    "date": "2026-10-07",
-    "open": 70.1,
-    "close": 70.15,
-    "high": 70.8,
-    "low": 69.8,
-    "volume": 11282430.0,
-    "previous_close": 70.8,
-    "change": -0.65,
-    "change_pct": -0.9181,
-    "source_timestamp": "2026/10/07 16:08:58"
+    "date": "2026-10-08",
+    "open": 70.15,
+    "close": 69.4,
+    "high": 71.2,
+    "low": 69.1,
+    "volume": 22673514.0,
+    "previous_close": 70.15,
+    "change": -0.75,
+    "change_pct": -1.0691,
+    "source_timestamp": "2026/10/08 16:08:24"
   },
   "technical": {
     "weekly": {
@@ -865,12 +865,12 @@ window.MEITUAN_DASHBOARD = {
         "volume": 104970287.0
       },
       {
-        "date": "2026-10-07",
+        "date": "2026-10-08",
         "open": 69.1,
-        "close": 70.15,
+        "close": 69.4,
         "high": 72.15,
         "low": 68.8,
-        "volume": 37510438.0
+        "volume": 60183952.0
       }
     ],
     "indicators": {
@@ -974,7 +974,7 @@ window.MEITUAN_DASHBOARD = {
         78.51,
         75.84,
         74.38,
-        72.06
+        71.91
       ],
       "ma10": [
         174.99,
@@ -1076,7 +1076,7 @@ window.MEITUAN_DASHBOARD = {
         83.48,
         82.28,
         80.63,
-        78.395
+        78.32
       ],
       "ma20": [
         143.94,
@@ -1178,7 +1178,7 @@ window.MEITUAN_DASHBOARD = {
         80.0275,
         79.4075,
         78.7825,
-        78.2225
+        78.185
       ],
       "ma30": [
         134.383333,
@@ -1280,7 +1280,7 @@ window.MEITUAN_DASHBOARD = {
         80.653333,
         80.336667,
         80.115,
-        79.921667
+        79.896667
       ],
       "ma60": [
         112.771667,
@@ -1382,7 +1382,7 @@ window.MEITUAN_DASHBOARD = {
         91.271667,
         90.429167,
         89.585833,
-        88.726667
+        88.714167
       ],
       "dif": [
         21.311692,
@@ -1484,7 +1484,7 @@ window.MEITUAN_DASHBOARD = {
         -2.407689,
         -2.915587,
         -3.395955,
-        -3.737601
+        -3.79743
       ],
       "dea": [
         17.573682,
@@ -1586,7 +1586,7 @@ window.MEITUAN_DASHBOARD = {
         -2.397641,
         -2.50123,
         -2.680175,
-        -2.89166
+        -2.903626
       ],
       "hist": [
         7.476021,
@@ -1688,7 +1688,7 @@ window.MEITUAN_DASHBOARD = {
         -0.020096,
         -0.828713,
         -1.43156,
-        -1.691881
+        -1.787607
       ]
     }
   },
@@ -1784,22 +1784,22 @@ window.MEITUAN_DASHBOARD = {
       {
         "name": "tencent_day.json",
         "url": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk03690,day,,,640,",
-        "sha256": "8e20a2259f357fad4b48d2448a4257f5d6e68f96786258ca434a720c59abfd4c"
+        "sha256": "d74b0ce802aae217befd56b2c68cceccacbf5856ee8cb81c84e09956ced0c9ae"
       },
       {
         "name": "tencent_week.json",
         "url": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk03690,week,,,800,",
-        "sha256": "9f69bf3d4d6e090bcf20d00e0ca577f31651a01153571538f1a262b915886beb"
+        "sha256": "8410128adbc4e28fd492e31e231da93a7d8d5a888df5471a66d90164db672f8d"
       },
       {
         "name": "tencent_quote.txt",
         "url": "https://qt.gtimg.cn/q=hk03690",
-        "sha256": "b6dd45dd59655b410324f8042a1958006c84184ac6188ba648f3e68a15fca502"
+        "sha256": "b2338ab92ee650d4279ef8ac9c936940b62425dd63c70e3fb454485334a710ee"
       },
       {
         "name": "sina_quote.txt",
         "url": "https://hq.sinajs.cn/list=rt_hk03690",
-        "sha256": "29ff1eaa202176179093ee9b276e7e4db1c2cc238a511bbc2d2d10fb81bfb660"
+        "sha256": "66b64b05818b68d4c39b8277f6756fef21fe45c68aa24dbd770f44b1aba038d7"
       }
     ],
     "limitations": [
