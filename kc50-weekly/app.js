@@ -125,7 +125,8 @@
     ].filter((value) => value != null);
     let low = Math.min(...values);
     let high = Math.max(...values);
-    const pad = Math.max((high - low) * 0.12, 1);
+    // Leaves room for buy badges under the lowest wick and sell badges over the highest.
+    const pad = Math.max((high - low) * 0.09, 1);
     low -= pad;
     high += pad;
     const xOf = (index) =>
@@ -210,16 +211,16 @@
 
     marks.replaceChildren();
     for (const marker of markers) {
-      const label = marker.kind === "buy" ? "B" : "S";
+      const buy = marker.kind === "buy";
+      const week = series[marker.index];
       const mark = document.createElement("span");
       mark.className = `chart-mark chart-mark-${marker.kind}`;
       mark.style.left = `${xOf(marker.index)}%`;
-      mark.style.top = `${yOf(marker.price)}%`;
-      mark.title = `${label} ${marker.date} · ${number(marker.price, 2)}`;
-      if (xOf(marker.index) > 90) mark.classList.add("chart-mark-left");
-      const text = document.createElement("b");
-      text.textContent = label;
-      mark.append(text);
+      mark.style.top = `${yOf(buy ? week.low : week.high)}%`;
+      const badge = document.createElement("b");
+      badge.textContent = buy ? "B" : "S";
+      badge.title = `${buy ? "买入" : "卖出"} ${marker.date} · ${number(marker.price, 2)}`;
+      mark.append(badge);
       marks.append(mark);
     }
 
@@ -490,6 +491,18 @@
     }
   }
 
+  function setupMarkToggle() {
+    const toggle = one(".mark-toggle");
+    const plot = one(".line-plot");
+    if (!toggle || !plot) return;
+    toggle.addEventListener("click", () => {
+      const hidden = plot.classList.toggle("marks-off");
+      toggle.setAttribute("aria-pressed", String(!hidden));
+      toggle.textContent = hidden ? "显示买卖点" : "隐藏买卖点";
+    });
+  }
+
+  setupMarkToggle();
   showUnavailable("正在加载并校验行情；校验通过后显示当前信号。");
   Promise.all([loadJson("./dashboard.json"), loadJson("./trading-calendar.json")])
     .then(([data, calendar]) => {
