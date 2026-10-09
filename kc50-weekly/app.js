@@ -70,29 +70,169 @@
     });
   }
 
-  function updateChart(data, isPartial) {
-    const root = one(".bar-chart");
-    if (!root || !data.length) return;
-    root.replaceChildren(
-      ...data.map((week, index) => {
-        const bar = document.createElement("div");
-        bar.className =
-          isPartial && index === data.length - 1
-            ? "week-bar week-bar-current"
-            : "week-bar";
-        bar.title = `${week.date} · ${number(week.close, 2)}`;
-        const fill = document.createElement("i");
-        fill.style.height = `${week.height_pct}%`;
-        bar.append(fill);
-        return bar;
-      }),
-    );
-    const axis = all(".chart-axis > *");
-    if (axis.length >= 3) {
-      axis[0].textContent = data[0].date;
-      axis[1].textContent = number(data.at(-1).close);
-      axis[2].textContent = data.at(-1).date;
+  function weekMonday(value) {
+    const day = new Date(`${value}T00:00:00Z`);
+    const weekday = day.getUTCDay();
+    day.setUTCDate(day.getUTCDate() - (weekday === 0 ? 6 : weekday - 1));
+    return day.toISOString().slice(0, 10);
+  }
+
+  function withAverages(data, isPartial) {
+    if (data.some((week) => Object.hasOwn(week, "ma5"))) return data;
+    const usable = isPartial ? data.length - 1 : data.length;
+    const mean = (end, window) => {
+      if (end >= usable || end < window - 1) return null;
+      let sum = 0;
+      for (let index = end - window + 1; index <= end; index += 1) sum += data[index].close;
+      return sum / window;
+    };
+    return data.map((week, index) => ({
+      ...week,
+      ma5: mean(index, 5),
+      ma10: mean(index, 10),
+      ma20: mean(index, 20),
+    }));
+  }
+
+  function chartMarkers(data, trades) {
+    const markers = [];
+    for (const trade of trades) {
+      const events = [{ kind: "buy", date: trade.buy_date, price: trade.buy_price }];
+      if (trade.status === "closed" && trade.sell_date) {
+        events.push({ kind: "sell", date: trade.sell_date, price: trade.sell_price });
+      }
+      for (const event of events) {
+        const index = data.findIndex(
+          (week) => weekMonday(week.date) <= event.date && event.date <= week.date,
+        );
+        if (index >= 0) markers.push({ ...event, index });
+      }
     }
+    return markers;
+  }
+
+  function updateChart(data, trades, isPartial) {
+    const svg = one(".line-svg");
+    const marks = one(".line-marks");
+    if (!svg || !marks || !data.length) return;
+    const series = withAverages(data, isPartial);
+    const markers = chartMarkers(series, trades);
+    const values = [
+      ...series.flatMap((week) => [
+        week.open, week.high, week.low, week.close, week.ma5, week.ma10, week.ma20,
+      ]),
+      ...markers.map((marker) => marker.price),
+    ].filter((value) => value != null);
+    let low = Math.min(...values);
+    let high = Math.max(...values);
+    const pad = Math.max((high - low) * 0.12, 1);
+    low -= pad;
+    high += pad;
+    const xOf = (index) =>
+      series.length === 1 ? 50 : 2 + (index / (series.length - 1)) * 96;
+    const yOf = (value) => ((high - value) / (high - low)) * 100;
+    const pathOf = (key) => {
+      let drawing = "";
+      let started = false;
+      series.forEach((week, index) => {
+        if (week[key] == null) {
+          started = false;
+          return;
+        }
+        drawing += `${started ? "L" : "M"}${xOf(index).toFixed(2)},${yOf(week[key]).toFixed(2)}`;
+        started = true;
+      });
+      return drawing;
+    };
+    const svgNs = "http://www.w3.org/2000/svg";
+    const bodyWidth = Math.min(1.35, (96 / series.length) * 0.62);
+    svg.replaceChildren();
+    for (let step = 0; step <= 4; step += 1) {
+      const line = document.createElementNS(svgNs, "line");
+      const y = (step / 4) * 100;
+      line.setAttribute("x1", "0");
+      line.setAttribute("x2", "100");
+      line.setAttribute("y1", String(y));
+      line.setAttribute("y2", String(y));
+      line.setAttribute("stroke", "rgba(20,40,32,0.12)");
+      line.setAttribute("stroke-width", "1");
+      line.setAttribute("vector-effect", "non-scaling-stroke");
+      svg.append(line);
+    }
+    series.forEach((week, index) => {
+      if (week.open == null || week.high == null || week.low == null) return;
+      const rising = week.close >= week.open;
+      const color = rising ? "#c94337" : "#258367";
+      const partial = isPartial && index === series.length - 1;
+      const x = xOf(index);
+      const group = document.createElementNS(svgNs, "g");
+      const title = document.createElementNS(svgNs, "title");
+      title.textContent = `${week.date} 开${number(week.open, 2)} 高${number(week.high, 2)} 低${number(week.low, 2)} 收${number(week.close, 2)}${partial ? " · 本周形成中" : ""}`;
+      const wick = document.createElementNS(svgNs, "line");
+      wick.setAttribute("x1", x.toFixed(2));
+      wick.setAttribute("x2", x.toFixed(2));
+      wick.setAttribute("y1", yOf(week.high).toFixed(2));
+      wick.setAttribute("y2", yOf(week.low).toFixed(2));
+      wick.setAttribute("stroke", partial ? "#d6a64f" : color);
+      wick.setAttribute("stroke-width", partial ? "1.6" : "1");
+      wick.setAttribute("vector-effect", "non-scaling-stroke");
+      const body = document.createElementNS(svgNs, "rect");
+      const top = Math.min(yOf(week.open), yOf(week.close));
+      const height = Math.max(Math.abs(yOf(week.close) - yOf(week.open)), 0.7);
+      body.setAttribute("x", (x - bodyWidth / 2).toFixed(2));
+      body.setAttribute("y", top.toFixed(2));
+      body.setAttribute("width", bodyWidth.toFixed(2));
+      body.setAttribute("height", height.toFixed(2));
+      body.setAttribute("fill", color);
+      body.setAttribute("stroke", partial ? "#d6a64f" : color);
+      body.setAttribute("stroke-width", partial ? "1.6" : "0.6");
+      body.setAttribute("vector-effect", "non-scaling-stroke");
+      group.append(title, wick, body);
+      svg.append(group);
+    });
+    for (const [key, color, width] of [
+      ["ma20", "#66746e", "1.4"],
+      ["ma10", "#8d5a32", "1.6"],
+      ["ma5", "#d6a64f", "1.8"],
+    ]) {
+      const drawing = pathOf(key);
+      if (!drawing) continue;
+      const path = document.createElementNS(svgNs, "path");
+      path.setAttribute("d", drawing);
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", color);
+      path.setAttribute("stroke-width", width);
+      path.setAttribute("stroke-linejoin", "round");
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("vector-effect", "non-scaling-stroke");
+      svg.append(path);
+    }
+
+    marks.replaceChildren();
+    for (const marker of markers) {
+      const label = marker.kind === "buy" ? "B" : "S";
+      const mark = document.createElement("span");
+      mark.className = `chart-mark chart-mark-${marker.kind}`;
+      mark.style.left = `${xOf(marker.index)}%`;
+      mark.style.top = `${yOf(marker.price)}%`;
+      mark.title = `${label} ${marker.date} · ${number(marker.price, 2)}`;
+      if (xOf(marker.index) > 90) mark.classList.add("chart-mark-left");
+      const text = document.createElement("b");
+      text.textContent = label;
+      mark.append(text);
+      marks.append(mark);
+    }
+
+    const axis = all(".chart-axis > *");
+    if (axis.length >= 2) {
+      axis[0].textContent = series[0].date;
+      axis[axis.length - 1].textContent = series.at(-1).date;
+      if (axis.length >= 3) {
+        axis[1].textContent = series[Math.floor((series.length - 1) / 2)].date;
+      }
+    }
+    const forming = one(".swatch-now");
+    if (forming && forming.parentElement) forming.parentElement.hidden = !isPartial;
   }
 
   function updateTrades(trades) {
@@ -230,12 +370,12 @@
 
     updateComparison(backtest);
     setText(".comparison-period", `对比区间 ${backtest.period}`);
-    updateChart(recent_weekly, meta.current_week_is_partial);
+    updateChart(recent_weekly, full.trades, meta.current_week_is_partial);
     setText(
       ".rhythm-panel .section-title p",
       meta.current_week_is_partial
-        ? "只看节奏，不用盯盘。最后一根仍是本周形成中的快照。"
-        : "只看节奏，不用盯盘。图中均为已结束交易周。",
+        ? "只看节奏，不用盯盘。均线只用完整周收盘，琥珀边是本周形成中的K线。"
+        : "只看节奏，不用盯盘。K线与均线都来自已结束的交易周。",
     );
     updateTrades(full.trades);
     setText("footer strong", strategy.name);

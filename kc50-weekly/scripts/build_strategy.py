@@ -109,6 +109,30 @@ def round2(value: float) -> float:
     return round(value + 1e-10, 2)
 
 
+def chart_weeks(weekly: list[WeeklyBar]) -> tuple[int, list[WeeklyBar]]:
+    """Keep the shortest tail that still spans a full year and 52 bars."""
+    last = datetime.strptime(weekly[-1].date, "%Y-%m-%d").date()
+    start = 0
+    for index in range(len(weekly) - 1, -1, -1):
+        first = datetime.strptime(weekly[index].date, "%Y-%m-%d").date()
+        if (last - first).days >= 365 and len(weekly) - index >= 52:
+            start = index
+            break
+    return start, weekly[start:]
+
+
+def trailing_means(values: list[float], window: int) -> list[float | None]:
+    totals: list[float | None] = [None] * len(values)
+    running = 0.0
+    for index, value in enumerate(values):
+        running += value
+        if index >= window:
+            running -= values[index - window]
+        if index >= window - 1:
+            totals[index] = round2(running / window)
+    return totals
+
+
 def fetch_json(url: str) -> dict:
     request = urllib.request.Request(
         url,
@@ -727,19 +751,30 @@ def build_dashboard(refresh: bool) -> dict:
         index_daily, weekly, complete_count, j_values, full
     )
 
-    latest_weekly = weekly[-26:]
-    close_values = [bar.close for bar in latest_weekly]
-    low_close = min(close_values)
-    high_close = max(close_values)
-    spread = max(high_close - low_close, 1.0)
-    spark = [
-        {
+    completed_closes = [bar.close for bar in weekly[:complete_count]]
+    moving_averages = {
+        window: trailing_means(completed_closes, window) for window in (5, 10, 20)
+    }
+    visible_start, visible = chart_weeks(weekly)
+    spark = []
+    for offset, bar in enumerate(visible):
+        index = visible_start + offset
+        point = {
             "date": bar.date,
+            "open": round2(bar.open),
+            "high": round2(bar.high),
+            "low": round2(bar.low),
             "close": round2(bar.close),
-            "height_pct": round(18 + (bar.close - low_close) / spread * 82, 1),
         }
-        for bar in latest_weekly
-    ]
+        if index < complete_count:
+            point["ma5"] = moving_averages[5][index]
+            point["ma10"] = moving_averages[10][index]
+            point["ma20"] = moving_averages[20][index]
+        else:
+            point["ma5"] = None
+            point["ma10"] = None
+            point["ma20"] = None
+        spark.append(point)
 
     payload = {
         "meta": {
