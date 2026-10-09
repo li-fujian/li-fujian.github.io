@@ -1,11 +1,11 @@
 {
   "meta": {
     "version": "kc50-weekly-v1.3",
-    "generated_at": "2026-10-09T06:29:35+00:00",
+    "generated_at": "2026-10-09T06:49:53+00:00",
     "data_as_of": "2026-10-08",
     "last_completed_week": "2026-09-30",
     "current_week_is_partial": true,
-    "index_refreshed": false,
+    "index_refreshed": true,
     "source": "腾讯行情接口（前复权日线）；规则与回测脚本可本地复算",
     "disclaimer": "历史回测不代表未来收益；极端跳空可能使实际亏损超过保护线。"
   },
