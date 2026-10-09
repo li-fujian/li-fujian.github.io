@@ -10,10 +10,13 @@ Execution contract:
   - Entry and discretionary exit are all-in/all-out.
   - Each buy or sell is one action; no more than six actions per calendar year.
   - A 12% protective stop is assumed to be placed immediately after entry.
+  - Until the weekly MA5 turns up, a completed weekly close more than 2% below
+    the entry exits at the next open.
   - Backtests include 10 bps friction on each side and adverse opening gaps.
 
 The strategy intentionally stays small: one oscillator, one protective stop,
-and a two-stage profit-taking rule that lets exceptional trends run.
+one breakeven guard, and a two-stage profit-taking rule that lets exceptional
+trends run.
 """
 
 from __future__ import annotations
@@ -45,13 +48,14 @@ INDEX_URL = (
     "?param=sh000688,day,,,2000,qfq"
 )
 
-# Frozen v1.2 parameters. Change only with a new version and a fresh audit.
+# Frozen v1.3 parameters (2026-10-09). Change only with a new version and a fresh audit.
 ENTRY_J = 5.0
 ENTRY_WEEKS = 3
 EXIT_J = 90.0
 RUNNER_ACTIVATION = 0.30
 RUNNER_TRAIL = 0.15
 PROTECTIVE_STOP = 0.12
+BREAKEVEN_BUFFER = 0.02
 FRICTION = 0.001
 MAX_ANNUAL_ACTIONS = 6
 
@@ -320,6 +324,33 @@ def runner_mode_active(
     )
 
 
+def ma5_turned_up_since(ma5: list[float | None], signal_idx: int, idx: int) -> bool:
+    return any(
+        ma5[k] is not None and ma5[k - 1] is not None and ma5[k] > ma5[k - 1]
+        for k in range(max(signal_idx, 1), idx + 1)
+    )
+
+
+def breakeven_exit(
+    weekly: list[WeeklyBar],
+    ma5: list[float | None],
+    signal_idx: int,
+    idx: int,
+    entry_raw_fill: float,
+    *,
+    buffer: float = BREAKEVEN_BUFFER,
+) -> bool:
+    """Exit a rebound that falls back below cost before the weekly MA5 turns up."""
+    if ma5_turned_up_since(ma5, signal_idx, idx):
+        return False
+    return weekly[idx].close < entry_raw_fill * (1.0 - buffer)
+
+
+def signal_week_index(weekly: list[WeeklyBar], daily: list[DailyBar], buy_date: str) -> int:
+    buy_day = next(i for i, bar in enumerate(daily) if bar.date == buy_date)
+    return next(i for i, bar in enumerate(weekly) if bar.daily_end == buy_day - 1)
+
+
 def discretionary_exit_reason(
     weekly: list[WeeklyBar],
     j_values: list[float],
@@ -327,10 +358,14 @@ def discretionary_exit_reason(
     *,
     entry_raw_fill: float,
     peak_weekly_close: float,
+    ma5: list[float | None],
+    signal_idx: int,
     exit_j: float = EXIT_J,
     runner_activation: float = RUNNER_ACTIVATION,
     runner_trail: float = RUNNER_TRAIL,
 ) -> str | None:
+    if breakeven_exit(weekly, ma5, signal_idx, idx, entry_raw_fill):
+        return f"保本离场：MA5拐头前周收盘跌破成本{BREAKEVEN_BUFFER * 100:g}%"
     if runner_mode_active(
         entry_raw_fill,
         peak_weekly_close,
@@ -379,6 +414,7 @@ def run_backtest(
     completed_count = completed_week_count(history, weekly)
     kdj = compute_kdj(weekly)
     j_values = [item[2] for item in kdj]
+    ma5 = trailing_means([bar.close for bar in weekly], 5)
     week_end = _week_end_map(weekly, completed_count)
 
     cash = 1.0
@@ -388,6 +424,8 @@ def run_backtest(
     stop_price = 0.0
     entry_day_idx = -1
     peak_weekly_close = 0.0
+    signal_idx = -1
+    pending_signal_idx = -1
     pending: str | None = None
     pending_reason = ""
     trades: list[Trade] = []
@@ -432,6 +470,7 @@ def run_backtest(
                 stop_price = raw_fill * (1.0 - protective_stop)
                 entry_day_idx = day_idx
                 peak_weekly_close = raw_fill
+                signal_idx = pending_signal_idx
                 active_trade = Trade(
                     buy_date=bar.date,
                     buy_price=round(raw_fill, 3),
@@ -467,6 +506,8 @@ def run_backtest(
                 weekly_idx,
                 entry_raw_fill=entry_raw_fill,
                 peak_weekly_close=peak_weekly_close,
+                ma5=ma5,
+                signal_idx=signal_idx,
                 exit_j=exit_j,
             )
             if reason:
@@ -480,6 +521,7 @@ def run_backtest(
             entry_weeks=entry_weeks,
         ):
             pending = "buy"
+            pending_signal_idx = weekly_idx
 
     if units and active_trade is not None:
         last = history[last_day_idx]
@@ -606,6 +648,13 @@ def current_signal_payload(
         open_trade
         and runner_mode_active(open_trade.buy_price, peak_weekly_close)
     )
+    ma5 = trailing_means([bar.close for bar in weekly[:completed_count]], 5)
+    signal_idx = (
+        signal_week_index(weekly, daily, open_trade.buy_date) if open_trade else -1
+    )
+    breakeven_guard = bool(
+        open_trade and not ma5_turned_up_since(ma5, signal_idx, latest_idx)
+    )
     exit_reason = (
         discretionary_exit_reason(
             weekly,
@@ -613,9 +662,14 @@ def current_signal_payload(
             latest_idx,
             entry_raw_fill=open_trade.buy_price,
             peak_weekly_close=peak_weekly_close,
+            ma5=ma5,
+            signal_idx=signal_idx,
         )
         if open_trade
         else None
+    )
+    breakeven_level = (
+        round2(open_trade.buy_price * (1.0 - BREAKEVEN_BUFFER)) if open_trade else None
     )
     sell = exit_reason is not None
     current_year_actions = full_metrics.annual_actions.get(
@@ -629,11 +683,15 @@ def current_signal_payload(
     elif is_holding:
         state = "HOLD"
         title = "继续持有"
-        summary = (
-            "浮盈已达到30%，大行情模式生效；只有完整周收盘从峰值回撤15%才退出。"
-            if runner_mode
-            else "尚未进入大行情模式，也未触发J高位回落；继续按周持有。"
-        )
+        if runner_mode:
+            summary = "浮盈已达到30%，大行情模式生效；只有完整周收盘从峰值回撤15%才退出。"
+        elif breakeven_guard:
+            summary = (
+                f"周线MA5尚未拐头向上；完整周收盘若低于{breakeven_level:,.1f}"
+                "（买入价下方2%），下一交易日开盘卖出。"
+            )
+        else:
+            summary = "尚未进入大行情模式，也未触发J高位回落；继续按周持有。"
     elif buy and current_year_actions <= MAX_ANNUAL_ACTIONS - 2:
         state = "BUY_NEXT_OPEN"
         title = "下个交易日开盘买入"
@@ -665,8 +723,12 @@ def current_signal_payload(
             },
         ],
         "holding": is_holding,
-        "exit_mode": "RUNNER" if runner_mode else "STANDARD",
-        "exit_mode_label": "大行情模式" if runner_mode else "标准模式",
+        "exit_mode": "RUNNER" if runner_mode else "BREAKEVEN" if breakeven_guard else "STANDARD",
+        "exit_mode_label": (
+            "大行情模式" if runner_mode else "保本观察期" if breakeven_guard else "标准模式"
+        ),
+        "breakeven_guard": breakeven_guard,
+        "breakeven_exit_level": breakeven_level if breakeven_guard else None,
         "runner_activation_pct": round2(RUNNER_ACTIVATION * 100.0),
         "runner_trail_pct": round2(RUNNER_TRAIL * 100.0),
         "peak_weekly_close": round2(peak_weekly_close) if open_trade else None,
@@ -792,7 +854,7 @@ def build_dashboard(refresh: bool) -> dict:
 
     payload = {
         "meta": {
-            "version": "kc50-weekly-v1.2",
+            "version": "kc50-weekly-v1.3",
             "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "data_as_of": index_daily[-1].date,
             "last_completed_week": weekly[complete_count - 1].date,
@@ -809,7 +871,7 @@ def build_dashboard(refresh: bool) -> dict:
         "signal": signal,
         "strategy": {
             "name": "三周深潜 · 大行情模式",
-            "version": "v1.2",
+            "version": "v1.3",
             "entry": (
                 "前3个完整周的 KDJ J 均 < 5，本周 J 向上拐头；"
                 "下个交易日开盘买入。"
@@ -819,7 +881,10 @@ def build_dashboard(refresh: bool) -> dict:
                 "一旦最高完整周收盘达到买入价上方30%，切换为大行情模式，"
                 "仅在完整周收盘较持仓后最高周收盘回撤15%时卖出。"
             ),
-            "stop": "成交后立即设置成本价下方12%的保护止损；不因“底部”取消止损。",
+            "stop": (
+                "成交后立即设置成本价下方12%的保护止损；周线MA5拐头向上之前，"
+                "完整周收盘低于买入价2%即下个交易日开盘卖出。"
+            ),
             "frequency": "每周最后一个交易日收盘后看一次；买、卖各算1次，任一自然年最多6次。",
             "positioning": "单标的、单仓位、一次买完、一次卖完；不加仓、不做T、不预测消息。",
             "friction_bps_each_side": int(FRICTION * 10000),
@@ -829,8 +894,8 @@ def build_dashboard(refresh: bool) -> dict:
             "period": f"2020-01-01 ~ {end_date}",
             "method": (
                 "完整周收盘产生信号、下一交易日开盘成交；双边各计10bp摩擦；"
-                "12%保护止损按日内触价或开盘跳空成交；浮盈达到30%后改用"
-                "15%周线收盘移动止盈。"
+                "12%保护止损按日内触价或开盘跳空成交；周线MA5拐头前周收盘跌破"
+                "成本2%则下一交易日开盘离场；浮盈达到30%后改用15%周线收盘移动止盈。"
             ),
             "full": metrics_payload(full, include_curve=True),
             "buy_hold": buy_and_hold_metrics(
