@@ -1,7 +1,7 @@
 import importlib.util
 import sys
 import unittest
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 sys.dont_write_bytecode = True
@@ -36,6 +36,22 @@ class CompletedWeekTests(unittest.TestCase):
 
     def test_empty_input(self):
         self.assertEqual(strategy.completed_week_count([], []), 0)
+
+    def test_drop_a_session_before_the_shanghai_close(self):
+        daily = [
+            strategy.DailyBar("2026-10-08", 1, 2, 3, 0.5, 1),
+            strategy.DailyBar("2026-10-09", 1, 2, 3, 0.5, 1),
+        ]
+        morning = datetime(2026, 10, 9, 11, 50, tzinfo=strategy.SHANGHAI_TZ)
+        closed = datetime(2026, 10, 9, 15, 0, tzinfo=strategy.SHANGHAI_TZ)
+        self.assertEqual(
+            [bar.date for bar in strategy.closed_daily_bars(daily, morning)],
+            ["2026-10-08"],
+        )
+        self.assertEqual(
+            [bar.date for bar in strategy.closed_daily_bars(daily, closed)],
+            ["2026-10-08", "2026-10-09"],
+        )
 
 
 if __name__ == "__main__":

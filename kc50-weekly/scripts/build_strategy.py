@@ -25,7 +25,7 @@ import statistics
 import urllib.request
 from collections import defaultdict
 from dataclasses import asdict, dataclass
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
 from typing import Iterable
 
@@ -36,6 +36,7 @@ PUBLIC_DATA_DIR = ROOT / "public" / "data"
 
 INDEX_SYMBOL = "sh000688"
 SHANGHAI_TZ = timezone(timedelta(hours=8))
+SESSION_CLOSE = time(15, 0)
 TRADING_CALENDAR = json.loads(
     (ROOT / "trading-calendar.json").read_text(encoding="utf-8")
 )
@@ -216,6 +217,19 @@ def aggregate_weekly(daily: list[DailyBar]) -> list[WeeklyBar]:
             )
         )
     return weekly
+
+
+def closed_daily_bars(
+    daily: list[DailyBar], now: datetime | None = None
+) -> list[DailyBar]:
+    """Ignore a session that has not reached the 15:00 Shanghai close."""
+    if not daily:
+        return daily
+    clock = now.astimezone(SHANGHAI_TZ) if now else datetime.now(SHANGHAI_TZ)
+    last = datetime.strptime(daily[-1].date, "%Y-%m-%d").date()
+    if last > clock.date() or (last == clock.date() and clock.time() < SESSION_CLOSE):
+        return daily[:-1]
+    return daily
 
 
 def completed_week_count(
@@ -737,7 +751,7 @@ def run_research(daily: list[DailyBar]) -> None:
 
 def build_dashboard(refresh: bool) -> dict:
     index_raw, index_refreshed = load_or_refresh(INDEX_SYMBOL, INDEX_URL, refresh)
-    index_daily = parse_daily(index_raw, INDEX_SYMBOL)
+    index_daily = closed_daily_bars(parse_daily(index_raw, INDEX_SYMBOL))
 
     end_date = index_daily[-1].date
     full = run_backtest(
