@@ -276,6 +276,14 @@
     });
   }
 
+  function updateWatchNote(watch) {
+    const note = one(".watch-note");
+    if (!note) return;
+    note.hidden = !watch;
+    note.className = watch?.level === "alert" ? "watch-note watch-note-alert" : "watch-note";
+    note.textContent = watch ? watch.message : "";
+  }
+
   function render(data) {
     const { meta, instrument, signal, strategy, backtest, recent_weekly } = data;
     const full = backtest.full;
@@ -324,6 +332,7 @@
       ".indicator-strip strong",
       signal.j_recent.map((value) => number(value)).join(" → "),
     );
+    updateWatchNote(signal.missed_rally_watch);
     const ruleNodes = all(".rules li p");
     [strategy.entry, strategy.stop, strategy.exit].forEach((rule, index) => {
       if (ruleNodes[index]) ruleNodes[index].textContent = rule;
@@ -462,6 +471,7 @@
     setText(".quote-header span:last-child", "历史行情");
     const note = one(".operating-note");
     if (note) note.hidden = true;
+    updateWatchNote(null);
   }
 
   async function loadJson(path) {

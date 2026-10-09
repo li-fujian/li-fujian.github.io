@@ -56,5 +56,38 @@ class BreakevenGuardTests(unittest.TestCase):
         self.assertEqual(strategy.signal_week_index(weekly, daily, "2026-09-21"), 0)
 
 
+class MissedRallyWatchTests(unittest.TestCase):
+    # Strict golden cross (MA5 and MA10 both rising) completes at index 20.
+    closes = [100] * 12 + [96, 92, 88, 84, 80, 86, 94, 100, 102, 104, 116]
+
+    def test_strict_cross_while_flat_reports_decline_and_rebound(self):
+        watch = strategy.missed_rally_watch(weeks(self.closes[:22]), False, None)
+        self.assertEqual(watch["cross_week"], "2026-01-21")
+        self.assertEqual(watch["decline_pct"], -20.0)
+        self.assertEqual(watch["rise_from_low_pct"], 27.5)
+        self.assertEqual(watch["since_cross_pct"], 1.96)
+        self.assertEqual(watch["level"], "watch")
+        self.assertTrue(watch["message"].startswith("观察提示，不是买点"))
+
+    def test_more_than_ten_percent_after_the_cross_escalates(self):
+        watch = strategy.missed_rally_watch(weeks(self.closes), False, None)
+        self.assertEqual(watch["level"], "alert")
+
+    def test_silent_while_holding(self):
+        self.assertIsNone(strategy.missed_rally_watch(weeks(self.closes), True, None))
+
+    def test_cross_formed_before_the_last_exit_was_ridden_not_missed(self):
+        self.assertIsNone(strategy.missed_rally_watch(weeks(self.closes), False, "2026-01-22"))
+        self.assertIsNotNone(strategy.missed_rally_watch(weeks(self.closes), False, "2026-01-21"))
+
+    def test_cross_with_flat_ma10_is_not_strict(self):
+        closes = [100] * 12 + [96, 92, 88, 84, 80, 84, 88, 92, 96, 100, 104]
+        self.assertIsNone(strategy.missed_rally_watch(weeks(closes), False, None))
+
+    def test_silent_once_ma5_falls_back_below_ma10(self):
+        closes = self.closes + [80, 70, 70]
+        self.assertIsNone(strategy.missed_rally_watch(weeks(closes), False, None))
+
+
 if __name__ == "__main__":
     unittest.main()

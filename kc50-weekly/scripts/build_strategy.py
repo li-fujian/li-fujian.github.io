@@ -346,6 +346,64 @@ def breakeven_exit(
     return weekly[idx].close < entry_raw_fill * (1.0 - buffer)
 
 
+MISSED_RALLY_ALERT = 0.10
+
+
+def missed_rally_watch(
+    weekly: list[WeeklyBar], holding: bool, last_exit: str | None
+) -> dict | None:
+    """Observation only: weekly MA5 and MA10 both turned up through a golden cross while flat.
+
+    A cross that formed before the last exit was ridden, not missed.
+    """
+    if holding or len(weekly) < 12:
+        return None
+    closes = [bar.close for bar in weekly]
+    ma5 = trailing_means(closes, 5)
+    ma10 = trailing_means(closes, 10)
+    above = lambda k: ma5[k] is not None and ma10[k] is not None and ma5[k] > ma10[k]
+    last = len(weekly) - 1
+    if not above(last):
+        return None
+    cross = last
+    while cross > 0 and above(cross - 1):
+        cross -= 1
+    if ma10[cross - 1] is None or not (
+        ma5[cross] > ma5[cross - 1] and ma10[cross] > ma10[cross - 1]
+    ):
+        return None
+    if last_exit and weekly[cross].date < last_exit:
+        return None
+    below = 0
+    while cross - below - 1 >= 0 and ma10[cross - below - 1] is not None and not above(cross - below - 1):
+        below += 1
+    low = min(range(cross - below, cross + 1), key=lambda k: closes[k])
+    high = max(closes[max(0, cross - 26) : low + 1])
+    decline = (closes[low] / high - 1.0) * 100.0
+    from_low = (closes[cross] / closes[low] - 1.0) * 100.0
+    since = (closes[last] / closes[cross] - 1.0) * 100.0
+    alert = since > MISSED_RALLY_ALERT * 100.0
+    message = (
+        f"观察提示，不是买点：空仓时周线MA5、MA10同时向上并金叉（{weekly[cross].date}）。"
+        f"金叉前MA5在MA10下方{below}周，指数先跌{abs(decline):.1f}%，"
+        f"金叉时离低点已涨{from_low:.1f}%，金叉后至今{since:+.1f}%。"
+    )
+    message += (
+        "金叉后涨幅已超过10%，历史上没有出现过，这次可能真的错过了一段行情。"
+        if alert
+        else "历史上同口径空仓只出现过1次（2021-01-22），金叉后没再走高，主策略随后在低约15%处买入。"
+    )
+    return {
+        "cross_week": weekly[cross].date,
+        "weeks_below": below,
+        "decline_pct": round2(decline),
+        "rise_from_low_pct": round2(from_low),
+        "since_cross_pct": round2(since),
+        "level": "alert" if alert else "watch",
+        "message": message,
+    }
+
+
 def signal_week_index(weekly: list[WeeklyBar], daily: list[DailyBar], buy_date: str) -> int:
     buy_day = next(i for i, bar in enumerate(daily) if bar.date == buy_date)
     return next(i for i, bar in enumerate(weekly) if bar.daily_end == buy_day - 1)
@@ -728,6 +786,14 @@ def current_signal_payload(
             "大行情模式" if runner_mode else "保本观察期" if breakeven_guard else "标准模式"
         ),
         "breakeven_guard": breakeven_guard,
+        "missed_rally_watch": missed_rally_watch(
+            weekly[:completed_count],
+            is_holding,
+            next(
+                (t.sell_date for t in reversed(full_metrics.trades) if t.status == "closed"),
+                None,
+            ),
+        ),
         "breakeven_exit_level": breakeven_level if breakeven_guard else None,
         "runner_activation_pct": round2(RUNNER_ACTIVATION * 100.0),
         "runner_trail_pct": round2(RUNNER_TRAIL * 100.0),

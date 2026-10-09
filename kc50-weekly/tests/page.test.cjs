@@ -25,7 +25,7 @@ class Element {
 function page(bootstrap = false, overrides = {}) {
   const selectors = new Map();
   for (const selector of [".data-status", ".signal-stamp", ".hero-copy h1",
-    ".hero-summary", ".hero-action strong", ".hero-action small", ".operating-note",
+    ".hero-summary", ".hero-action strong", ".hero-action small", ".operating-note", ".watch-note",
     ".eyebrow span:last-child", ".quote-header span:last-child", ".trade-table"])
     selectors.set(selector, new Element());
   const table = selectors.get(".trade-table");
@@ -80,6 +80,22 @@ test("the published dashboard renders with the current page code", () => {
   assert.equal(selectors.get(".hero-copy h1").textContent, live.signal.title);
   assert.equal(selectors.get(".trade-table").children.length,
     live.backtest.full.trades.length + 1);
+});
+
+test("the missed-rally note shows only while the builder reports it", () => {
+  const { api, selectors } = page();
+  const note = selectors.get(".watch-note");
+  const data = structuredClone(dashboard);
+  data.signal.missed_rally_watch = { level: "alert", message: "观察提示，不是买点：示例" };
+  api.render(data);
+  assert.equal(note.hidden, false);
+  assert.equal(note.className, "watch-note watch-note-alert");
+  assert.equal(note.textContent, "观察提示，不是买点：示例");
+  api.showUnavailable("数据加载失败");
+  assert.equal(note.hidden, true);
+  api.render(dashboard);
+  assert.equal(note.hidden, true);
+  assert.equal(note.textContent, "");
 });
 
 test("open trade's mark date is not displayed as a sale", () => {
