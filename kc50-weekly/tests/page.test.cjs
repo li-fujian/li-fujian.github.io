@@ -6,7 +6,8 @@ const vm = require("node:vm");
 
 const root = path.join(__dirname, "..");
 const calendar = JSON.parse(fs.readFileSync(path.join(root, "trading-calendar.json")));
-const dashboard = JSON.parse(fs.readFileSync(path.join(root, "dashboard.json")));
+// The live dashboard.json is rewritten every trading day; the date and holding assertions need a frozen snapshot.
+const dashboard = JSON.parse(fs.readFileSync(path.join(__dirname, "fixtures", "dashboard-2026-09-30.json")));
 
 class Element {
   constructor() {
@@ -70,6 +71,15 @@ test("buy/sell actions and badges agree with the builder states", () => {
       state === "WAIT" ? "不买，不猜，等信号" : title);
     assert.equal(selectors.get(".signal-stamp").textContent, `${state} / ${badge}`);
   }
+});
+
+test("the published dashboard renders with the current page code", () => {
+  const live = JSON.parse(fs.readFileSync(path.join(root, "dashboard.json")));
+  const { api, selectors } = page();
+  api.render(live);
+  assert.equal(selectors.get(".hero-copy h1").textContent, live.signal.title);
+  assert.equal(selectors.get(".trade-table").children.length,
+    live.backtest.full.trades.length + 1);
 });
 
 test("open trade's mark date is not displayed as a sale", () => {
