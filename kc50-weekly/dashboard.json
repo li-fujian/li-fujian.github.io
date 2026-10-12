@@ -1,10 +1,10 @@
 {
   "meta": {
     "version": "kc50-weekly-v1.3",
-    "generated_at": "2026-10-09T10:01:29+00:00",
-    "data_as_of": "2026-10-09",
+    "generated_at": "2026-10-12T18:11:31+00:00",
+    "data_as_of": "2026-10-12",
     "last_completed_week": "2026-10-09",
-    "current_week_is_partial": false,
+    "current_week_is_partial": true,
     "index_refreshed": true,
     "source": "腾讯行情接口（前复权日线）；规则与回测脚本可本地复算",
     "disclaimer": "历史回测不代表未来收益；极端跳空可能使实际亏损超过保护线。"
@@ -12,7 +12,7 @@
   "instrument": {
     "index_name": "上证科创板50成份指数",
     "index_code": "000688",
-    "index_latest_close": 1457.27
+    "index_latest_close": 1426.72
   },
   "signal": {
     "state": "WAIT",
@@ -63,11 +63,11 @@
     "max_annual_actions": 6
   },
   "backtest": {
-    "period": "2020-01-01 ~ 2026-10-09",
+    "period": "2020-01-01 ~ 2026-10-12",
     "method": "完整周收盘产生信号、下一交易日开盘成交；双边各计10bp摩擦；12%保护止损按日内触价或开盘跳空成交；周线MA5拐头前周收盘跌破成本2%则下一交易日开盘离场；浮盈达到30%后改用15%周线收盘移动止盈。",
     "full": {
       "total_return_pct": 290.49,
-      "cagr_pct": 22.3,
+      "cagr_pct": 22.27,
       "max_drawdown_pct": 17.98,
       "win_rate_pct": 63.6,
       "trade_count": 11,
@@ -521,28 +521,18 @@
           "equity": 3.9049
         },
         {
-          "date": "2026-10-09",
+          "date": "2026-10-12",
           "equity": 3.9049
         }
       ]
     },
     "buy_hold": {
-      "total_return_pct": 44.62,
-      "cagr_pct": 5.6,
+      "total_return_pct": 41.59,
+      "cagr_pct": 5.27,
       "max_drawdown_pct": 62.66
     }
   },
   "recent_weekly": [
-    {
-      "date": "2025-09-30",
-      "open": 1448.55,
-      "high": 1505.91,
-      "low": 1424.84,
-      "close": 1495.29,
-      "ma5": 1383.07,
-      "ma10": 1268.61,
-      "ma20": 1129.77
-    },
     {
       "date": "2025-10-10",
       "open": 1526.92,
@@ -1062,6 +1052,16 @@
       "ma5": 1563.03,
       "ma10": 1616.99,
       "ma20": 1718.79
+    },
+    {
+      "date": "2026-10-12",
+      "open": 1443.81,
+      "high": 1473.44,
+      "low": 1425.31,
+      "close": 1426.72,
+      "ma5": null,
+      "ma10": null,
+      "ma20": null
     }
   ],
   "sources": [
