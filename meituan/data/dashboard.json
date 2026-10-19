@@ -7,7 +7,7 @@
     "adjustment": "none",
     "price_basis": "不复权",
     "volume_unit": "股",
-    "generated_at": "2026-10-16T22:09:50.292790+08:00",
+    "generated_at": "2026-10-20T00:36:14.293828+08:00",
     "as_of": "2026-10-16",
     "expected_session": "2026-10-16",
     "confirmed_week": "2026-10-16",
@@ -1785,12 +1785,12 @@
       {
         "name": "tencent_day.json",
         "url": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk03690,day,,,640,",
-        "sha256": "85ee3c6df67d3d25f79b188308d5e55acedc16489511480f051f893aa33a8f34"
+        "sha256": "dd02b63643d87378529d68ff5f04542675191fe72025611d0610a2f97c326290"
       },
       {
         "name": "tencent_week.json",
         "url": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk03690,week,,,800,",
-        "sha256": "5584f163bf60d6062cf63af0dce6f37c3a0949c3e7054466920054c3f40aaa74"
+        "sha256": "3fb5fa3f37af91e4a26b3ecd68e3c6b8c5a15b86eb885de36f0b22ba05171871"
       },
       {
         "name": "tencent_quote.txt",
