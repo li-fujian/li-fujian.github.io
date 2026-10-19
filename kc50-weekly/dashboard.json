@@ -1,10 +1,10 @@
 {
   "meta": {
     "version": "kc50-weekly-v1.3",
-    "generated_at": "2026-10-16T13:30:49+00:00",
-    "data_as_of": "2026-10-16",
+    "generated_at": "2026-10-19T15:51:02+00:00",
+    "data_as_of": "2026-10-19",
     "last_completed_week": "2026-10-16",
-    "current_week_is_partial": false,
+    "current_week_is_partial": true,
     "index_refreshed": true,
     "source": "腾讯行情接口（前复权日线）；规则与回测脚本可本地复算",
     "disclaimer": "历史回测不代表未来收益；极端跳空可能使实际亏损超过保护线。"
@@ -12,7 +12,7 @@
   "instrument": {
     "index_name": "上证科创板50成份指数",
     "index_code": "000688",
-    "index_latest_close": 1358.65
+    "index_latest_close": 1329.19
   },
   "signal": {
     "state": "WAIT",
@@ -63,17 +63,17 @@
     "max_annual_actions": 6
   },
   "backtest": {
-    "period": "2020-01-01 ~ 2026-10-16",
+    "period": "2020-01-01 ~ 2026-10-19",
     "method": "完整周收盘产生信号、下一交易日开盘成交；双边各计10bp摩擦；12%保护止损按日内触价或开盘跳空成交；周线MA5拐头前周收盘跌破成本2%则下一交易日开盘离场；浮盈达到30%后改用15%周线收盘移动止盈。",
     "full": {
       "total_return_pct": 290.49,
-      "cagr_pct": 22.23,
+      "cagr_pct": 22.2,
       "max_drawdown_pct": 17.98,
       "win_rate_pct": 63.6,
       "trade_count": 11,
       "avg_trade_pct": 14.75,
       "profit_factor": 10.84,
-      "exposure_pct": 44.1,
+      "exposure_pct": 44.0,
       "max_actions_in_year": 5,
       "annual_actions": {
         "2020": 2,
@@ -521,28 +521,18 @@
           "equity": 3.9049
         },
         {
-          "date": "2026-10-16",
+          "date": "2026-10-19",
           "equity": 3.9049
         }
       ]
     },
     "buy_hold": {
-      "total_return_pct": 34.84,
-      "cagr_pct": 4.5,
+      "total_return_pct": 31.91,
+      "cagr_pct": 4.16,
       "max_drawdown_pct": 62.66
     }
   },
   "recent_weekly": [
-    {
-      "date": "2025-10-10",
-      "open": 1526.92,
-      "high": 1588.83,
-      "low": 1444.99,
-      "close": 1452.68,
-      "ma5": 1419.89,
-      "ma10": 1310.2,
-      "ma20": 1153.37
-    },
     {
       "date": "2025-10-17",
       "open": 1409.68,
@@ -1062,6 +1052,16 @@
       "ma5": 1524.09,
       "ma10": 1578.46,
       "ma20": 1699.15
+    },
+    {
+      "date": "2026-10-19",
+      "open": 1347.09,
+      "high": 1356.42,
+      "low": 1323.67,
+      "close": 1329.19,
+      "ma5": null,
+      "ma10": null,
+      "ma20": null
     }
   ],
   "sources": [
