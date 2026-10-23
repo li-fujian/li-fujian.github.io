@@ -7,59 +7,58 @@ window.MEITUAN_DASHBOARD = {
     "adjustment": "none",
     "price_basis": "不复权",
     "volume_unit": "股",
-    "generated_at": "2026-10-22T22:37:01.593886+08:00",
-    "as_of": "2026-10-22",
-    "expected_session": "2026-10-22",
-    "confirmed_week": "2026-10-16",
-    "latest_week_complete": false,
+    "generated_at": "2026-10-23T22:21:46.684792+08:00",
+    "as_of": "2026-10-23",
+    "expected_session": "2026-10-23",
+    "confirmed_week": "2026-10-23",
+    "latest_week_complete": true,
     "weekly_rows": 423,
     "daily_rows": 640,
-    "note": "以 2026-10-16 已收官周为准。当周K线尚未收官，仅作图展示，不参与周线判断。"
+    "note": "以 2026-10-23 已收官周为准。当周已收官。"
   },
   "quote": {
-    "date": "2026-10-22",
-    "open": 73.9,
-    "close": 71.3,
-    "high": 73.95,
-    "low": 70.95,
-    "volume": 37832088.0,
-    "previous_close": 74.7,
-    "change": -3.4,
-    "change_pct": -4.5515,
-    "source_timestamp": "2026/10/22 16:08:42"
+    "date": "2026-10-23",
+    "open": 72.65,
+    "close": 71.65,
+    "high": 72.65,
+    "low": 70.45,
+    "volume": 30564900.0,
+    "previous_close": 71.3,
+    "change": 0.35,
+    "change_pct": 0.4909,
+    "source_timestamp": "2026/10/23 16:08:12"
   },
   "technical": {
     "weekly": {
-      "date": "2026-10-16",
-      "open": 72.3,
-      "close": 75.7,
-      "high": 77.9,
-      "low": 69.9,
-      "volume": 153880485.0
+      "date": "2026-10-23",
+      "open": 75.05,
+      "close": 71.65,
+      "high": 77.3,
+      "low": 70.45,
+      "volume": 112625625.0
     },
-    "ma5": 72.45,
-    "ma10": 76.88,
-    "ma20": 78.4025,
-    "ma30": 79.851667,
-    "ma60": 88.0375,
-    "dif": -3.436796,
-    "dea": -2.983457,
-    "hist": -0.906678,
-    "above": [
-      "5"
-    ],
+    "ma5": 72.14,
+    "ma10": 75.325,
+    "ma20": 77.9875,
+    "ma30": 79.376667,
+    "ma60": 87.52,
+    "dif": -3.569408,
+    "dea": -3.100647,
+    "hist": -0.937522,
+    "above": [],
     "below": [
+      "5",
       "10",
       "20",
       "30",
       "60"
     ],
-    "weekly_change_pct": 5.8741,
-    "trend": "周线均线位置分化",
-    "macd": "DIF 低于 DEA；负柱绝对值较上周收缩",
-    "week_sessions": 5,
-    "volume_vs_prior20": 0.6922,
-    "daily_volume_vs_prior20weeks": 0.6646,
+    "weekly_change_pct": -5.3501,
+    "trend": "周线偏弱，低于全部观察均线",
+    "macd": "DIF 低于 DEA；负柱绝对值较上周扩大",
+    "week_sessions": 4,
+    "volume_vs_prior20": 0.5212,
+    "daily_volume_vs_prior20weeks": 0.6319,
     "prior20_high": 96.45,
     "prior20_low": 63.65,
     "legacy_failure": {
@@ -866,12 +865,12 @@ window.MEITUAN_DASHBOARD = {
         "volume": 153880485.0
       },
       {
-        "date": "2026-10-22",
+        "date": "2026-10-23",
         "open": 75.05,
-        "close": 71.3,
+        "close": 71.65,
         "high": 77.3,
-        "low": 70.95,
-        "volume": 82060725.0
+        "low": 70.45,
+        "volume": 112625625.0
       }
     ],
     "indicators": {
@@ -975,7 +974,7 @@ window.MEITUAN_DASHBOARD = {
         74.38,
         72.33,
         72.45,
-        72.07
+        72.14
       ],
       "ma10": [
         182.68,
@@ -1077,7 +1076,7 @@ window.MEITUAN_DASHBOARD = {
         80.63,
         78.53,
         76.88,
-        75.29
+        75.325
       ],
       "ma20": [
         148.685,
@@ -1179,7 +1178,7 @@ window.MEITUAN_DASHBOARD = {
         78.7825,
         78.29,
         78.4025,
-        77.97
+        77.9875
       ],
       "ma30": [
         137.733333,
@@ -1281,7 +1280,7 @@ window.MEITUAN_DASHBOARD = {
         80.115,
         79.966667,
         79.851667,
-        79.365
+        79.376667
       ],
       "ma60": [
         114.653333,
@@ -1383,7 +1382,7 @@ window.MEITUAN_DASHBOARD = {
         89.585833,
         88.749167,
         88.0375,
-        87.514167
+        87.52
       ],
       "dif": [
         18.378414,
@@ -1485,7 +1484,7 @@ window.MEITUAN_DASHBOARD = {
         -3.395955,
         -3.629909,
         -3.436796,
-        -3.597328
+        -3.569408
       ],
       "dea": [
         18.07827,
@@ -1587,7 +1586,7 @@ window.MEITUAN_DASHBOARD = {
         -2.680175,
         -2.870122,
         -2.983457,
-        -3.106231
+        -3.100647
       ],
       "hist": [
         0.600288,
@@ -1689,7 +1688,7 @@ window.MEITUAN_DASHBOARD = {
         -1.43156,
         -1.519573,
         -0.906678,
-        -0.982195
+        -0.937522
       ]
     }
   },
@@ -1785,22 +1784,22 @@ window.MEITUAN_DASHBOARD = {
       {
         "name": "tencent_day.json",
         "url": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk03690,day,,,640,",
-        "sha256": "58d185f2990a95471b3b1a5a655366f887329bd883d2d8f56d11462d9314618a"
+        "sha256": "8d10fa1273016f6a9fa0dddc68057561639ca240357409dab845051f76131b67"
       },
       {
         "name": "tencent_week.json",
         "url": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk03690,week,,,800,",
-        "sha256": "c21b670d0570367f284fedefbd1249c88ec42df1d536e13cd1751850cf310a1a"
+        "sha256": "99fc4215d6dab91315ba3001aceee647fff6e3a32fc196b177475db5701a4482"
       },
       {
         "name": "tencent_quote.txt",
         "url": "https://qt.gtimg.cn/q=hk03690",
-        "sha256": "22ca77839ed1530735be782f87854b1ceab38e7be76de96870fd07e5e90bf669"
+        "sha256": "3765e648f6455d5844f252c143e1f4937db10b0452ea881f68e97657c49a8813"
       },
       {
         "name": "sina_quote.txt",
         "url": "https://hq.sinajs.cn/list=rt_hk03690",
-        "sha256": "0662090ef46cc4b7b7849d0a57ce8e74e681a2897574a67131226d7ae8073763"
+        "sha256": "780f2dbfecacde7b921d3f3ee1570e691b63f2f980c08589967a5fbf110c3bd6"
       }
     ],
     "limitations": [
