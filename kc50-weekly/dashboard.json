@@ -1,10 +1,10 @@
 {
   "meta": {
     "version": "kc50-weekly-v1.3",
-    "generated_at": "2026-11-05T16:48:47+00:00",
-    "data_as_of": "2026-11-05",
-    "last_completed_week": "2026-10-30",
-    "current_week_is_partial": true,
+    "generated_at": "2026-11-06T16:14:15+00:00",
+    "data_as_of": "2026-11-06",
+    "last_completed_week": "2026-11-06",
+    "current_week_is_partial": false,
     "index_refreshed": true,
     "source": "腾讯行情接口（前复权日线）；规则与回测脚本可本地复算",
     "disclaimer": "历史回测不代表未来收益；极端跳空可能使实际亏损超过保护线。"
@@ -12,19 +12,19 @@
   "instrument": {
     "index_name": "上证科创板50成份指数",
     "index_code": "000688",
-    "index_latest_close": 1286.68
+    "index_latest_close": 1253.2
   },
   "signal": {
     "state": "WAIT",
     "title": "空仓等待",
     "summary": "买点条件未全部满足；没有信号就不操作。",
-    "as_of": "2026-10-30",
-    "index_close": 1160.84,
+    "as_of": "2026-11-06",
+    "index_close": 1253.2,
     "j_recent": [
-      13.3,
       6.4,
       13.2,
-      1.9
+      1.9,
+      12.9
     ],
     "conditions": [
       {
@@ -33,7 +33,7 @@
       },
       {
         "label": "本周 J 向上拐头",
-        "met": false
+        "met": true
       }
     ],
     "holding": false,
@@ -47,7 +47,7 @@
     "peak_weekly_close": null,
     "runner_exit_level": null,
     "model_position": null,
-    "planned_stop_index": 1021.54,
+    "planned_stop_index": 1102.82,
     "actions_this_year": 5,
     "actions_remaining": 1
   },
@@ -63,11 +63,11 @@
     "max_annual_actions": 6
   },
   "backtest": {
-    "period": "2020-01-01 ~ 2026-11-05",
+    "period": "2020-01-01 ~ 2026-11-06",
     "method": "完整周收盘产生信号、下一交易日开盘成交；双边各计10bp摩擦；12%保护止损按日内触价或开盘跳空成交；周线MA5拐头前周收盘跌破成本2%则下一交易日开盘离场；浮盈达到30%后改用15%周线收盘移动止盈。",
     "full": {
       "total_return_pct": 290.49,
-      "cagr_pct": 22.03,
+      "cagr_pct": 22.02,
       "max_drawdown_pct": 17.98,
       "win_rate_pct": 63.6,
       "trade_count": 11,
@@ -525,14 +525,14 @@
           "equity": 3.9049
         },
         {
-          "date": "2026-11-05",
+          "date": "2026-11-06",
           "equity": 3.9049
         }
       ]
     },
     "buy_hold": {
-      "total_return_pct": 27.69,
-      "cagr_pct": 3.64,
+      "total_return_pct": 24.37,
+      "cagr_pct": 3.24,
       "max_drawdown_pct": 62.66
     }
   },
@@ -1058,14 +1058,14 @@
       "ma20": 1657.89
     },
     {
-      "date": "2026-11-05",
+      "date": "2026-11-06",
       "open": 1185.51,
       "high": 1329.14,
       "low": 1132.33,
-      "close": 1286.68,
-      "ma5": null,
-      "ma10": null,
-      "ma20": null
+      "close": 1253.2,
+      "ma5": 1315.09,
+      "ma10": 1451.07,
+      "ma20": 1624.98
     }
   ],
   "sources": [
