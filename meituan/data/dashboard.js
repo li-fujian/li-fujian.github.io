@@ -7,9 +7,9 @@ window.MEITUAN_DASHBOARD = {
     "adjustment": "none",
     "price_basis": "不复权",
     "volume_unit": "股",
-    "generated_at": "2026-11-11T01:14:00.608685+08:00",
-    "as_of": "2026-11-10",
-    "expected_session": "2026-11-10",
+    "generated_at": "2026-11-12T01:23:55.276427+08:00",
+    "as_of": "2026-11-11",
+    "expected_session": "2026-11-11",
     "confirmed_week": "2026-11-06",
     "latest_week_complete": false,
     "weekly_rows": 426,
@@ -17,16 +17,16 @@ window.MEITUAN_DASHBOARD = {
     "note": "以 2026-11-06 已收官周为准。当周K线尚未收官，仅作图展示，不参与周线判断。"
   },
   "quote": {
-    "date": "2026-11-10",
-    "open": 75.6,
-    "close": 75.5,
-    "high": 77.4,
-    "low": 75.4,
-    "volume": 26375796.0,
-    "previous_close": 75.15,
-    "change": 0.35,
-    "change_pct": 0.4657,
-    "source_timestamp": "2026/11/10 16:08:41"
+    "date": "2026-11-11",
+    "open": 74.7,
+    "close": 72.85,
+    "high": 74.7,
+    "low": 72.3,
+    "volume": 30427317.0,
+    "previous_close": 75.5,
+    "change": -2.65,
+    "change_pct": -3.5099,
+    "source_timestamp": "2026/11/11 16:08:12"
   },
   "technical": {
     "weekly": {
@@ -866,12 +866,12 @@ window.MEITUAN_DASHBOARD = {
         "volume": 221070077.0
       },
       {
-        "date": "2026-11-10",
+        "date": "2026-11-11",
         "open": 80.65,
-        "close": 75.5,
+        "close": 72.85,
         "high": 81.9,
-        "low": 74.75,
-        "volume": 91892695.0
+        "low": 72.3,
+        "volume": 122320012.0
       }
     ],
     "indicators": {
@@ -975,7 +975,7 @@ window.MEITUAN_DASHBOARD = {
         72.14,
         72.13,
         74.17,
-        74.97
+        74.44
       ],
       "ma10": [
         173.87,
@@ -1077,7 +1077,7 @@ window.MEITUAN_DASHBOARD = {
         75.325,
         73.985,
         74.275,
-        73.65
+        73.385
       ],
       "ma20": [
         156.41,
@@ -1179,7 +1179,7 @@ window.MEITUAN_DASHBOARD = {
         77.9875,
         77.6725,
         78.1025,
-        78.665
+        78.5325
       ],
       "ma30": [
         141.856667,
@@ -1281,7 +1281,7 @@ window.MEITUAN_DASHBOARD = {
         79.376667,
         79.088333,
         78.848333,
-        78.481667
+        78.393333
       ],
       "ma60": [
         117.123333,
@@ -1383,7 +1383,7 @@ window.MEITUAN_DASHBOARD = {
         87.52,
         86.996667,
         86.7275,
-        86.214167
+        86.17
       ],
       "dif": [
         13.349075,
@@ -1485,7 +1485,7 @@ window.MEITUAN_DASHBOARD = {
         -3.569408,
         -3.636618,
         -2.945838,
-        -2.761941
+        -2.973337
       ],
       "dea": [
         16.461874,
@@ -1587,7 +1587,7 @@ window.MEITUAN_DASHBOARD = {
         -3.100647,
         -3.207841,
         -3.155441,
-        -3.076741
+        -3.11902
       ],
       "hist": [
         -6.225597,
@@ -1689,7 +1689,7 @@ window.MEITUAN_DASHBOARD = {
         -0.937522,
         -0.857554,
         0.419205,
-        0.629599
+        0.291365
       ]
     }
   },
@@ -1771,7 +1771,7 @@ window.MEITUAN_DASHBOARD = {
   },
   "audit": {
     "status": "passed",
-    "daily_weekly_matched": 136,
+    "daily_weekly_matched": 135,
     "quote_fields_matched": [
       "日期",
       "开盘",
@@ -1785,22 +1785,22 @@ window.MEITUAN_DASHBOARD = {
       {
         "name": "tencent_day.json",
         "url": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk03690,day,,,640,",
-        "sha256": "f9ad5717a66c0ff8357565560318c19c656b6c040f596e38bff29b421bb1e3be"
+        "sha256": "0d28c79db73f84a9a033da0750effdbf54ac7c6e7ef924b4f25b5d8910965a6b"
       },
       {
         "name": "tencent_week.json",
         "url": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk03690,week,,,800,",
-        "sha256": "223411892376cb8fbf49a0e2702dbb045e5077a60bcf8a1499748f7835e14583"
+        "sha256": "084d54f07df86dabc9c062d45b4768561c626e4c198d6f4375f00253123e5882"
       },
       {
         "name": "tencent_quote.txt",
         "url": "https://qt.gtimg.cn/q=hk03690",
-        "sha256": "bfb887ac7baacae14df693c94b01a6bbb77c082eba22ab3c0fe49061d7463cc1"
+        "sha256": "d4b4dd908e86e7dd40e3e56444a649331bc25aff74cd0dc49c4e84dcd7e49765"
       },
       {
         "name": "sina_quote.txt",
         "url": "https://hq.sinajs.cn/list=rt_hk03690",
-        "sha256": "d6f9dfae0915b82e166646e2f40f08ad6599c8c89e1b0481d8b5ee475bf35102"
+        "sha256": "6b21a2b7775562fdf39533a44e760518d9ecd576d07439f29692e39eb36d4301"
       }
     ],
     "limitations": [
