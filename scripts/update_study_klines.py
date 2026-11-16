@@ -11,6 +11,9 @@ and is rounded, so it is not written into data.js.
 
 The script also reads Yahoo's dividend events and refuses to write if a split
 shows up, or if Tencent qfq disagrees with ``raw - later cash dividends``.
+Yahoo ``adjclose`` is proportional, so it is checked against that factor
+(``prior close - dividend``) / ``prior close``, not against the Tencent print.
+A fixed yuan gap between the two methods grows with every new dividend.
 
 A new cash dividend changes every earlier qfq price. Re-run this script after
 an ex-date instead of appending a raw bar onto the old series.
@@ -139,6 +142,26 @@ def shift_for(date: str, dividends: list[tuple[str, Decimal]]) -> Decimal:
     return sum((amount for ex_date, amount in dividends if ex_date > date), Decimal("0.00"))
 
 
+def prior_close(ex_date: str, raw_closes: dict[str, Decimal]) -> Decimal:
+    earlier = [day for day in raw_closes if day < ex_date]
+    if not earlier:
+        raise SystemExit(f"No raw close before dividend ex-date {ex_date}.")
+    return raw_closes[max(earlier)]
+
+
+def proportional_factor(date: str, dividends: list[tuple[str, Decimal]], raw_closes: dict[str, Decimal]) -> Decimal:
+    """Yahoo forward factor: product of (prior close - cash dividend) / prior close."""
+    factor = Decimal(1)
+    for ex_date, amount in dividends:
+        if ex_date <= date:
+            continue
+        previous = prior_close(ex_date, raw_closes)
+        if previous <= amount:
+            raise SystemExit(f"Dividend {amount} on {ex_date} is not smaller than the prior close {previous}.")
+        factor *= (previous - amount) / previous
+    return factor
+
+
 def build(stock_id: str) -> tuple[list[dict], list[tuple[str, Decimal]], list[str]]:
     spec = STOCKS[stock_id]
     qfq_rows = [row for row in tencent_qfq(spec["tencent"]) if row["date"] >= SINCE]
@@ -169,11 +192,14 @@ def build(stock_id: str) -> tuple[list[dict], list[tuple[str, Decimal]], list[st
             raw_close, adj_close = yahoo
             if raw_close != raw["close"]:
                 raise SystemExit(f"{stock_id}: {row['date']} Yahoo raw close {raw_close} != Sina {raw['close']}.")
-            gap = abs(float(row["close"]) - float(adj_close))
-            if gap > 0.06:
+            factor = proportional_factor(row["date"], dividends, {day: bar["close"] for day, bar in raw_rows.items()})
+            # adjclose is Yahoo's proportional series. It is not Tencent's subtractive qfq,
+            # and the yuan gap between those two methods widens after each new dividend.
+            gap = abs(raw_close * factor - adj_close)
+            if gap > Decimal("0.02"):
                 raise SystemExit(
-                    f"{stock_id}: {row['date']} Tencent qfq close {row['close']} "
-                    f"is {gap:.4f} away from Yahoo adjclose {adj_close}."
+                    f"{stock_id}: {row['date']} Yahoo adjclose {adj_close} disagrees with "
+                    f"proportional cash-dividend adjustment {raw_close * factor:.4f}."
                 )
     last = qfq_rows[-1]
     if shift_for(last["date"], dividends) != 0:

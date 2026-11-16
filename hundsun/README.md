@@ -44,7 +44,7 @@ python scripts/update_study_klines.py hundsun
 node --test hundsun/tests/page.test.cjs
 ```
 
-脚本会拉腾讯前复权、新浪成交股数和 Yahoo 红利，核对「未复权价 − 其后现金红利」与腾讯前复权逐根一致，再写回 `data.js`。若出现送转股，脚本会停下来，不覆盖文件。
+脚本会拉腾讯前复权、新浪成交股数和 Yahoo 红利，核对「未复权价 − 其后现金红利」与腾讯前复权逐根一致，再写回 `data.js`。Yahoo `adjclose` 是比例复权，脚本按 `(除息前收盘 − 红利) / 除息前收盘` 连乘来核对它，不拿它和腾讯的差额前复权比一个固定差额。若出现送转股，脚本会停下来，不覆盖文件。
 
 ## 检查
 
