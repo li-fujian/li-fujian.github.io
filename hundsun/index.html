@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>恒生电子 600570 日K线</title>
+<meta name="description" content="恒生电子（600570）日K线。默认 15–30 元，每 1 元一格，红涨绿跌。">
+<link rel="canonical" href="https://li-fujian.github.io/hundsun/">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="wrap">
+  <header class="head">
+    <div>
+      <a class="back" href="../strategies/">← 策略目录</a>
+      <h1>恒生电子 <span>600570.SH</span></h1>
+      <p id="subtitle">日K线</p>
+    </div>
+    <div class="stamp">
+      <span class="badge">前复权</span>
+      <p id="asof">数据载入中</p>
+    </div>
+  </header>
+
+  <noscript><div class="notice">请启用 JavaScript 查看日K图。行情在 data.js，更新步骤见 README.md。</div></noscript>
+  <div id="error" class="notice" role="alert" hidden></div>
+
+  <section aria-labelledby="chart-title">
+    <div class="eyebrow">01 / 日K线</div>
+    <h2 id="chart-title">拼音本格 <span id="range-label"></span></h2>
+    <p id="summary" class="lead"></p>
+
+    <div class="toolbar" id="toolbar">
+      <div class="control">
+        <span class="control-label">格高</span>
+        <div class="seg" role="group" aria-label="每元行高">
+          <button type="button" data-set="density" data-value="16" aria-pressed="false">紧凑</button>
+          <button type="button" data-set="density" data-value="22" aria-pressed="true">标准</button>
+          <button type="button" data-set="density" data-value="30" aria-pressed="false">拉长</button>
+        </div>
+      </div>
+      <div class="control">
+        <span class="control-label">K线</span>
+        <div class="seg" role="group" aria-label="K线宽度">
+          <button type="button" data-set="spacing" data-value="8" aria-pressed="false">窄</button>
+          <button type="button" data-set="spacing" data-value="12" aria-pressed="true">中</button>
+          <button type="button" data-set="spacing" data-value="18" aria-pressed="false">宽</button>
+        </div>
+      </div>
+      <div class="control">
+        <span class="control-label">高低点</span>
+        <div class="seg" role="group" aria-label="阶段高低点灵敏度">
+          <button type="button" data-set="sens" data-value="3" aria-pressed="false">短线(3日)</button>
+          <button type="button" data-set="sens" data-value="5" aria-pressed="true">中线(5日)</button>
+          <button type="button" data-set="sens" data-value="8" aria-pressed="false">波段(8日)</button>
+        </div>
+      </div>
+      <button type="button" class="toggle" data-set="fullRange" aria-pressed="false"><span class="knob" aria-hidden="true"></span>显示完整价格区间</button>
+      <button type="button" class="toggle" data-set="showMA" aria-pressed="false"><span class="knob" aria-hidden="true"></span>均线 MA5/10/20</button>
+    </div>
+
+    <div class="quote" id="quote"></div>
+    <div class="legend" id="legend">
+      <span class="up"><i class="swatch"></i>收盘不低于开盘</span>
+      <span class="down"><i class="swatch"></i>收盘低于开盘</span>
+      <span class="up"><i class="swatch dash"></i>阶段高点</span>
+      <span class="down"><i class="swatch dash"></i>阶段低点</span>
+      <span class="accent"><i class="swatch dash"></i>手工关注价位</span>
+      <span class="ma-key ma5" hidden><i class="swatch"></i>MA5</span>
+      <span class="ma-key ma10" hidden><i class="swatch"></i>MA10</span>
+      <span class="ma-key ma20" hidden><i class="swatch"></i>MA20</span>
+    </div>
+
+    <div class="chart-frame" id="chart-frame">
+      <div class="chart-scroll" id="chart-scroll" tabindex="0" aria-label="日K线，可左右滑动。点按后可用方向键移动十字光标。">
+        <div id="chart-svg"></div>
+      </div>
+      <div class="chart-axis" id="chart-axis"></div>
+    </div>
+    <div class="hint-row">
+      <p class="note" id="hint">左右拖动查看更早的K线；鼠标悬停或手指点按显示当日开高低收、涨跌幅和成交量。顶部或底部的小三角表示当天价格超出当前显示区间。点按图表后可用左右方向键移动。</p>
+      <button type="button" class="text-btn" id="jump-latest">回到最新</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="pivot-title">
+    <div class="eyebrow">02 / 阶段高低点</div>
+    <h2 id="pivot-title">自动识别的波段价位</h2>
+    <div class="table-scroll">
+      <table aria-labelledby="pivot-title">
+        <thead>
+          <tr>
+            <th>类型</th>
+            <th>日期</th>
+            <th>价格</th>
+            <th>距最新收盘</th>
+            <th>在15–30内</th>
+          </tr>
+        </thead>
+        <tbody id="pivot-body"></tbody>
+      </table>
+    </div>
+    <p class="note" id="pivot-note"></p>
+  </section>
+
+  <section aria-labelledby="data-title">
+    <div class="eyebrow">03 / 数据与更新</div>
+    <h2 id="data-title">如何追加新的交易日</h2>
+    <p id="data-meta" class="note"></p>
+    <p>更新时只改 <code>data.js</code>：把 <code>AS_OF</code> 改成新的截止日期，并在 <code>DATA</code> 末尾追加一行。阶段高低点、均线和成交量会自动重算。手工价位改 <code>KEY_LEVELS</code>（可选）。每行格式如下：</p>
+    <pre id="sample"></pre>
+    <p class="note">成交量单位是股，不是手。价格来源 <a id="source-link" href="https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh600570,day,,,160,qfq" target="_blank" rel="noopener noreferrer">腾讯财经 sh600570 日线</a>（前复权）。除息日前的历史价已下移，2026-10-22 起与成交价相同。说明见 <a href="README.md">README.md</a>。</p>
+  </section>
+
+  <footer>价格单位：人民币元 · 红涨绿跌 · 静态日K观察页，不构成交易指令。</footer>
+</main>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
