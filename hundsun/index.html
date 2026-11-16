@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>恒生电子 600570 日K线</title>
-<meta name="description" content="恒生电子（600570）日K线。默认 15–30 元，每 1 元一格，红涨绿跌。">
+<meta name="description" content="恒生电子（600570）前复权日K线。默认 15–30 元，每 0.5 元一格，红涨绿跌。">
 <link rel="canonical" href="https://li-fujian.github.io/hundsun/">
+<link rel="icon" href="data:,">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -33,7 +34,7 @@
     <div class="toolbar" id="toolbar">
       <div class="control">
         <span class="control-label">格高</span>
-        <div class="seg" role="group" aria-label="每元行高">
+        <div class="seg" role="group" aria-label="每格行高">
           <button type="button" data-set="density" data-value="16" aria-pressed="false">紧凑</button>
           <button type="button" data-set="density" data-value="22" aria-pressed="true">标准</button>
           <button type="button" data-set="density" data-value="30" aria-pressed="false">拉长</button>
@@ -109,7 +110,7 @@
     <p id="data-meta" class="note"></p>
     <p>更新时只改 <code>data.js</code>：把 <code>AS_OF</code> 改成新的截止日期，并在 <code>DATA</code> 末尾追加一行。阶段高低点、均线和成交量会自动重算。手工价位改 <code>KEY_LEVELS</code>（可选）。每行格式如下：</p>
     <pre id="sample"></pre>
-    <p class="note">成交量单位是股，不是手。价格来源 <a id="source-link" href="https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh600570,day,,,160,qfq" target="_blank" rel="noopener noreferrer">腾讯财经 sh600570 日线</a>（前复权）。除息日前的历史价已下移，2026-10-22 起与成交价相同。说明见 <a href="README.md">README.md</a>。</p>
+    <p class="note">成交量单位是股，不是手。价格来源 <a id="source-link" href="https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh600570,day,,,320,qfq" target="_blank" rel="noopener noreferrer">腾讯财经 sh600570 日线</a>（前复权）。2026-06-09 每股现金红利 0.20 元、2026-10-22 每股 0.05 元；除息日之前的开高低收已扣去其后全部现金红利，最新价仍是成交价。说明见 <a href="README.md">README.md</a>。</p>
   </section>
 
   <footer>价格单位：人民币元 · 红涨绿跌 · 静态日K观察页，不构成交易指令。</footer>

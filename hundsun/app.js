@@ -7,7 +7,8 @@
   var DOWN = "#2b9a48";
   var FOCUS_MIN = 15;
   var FOCUS_MAX = 30;
-  var SOURCE_URL = "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh600570,day,,,160,qfq";
+  var GRID_STEP = 0.5;
+  var SOURCE_URL = "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh600570,day,,,320,qfq";
   var SOURCE_NAME = "腾讯财经（sh600570 日线，前复权）";
   var FONT = "PingFang SC, Hiragino Sans GB, Microsoft YaHei, Noto Sans CJK SC, WenQuanYi Micro Hei, Droid Sans Fallback, sans-serif";
   var PALETTE = {
@@ -48,6 +49,33 @@
   function isUpCandle(row) {
     return row[4] >= row[1];
   }
+
+  function roundPrice(p) {
+    return Math.round(p * 1000) / 1000;
+  }
+
+  // Solid rules sit on prices ending in 0 or 5. Half-yuan lines stay dashed.
+  function isMajorPrice(p) {
+    return Math.round(p * 100) % 500 === 0;
+  }
+
+  function levelText(p) {
+    var rounded = Math.round(p * 100) / 100;
+    if (Math.abs(rounded - Math.round(rounded)) < 1e-6) return String(Math.round(rounded));
+    return rounded.toFixed(2).replace(/0$/, "");
+  }
+
+  function priceLevels(yMin, yMax, step) {
+    var levels = [];
+    var count = Math.round((yMax - yMin) / step);
+    for (var i = 0; i <= count; i++) levels.push(roundPrice(yMin + i * step));
+    return levels;
+  }
+
+  function stepLabel() {
+    return GRID_STEP === 1 ? "1" : String(GRID_STEP);
+  }
+
 
   function optionsFrom(input) {
     var o = input || {};
@@ -158,7 +186,8 @@
     var opt = optionsFrom(options);
     var rows = bundle.DATA;
     var n = rows.length;
-    var ppy = opt.density;
+    var rowPx = opt.density;
+    var ppy = rowPx / GRID_STEP;
     var sp = opt.spacing;
     var dataMin = Math.min.apply(null, rows.map(function (r) { return r[3]; }));
     var dataMax = Math.max.apply(null, rows.map(function (r) { return r[2]; }));
@@ -205,13 +234,14 @@
       axisW = Math.max(axisW, labelX + textWidth(piece, size) + 14);
     });
     axisW = Math.ceil(axisW);
-    var levels = [];
-    for (var p = yMin; p <= yMax; p++) levels.push(p);
+    var levels = priceLevels(yMin, yMax, GRID_STEP);
     var last = rows[n - 1];
     var prevClose = n > 1 ? rows[n - 2][4] : last[1];
     return {
       n: n,
       ppy: ppy,
+      rowPx: rowPx,
+      step: GRID_STEP,
       sp: sp,
       sens: opt.sens,
       fullRange: opt.fullRange,
@@ -279,7 +309,7 @@
     parts.push('<defs><clipPath id="hundsun-plot-clip"><rect x="0" y="' + scene.padTop + '" width="' + scene.W + '" height="' + scene.plotH + '"/></clipPath></defs>');
     scene.levels.forEach(function (p) {
       var y = fmt(yOf(scene, p));
-      if (p % 5 === 0) {
+      if (isMajorPrice(p)) {
         parts.push('<line class="grid grid-major" x1="0" x2="' + scene.W + '" y1="' + y + '" y2="' + y + '" stroke="' + PALETTE.gridMajor + '" stroke-width="1" stroke-opacity="0.8"/>');
       } else {
         parts.push('<line class="grid grid-minor" x1="0" x2="' + scene.W + '" y1="' + y + '" y2="' + y + '" stroke="' + PALETTE.gridMinor + '" stroke-width="0.8" stroke-dasharray="2 5"/>');
@@ -367,10 +397,10 @@
     scene.levels.forEach(function (p) {
       var y = yOf(scene, p);
       if (closeIn && Math.abs(y - closeY) < 12) return;
-      if (p % 5 === 0) {
-        parts.push('<text class="scale scale-major" x="6" y="' + fmt(y + 4) + '" font-size="12" font-weight="600" fill="' + PALETTE.ink + '">' + p + "</text>");
-      } else if (scene.ppy >= 22) {
-        parts.push('<text class="scale scale-minor" x="6" y="' + fmt(y + 3) + '" font-size="9" fill="' + PALETTE.tertiary + '" opacity="0.75">' + p + "</text>");
+      if (isMajorPrice(p)) {
+        parts.push('<text class="scale scale-major" x="6" y="' + fmt(y + 4) + '" font-size="12" font-weight="600" fill="' + PALETTE.ink + '">' + levelText(p) + "</text>");
+      } else if (scene.rowPx >= 22) {
+        parts.push('<text class="scale scale-minor" x="6" y="' + fmt(y + 3) + '" font-size="9" fill="' + PALETTE.tertiary + '" opacity="0.75">' + levelText(p) + "</text>");
       }
     });
     scene.labs.forEach(function (lab) {
@@ -475,7 +505,8 @@
 
   if (typeof module !== "undefined" && module.exports) {
     module.exports = {
-      UP: UP, DOWN: DOWN, FOCUS_MIN: FOCUS_MIN, FOCUS_MAX: FOCUS_MAX, DEFAULTS: DEFAULTS, PALETTE: PALETTE, SOURCE_URL: SOURCE_URL,
+      UP: UP, DOWN: DOWN, FOCUS_MIN: FOCUS_MIN, FOCUS_MAX: FOCUS_MAX, GRID_STEP: GRID_STEP, DEFAULTS: DEFAULTS, PALETTE: PALETTE, SOURCE_URL: SOURCE_URL,
+      isMajorPrice: isMajorPrice, levelText: levelText, priceLevels: priceLevels,
       findPivots: findPivots, ma: ma, volText: volText, md: md, validate: validate, isUpCandle: isUpCandle,
       buildScene: buildScene, mainSvg: mainSvg, axisSvg: axisSvg, quoteModel: quoteModel, quoteHtml: quoteHtml,
       pointerToIndex: pointerToIndex, yOf: yOf, xOf: xOf, fmt: fmt, pivotTableRows: pivotTableRows, pivotNote: pivotNote,
@@ -524,9 +555,9 @@
       var lastDate = bundle.DATA[bundle.DATA.length - 1][0];
       document.getElementById("subtitle").textContent = "日K线 · " + first + " 至 " + lastDate;
       document.getElementById("asof").textContent = "截至 " + bundle.AS_OF + " 收盘";
-      document.getElementById("summary").textContent = "数据截至 " + bundle.AS_OF + " 收盘。默认只看 " + FOCUS_MIN + "–" + FOCUS_MAX + " 元，每 1 元一格：逢 0、5 为实线，其余为淡虚线；红涨绿跌，阶段高低点自动画成虚线方便对齐。";
+      document.getElementById("summary").textContent = "数据截至 " + bundle.AS_OF + " 收盘，前复权（最新价即成交价，除息日前的价格已扣去其后现金红利）。默认只看 " + FOCUS_MIN + "–" + FOCUS_MAX + " 元，每 " + stepLabel() + " 元一格：逢 0、5 为实线，其余为淡虚线；红涨绿跌，阶段高低点自动画成虚线方便对齐。";
       document.getElementById("range-label").textContent = scene.fullRange ? "完整区间 " + scene.yMin + "–" + scene.yMax + " 元" : scene.yMin + "–" + scene.yMax + " 元";
-      var meta = "共 " + scene.n + " 根日K，" + first + " 至 " + lastDate + "，来源 " + SOURCE_NAME + "。成交量按 100 股为 1 手换算。";
+      var meta = "共 " + scene.n + " 根日K，" + first + " 至 " + lastDate + "，来源 " + SOURCE_NAME + "。成交量是新浪当日成交股数，页面按 100 股为 1 手换算成万手。";
       if (bundle.AS_OF !== lastDate) meta += " AS_OF（" + bundle.AS_OF + "）与最后一根K线日期不一致，请检查 data.js。";
       document.getElementById("data-meta").textContent = meta;
       document.getElementById("sample").textContent = sampleText(bundle);
