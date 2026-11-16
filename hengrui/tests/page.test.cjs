@@ -128,19 +128,58 @@ test("default grid is 40–60 with one line per yuan, and the fixed band contain
   assert.ok(full.yMin <= full.dataMin && full.yMax >= full.dataMax);
 });
 
-test("manual levels inside the window stay unless they duplicate a pivot", () => {
+test("manual levels inside the window stay unless they sit on a drawn swing", () => {
   for (const sens of [3, 5, 8]) {
     const scene = buildScene(data, { ...DEFAULTS, sens });
     for (const level of data.KEY_LEVELS) {
-      const duplicate = scene.pivots.some((item) => item.date === level.date && Math.abs(item.price - level.price) < 0.005);
+      const near = scene.pivots.some((item) => Math.abs(item.price - level.price) < scene.pivotGap - 1e-9);
       const shown = scene.manual.some((item) => item.date === level.date && item.price === level.price);
       const inRange = level.price >= scene.yMin && level.price <= scene.yMax;
-      assert.equal(shown, inRange && !duplicate);
+      assert.equal(shown, inRange && !near);
     }
     assert.ok(scene.shownPivots.every((item) => item.price >= scene.yMin && item.price <= scene.yMax));
   }
+});
+
+test("only a few separated swings are drawn, and the wing toggle changes them", () => {
+  function signature(sens) {
+    return buildScene(data, { ...DEFAULTS, sens }).shownPivots
+      .map((item) => item.kind + item.date + item.price)
+      .join("|");
+  }
+  assert.notEqual(signature(3), signature(5));
+  assert.notEqual(signature(5), signature(8));
+  for (const sens of [3, 5, 8]) {
+    const scene = buildScene(data, { ...DEFAULTS, sens });
+    const raw = findPivots(data.DATA, sens).filter((item) => item.price >= scene.yMin && item.price <= scene.yMax);
+    const cap = sens >= 8 ? 3 : 4;
+    for (const kind of ["high", "low"]) {
+      const group = scene.shownPivots.filter((item) => item.kind === kind);
+      assert.ok(group.length >= 1 && group.length <= cap);
+      for (let i = 0; i < group.length; i++) {
+        for (let j = i + 1; j < group.length; j++) {
+          assert.ok(Math.abs(group[i].price - group[j].price) >= scene.pivotGap - 1e-6);
+        }
+        assert.ok(raw.some((item) => item.date === group[i].date && item.kind === group[i].kind && item.price === group[i].price));
+      }
+    }
+    const highs = raw.filter((item) => item.kind === "high");
+    const lows = raw.filter((item) => item.kind === "low");
+    if (highs.length) {
+      const top = Math.max(...highs.map((item) => item.price));
+      assert.ok(scene.shownPivots.some((item) => item.kind === "high" && item.price === top));
+    }
+    if (lows.length) {
+      const bottom = Math.min(...lows.map((item) => item.price));
+      assert.ok(scene.shownPivots.some((item) => item.kind === "low" && item.price === bottom));
+    }
+  }
   const scene = buildScene(data, DEFAULTS);
-  assert.ok(scene.manual.some((item) => item.date === "2026-08-20" && item.price === 51.53));
+  assert.ok(scene.shownPivots.length <= 8);
+  const highs = scene.shownPivots.filter((item) => item.kind === "high").length;
+  const lows = scene.shownPivots.filter((item) => item.kind === "low").length;
+  assert.ok(highs >= 3 && highs <= 4);
+  assert.ok(lows >= 3 && lows <= 4);
 });
 
 test("the drawing has pinyin grid lines, A-share candles, and volume", () => {

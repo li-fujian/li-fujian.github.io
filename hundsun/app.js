@@ -129,6 +129,40 @@
     return out;
   }
 
+  // How far apart two drawn swings of the same kind must be. A wider wing asks for a wider gap.
+  function pivotGap(sens, yMin, yMax, step, ppy, stacked) {
+    var band = Math.max(step, yMax - yMin);
+    var rate = Number(sens) <= 3 ? 0.06 : Number(sens) >= 8 ? 0.12 : 0.09;
+    var labelPx = stacked ? 36 : 16;
+    var clearance = ppy > 0 ? labelPx / ppy : step;
+    return Math.max(step, band * rate, clearance);
+  }
+
+  function pivotCap(sens) {
+    return Number(sens) >= 8 ? 3 : 4;
+  }
+
+  // Highs are taken from the top, lows from the bottom. A candidate too close to one already kept is merged away.
+  function selectProminentPivots(pivots, sens, yMin, yMax, step, ppy, stacked) {
+    var gap = pivotGap(sens, yMin, yMax, step, ppy, stacked);
+    var cap = pivotCap(sens);
+    function take(kind, cmp) {
+      var pool = pivots.filter(function (p) {
+        return p.kind === kind && p.price >= yMin && p.price <= yMax;
+      }).sort(cmp);
+      var kept = [];
+      for (var i = 0; i < pool.length && kept.length < cap; i++) {
+        var price = pool[i].price;
+        var near = kept.some(function (k) { return Math.abs(k.price - price) < gap - 1e-9; });
+        if (!near) kept.push(pool[i]);
+      }
+      return kept;
+    }
+    return take("high", function (a, b) { return b.price - a.price || b.i - a.i; })
+      .concat(take("low", function (a, b) { return a.price - b.price || b.i - a.i; }))
+      .sort(function (a, b) { return a.i - b.i || (a.kind === "high" ? -1 : 1); });
+  }
+
   function ma(rows, k) {
     return rows.map(function (_, i) {
       if (i < k - 1) return null;
@@ -201,17 +235,18 @@
     var volH = 90;
     var volTop = padTop + plotH + padBottom + xAxisH;
     var leftPad = 6;
-    var pivots = findPivots(rows, opt.sens);
+    var stacked = Boolean(options && options.layout === "stack");
+    var separation = pivotGap(opt.sens, yMin, yMax, GRID_STEP, ppy, stacked);
+    var pivots = selectProminentPivots(findPivots(rows, opt.sens), opt.sens, yMin, yMax, GRID_STEP, ppy, stacked);
+    var shownPivots = pivots;
     var yPrice = function (price) { return padTop + (yMax - price) * ppy; };
-    var shownPivots = pivots.filter(function (p) { return p.price >= yMin && p.price <= yMax; });
     var keyLevels = Array.isArray(bundle.KEY_LEVELS) ? bundle.KEY_LEVELS : [];
     var manual = keyLevels.filter(function (k) {
       return k.price >= yMin && k.price <= yMax && !pivots.some(function (p) {
-        return Math.abs(p.price - k.price) < 0.005 && p.date === k.date;
+        return Math.abs(p.price - k.price) < separation - 1e-9;
       });
     });
-    var stacked = Boolean(options && options.layout === "stack");
-    var labelGap = stacked ? 36 : 13;
+    var labelGap = stacked ? 36 : 16;
     var raw = shownPivots.map(function (p) {
       return {
         y: yPrice(p.price),
@@ -244,6 +279,7 @@
       step: GRID_STEP,
       sp: sp,
       sens: opt.sens,
+      pivotGap: separation,
       fullRange: opt.fullRange,
       showMA: opt.showMA,
       stacked: stacked,
@@ -491,7 +527,7 @@
   function pivotNote(levels) {
     var bits = (levels || []).map(function (k) { return md(k.date) + " " + k.label + " " + Number(k.price).toFixed(2); });
     var extra = bits.length ? "并另外补画手工关注价位：" + bits.join("、") + "。" : "未设置手工关注价位。";
-    return "识别规则：某日最高价（或最低价）是前后各 N 个交易日内的最高（或最低），即记为阶段高点（或低点），N 随上方灵敏度切换；最新一根K线不参与判断。图中只画落在当前显示区间内的点，" + extra;
+    return "识别规则：某日最高价（或最低价）是前后各 N 个交易日内的最高（或最低）才记为阶段高点（或低点），N 用上方开关切换，最新一根不参与。当前区间里只留最显著的几档：高点从高到低、低点从低到高，彼此隔开一截，每侧最多 4 条，8 日波段最多 3 条。短线隔得近一些，所以三条开关画出的虚线不一样。" + extra;
   }
 
   function sampleText(bundle) {
@@ -507,7 +543,7 @@
     module.exports = {
       UP: UP, DOWN: DOWN, FOCUS_MIN: FOCUS_MIN, FOCUS_MAX: FOCUS_MAX, GRID_STEP: GRID_STEP, DEFAULTS: DEFAULTS, PALETTE: PALETTE, SOURCE_URL: SOURCE_URL,
       isMajorPrice: isMajorPrice, levelText: levelText, priceLevels: priceLevels,
-      findPivots: findPivots, ma: ma, volText: volText, md: md, validate: validate, isUpCandle: isUpCandle,
+      findPivots: findPivots, selectProminentPivots: selectProminentPivots, pivotGap: pivotGap, ma: ma, volText: volText, md: md, validate: validate, isUpCandle: isUpCandle,
       buildScene: buildScene, mainSvg: mainSvg, axisSvg: axisSvg, quoteModel: quoteModel, quoteHtml: quoteHtml,
       pointerToIndex: pointerToIndex, yOf: yOf, xOf: xOf, fmt: fmt, pivotTableRows: pivotTableRows, pivotNote: pivotNote,
     };
