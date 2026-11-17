@@ -7,9 +7,9 @@ window.MEITUAN_DASHBOARD = {
     "adjustment": "none",
     "price_basis": "不复权",
     "volume_unit": "股",
-    "generated_at": "2026-11-17T03:47:30.961448+08:00",
-    "as_of": "2026-11-16",
-    "expected_session": "2026-11-16",
+    "generated_at": "2026-11-18T02:43:35.942451+08:00",
+    "as_of": "2026-11-17",
+    "expected_session": "2026-11-17",
     "confirmed_week": "2026-11-13",
     "latest_week_complete": false,
     "weekly_rows": 427,
@@ -17,16 +17,16 @@ window.MEITUAN_DASHBOARD = {
     "note": "以 2026-11-13 已收官周为准。当周K线尚未收官，仅作图展示，不参与周线判断。"
   },
   "quote": {
-    "date": "2026-11-16",
-    "open": 70.95,
-    "close": 71.55,
-    "high": 72.85,
-    "low": 70.8,
-    "volume": 29790973.0,
-    "previous_close": 69.8,
-    "change": 1.75,
-    "change_pct": 2.5072,
-    "source_timestamp": "2026/11/16 16:08:18"
+    "date": "2026-11-17",
+    "open": 71.0,
+    "close": 70.5,
+    "high": 71.85,
+    "low": 69.25,
+    "volume": 29653449.0,
+    "previous_close": 71.55,
+    "change": -1.05,
+    "change_pct": -1.4675,
+    "source_timestamp": "2026/11/17 16:08:19"
   },
   "technical": {
     "weekly": {
@@ -865,12 +865,12 @@ window.MEITUAN_DASHBOARD = {
         "volume": 183635459.0
       },
       {
-        "date": "2026-11-16",
+        "date": "2026-11-17",
         "open": 70.95,
-        "close": 71.55,
+        "close": 70.5,
         "high": 72.85,
-        "low": 70.8,
-        "volume": 29790973.0
+        "low": 69.25,
+        "volume": 59444422.0
       }
     ],
     "indicators": {
@@ -974,7 +974,7 @@ window.MEITUAN_DASHBOARD = {
         72.13,
         74.17,
         73.83,
-        73.0
+        72.79
       ],
       "ma10": [
         170.8,
@@ -1076,7 +1076,7 @@ window.MEITUAN_DASHBOARD = {
         73.985,
         74.275,
         73.08,
-        72.725
+        72.62
       ],
       "ma20": [
         158.835,
@@ -1178,7 +1178,7 @@ window.MEITUAN_DASHBOARD = {
         77.6725,
         78.1025,
         78.38,
-        78.3775
+        78.325
       ],
       "ma30": [
         143.51,
@@ -1280,7 +1280,7 @@ window.MEITUAN_DASHBOARD = {
         79.088333,
         78.848333,
         78.291667,
-        77.928333
+        77.893333
       ],
       "ma60": [
         117.851667,
@@ -1382,7 +1382,7 @@ window.MEITUAN_DASHBOARD = {
         86.996667,
         86.7275,
         86.119167,
-        85.635
+        85.6175
       ],
       "dif": [
         11.546498,
@@ -1484,7 +1484,7 @@ window.MEITUAN_DASHBOARD = {
         -3.636618,
         -2.945838,
         -3.216642,
-        -3.252553
+        -3.336313
       ],
       "dea": [
         15.478799,
@@ -1586,7 +1586,7 @@ window.MEITUAN_DASHBOARD = {
         -3.207841,
         -3.155441,
         -3.167681,
-        -3.184655
+        -3.201407
       ],
       "hist": [
         -7.864601,
@@ -1688,7 +1688,7 @@ window.MEITUAN_DASHBOARD = {
         -0.857554,
         0.419205,
         -0.097923,
-        -0.135795
+        -0.269812
       ]
     }
   },
@@ -1784,22 +1784,22 @@ window.MEITUAN_DASHBOARD = {
       {
         "name": "tencent_day.json",
         "url": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk03690,day,,,640,",
-        "sha256": "0f25772de62372439769aa5e0ae5462a6a63b5cfe3414e7a409768cac21cbb22"
+        "sha256": "0bcfe7d40b653554c21b1412bedb931bd47ea5d1430b04f40e9c433bd33cfbfa"
       },
       {
         "name": "tencent_week.json",
         "url": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk03690,week,,,800,",
-        "sha256": "126c8a92b150e0c30fea461875d486d2a39e055fc7c2c9dcd35f3c8ecd6179d6"
+        "sha256": "e94e817cf9f55a8726220756e0d3393a21a2057bfe5298ec452c14d2702270c0"
       },
       {
         "name": "tencent_quote.txt",
         "url": "https://qt.gtimg.cn/q=hk03690",
-        "sha256": "127aafdc35d973dc77db19586e7273fa7123b909b4e055cb9a2eff83f388422a"
+        "sha256": "52de0eecdcf07d80a65c489b4628007b055f09b2c309bc60801fbd4e6972fdba"
       },
       {
         "name": "sina_quote.txt",
         "url": "https://hq.sinajs.cn/list=rt_hk03690",
-        "sha256": "f6bb4e52b50fb9bf592039534cdfe8b3e8fbefcc3eae9045fd2dad13cf9e7124"
+        "sha256": "76cf99e23b5b0dda8823df90b9e52823fc7a0409b123da1d7b1c95fcabcb0756"
       }
     ],
     "limitations": [
