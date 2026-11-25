@@ -1,8 +1,8 @@
 {
   "meta": {
     "version": "kc50-weekly-v1.3",
-    "generated_at": "2026-11-24T19:41:25+00:00",
-    "data_as_of": "2026-11-24",
+    "generated_at": "2026-11-25T18:49:27+00:00",
+    "data_as_of": "2026-11-25",
     "last_completed_week": "2026-11-20",
     "current_week_is_partial": true,
     "index_refreshed": true,
@@ -12,7 +12,7 @@
   "instrument": {
     "index_name": "上证科创板50成份指数",
     "index_code": "000688",
-    "index_latest_close": 1250.09
+    "index_latest_close": 1186.14
   },
   "signal": {
     "state": "WAIT",
@@ -63,17 +63,17 @@
     "max_annual_actions": 6
   },
   "backtest": {
-    "period": "2020-01-01 ~ 2026-11-24",
+    "period": "2020-01-01 ~ 2026-11-25",
     "method": "完整周收盘产生信号、下一交易日开盘成交；双边各计10bp摩擦；12%保护止损按日内触价或开盘跳空成交；周线MA5拐头前周收盘跌破成本2%则下一交易日开盘离场；浮盈达到30%后改用15%周线收盘移动止盈。",
     "full": {
       "total_return_pct": 290.49,
-      "cagr_pct": 21.85,
+      "cagr_pct": 21.84,
       "max_drawdown_pct": 17.98,
       "win_rate_pct": 63.6,
       "trade_count": 11,
       "avg_trade_pct": 14.75,
       "profit_factor": 10.84,
-      "exposure_pct": 43.4,
+      "exposure_pct": 43.3,
       "max_actions_in_year": 5,
       "annual_actions": {
         "2020": 2,
@@ -525,14 +525,14 @@
           "equity": 3.9049
         },
         {
-          "date": "2026-11-24",
+          "date": "2026-11-25",
           "equity": 3.9049
         }
       ]
     },
     "buy_hold": {
-      "total_return_pct": 24.06,
-      "cagr_pct": 3.18,
+      "total_return_pct": 17.72,
+      "cagr_pct": 2.39,
       "max_drawdown_pct": 62.66
     }
   },
@@ -1058,11 +1058,11 @@
       "ma20": 1550.12
     },
     {
-      "date": "2026-11-24",
+      "date": "2026-11-25",
       "open": 1211.44,
       "high": 1279.44,
       "low": 1177.56,
-      "close": 1250.09,
+      "close": 1186.14,
       "ma5": null,
       "ma10": null,
       "ma20": null
