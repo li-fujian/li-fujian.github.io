@@ -7,44 +7,44 @@
     "adjustment": "none",
     "price_basis": "不复权",
     "volume_unit": "股",
-    "generated_at": "2026-11-27T03:14:26.671131+08:00",
-    "as_of": "2026-11-26",
-    "expected_session": "2026-11-26",
-    "confirmed_week": "2026-11-20",
-    "latest_week_complete": false,
+    "generated_at": "2026-11-28T03:08:39.130675+08:00",
+    "as_of": "2026-11-27",
+    "expected_session": "2026-11-27",
+    "confirmed_week": "2026-11-27",
+    "latest_week_complete": true,
     "weekly_rows": 428,
     "daily_rows": 640,
-    "note": "以 2026-11-20 已收官周为准。当周K线尚未收官，仅作图展示，不参与周线判断。"
+    "note": "以 2026-11-27 已收官周为准。当周已收官。"
   },
   "quote": {
-    "date": "2026-11-26",
-    "open": 63.15,
-    "close": 62.7,
-    "high": 64.9,
-    "low": 62.65,
-    "volume": 57115727.0,
-    "previous_close": 61.45,
-    "change": 1.25,
-    "change_pct": 2.0342,
-    "source_timestamp": "2026/11/26 16:08:11"
+    "date": "2026-11-27",
+    "open": 63.0,
+    "close": 67.85,
+    "high": 68.55,
+    "low": 62.85,
+    "volume": 59995795.0,
+    "previous_close": 62.7,
+    "change": 5.15,
+    "change_pct": 8.2137,
+    "source_timestamp": "2026/11/27 16:09:03"
   },
   "technical": {
     "weekly": {
-      "date": "2026-11-20",
-      "open": 70.95,
-      "close": 66.5,
-      "high": 72.95,
-      "low": 66.1,
-      "volume": 177220931.0
+      "date": "2026-11-27",
+      "open": 65.95,
+      "close": 67.85,
+      "high": 68.55,
+      "low": 61.05,
+      "volume": 307745798.0
     },
-    "ma5": 71.99,
-    "ma10": 72.22,
-    "ma20": 78.125,
-    "ma30": 77.76,
-    "ma60": 85.550833,
-    "dif": -3.655402,
-    "dea": -3.265225,
-    "hist": -0.780353,
+    "ma5": 71.23,
+    "ma10": 71.685,
+    "ma20": 77.5825,
+    "ma30": 77.246667,
+    "ma60": 84.913333,
+    "dif": -3.84981,
+    "dea": -3.382142,
+    "hist": -0.935335,
     "above": [],
     "below": [
       "5",
@@ -53,14 +53,14 @@
       "30",
       "60"
     ],
-    "weekly_change_pct": -4.7278,
+    "weekly_change_pct": 2.0301,
     "trend": "周线偏弱，低于全部观察均线",
     "macd": "DIF 低于 DEA；负柱绝对值较上周扩大",
     "week_sessions": 5,
-    "volume_vs_prior20": 0.9067,
-    "daily_volume_vs_prior20weeks": 0.8795,
+    "volume_vs_prior20": 1.603,
+    "daily_volume_vs_prior20weeks": 1.5709,
     "prior20_high": 96.45,
-    "prior20_low": 66.1,
+    "prior20_low": 61.05,
     "legacy_failure": {
       "date": "2026-09-25",
       "open": 72.8,
@@ -865,12 +865,12 @@
         "volume": 177220931.0
       },
       {
-        "date": "2026-11-26",
+        "date": "2026-11-27",
         "open": 65.95,
-        "close": 62.7,
-        "high": 68.2,
+        "close": 67.85,
+        "high": 68.55,
         "low": 61.05,
-        "volume": 247750003.0
+        "volume": 307745798.0
       }
     ],
     "indicators": {
@@ -974,7 +974,7 @@
         74.17,
         73.83,
         71.99,
-        70.2
+        71.23
       ],
       "ma10": [
         167.68,
@@ -1076,7 +1076,7 @@
         74.275,
         73.08,
         72.22,
-        71.17
+        71.685
       ],
       "ma20": [
         161.135,
@@ -1178,7 +1178,7 @@
         78.1025,
         78.38,
         78.125,
-        77.325
+        77.5825
       ],
       "ma30": [
         144.953333,
@@ -1280,7 +1280,7 @@
         78.848333,
         78.291667,
         77.76,
-        77.075
+        77.246667
       ],
       "ma60": [
         118.568333,
@@ -1382,7 +1382,7 @@
         86.7275,
         86.119167,
         85.550833,
-        84.8275
+        84.913333
       ],
       "dif": [
         9.922867,
@@ -1484,7 +1484,7 @@
         -2.945838,
         -3.216642,
         -3.655402,
-        -4.260636
+        -3.84981
       ],
       "dea": [
         14.367612,
@@ -1586,7 +1586,7 @@
         -3.155441,
         -3.167681,
         -3.265225,
-        -3.464307
+        -3.382142
       ],
       "hist": [
         -8.889491,
@@ -1688,7 +1688,7 @@
         0.419205,
         -0.097923,
         -0.780353,
-        -1.592657
+        -0.935335
       ]
     }
   },
@@ -1784,22 +1784,22 @@
       {
         "name": "tencent_day.json",
         "url": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk03690,day,,,640,",
-        "sha256": "2ef227e2c7e0f0ee3ef33ba09e417c54d5f8874f59763fdcf15b236c61b5c929"
+        "sha256": "ed79463939137558b68f0c022b32bec0e1e0288d290b507d65a20fd72ceb01aa"
       },
       {
         "name": "tencent_week.json",
         "url": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk03690,week,,,800,",
-        "sha256": "60954619b20d6d7c08b36bcdfcd2c53ad3fd8853b6f01050e6e173b63d7a4dda"
+        "sha256": "67f9efe96a6ea46cb4fca92ef43cc9552bb1c96b35b897844f17d2c0961b8025"
       },
       {
         "name": "tencent_quote.txt",
         "url": "https://qt.gtimg.cn/q=hk03690",
-        "sha256": "7f66d18df4ba803645a4250af9ee99514324533275d9f1550908cf101a50c44b"
+        "sha256": "c0b3ba0c607eb76a566bd95787e0bd2befbc9eb6afee25827780b13dd1ec454b"
       },
       {
         "name": "sina_quote.txt",
         "url": "https://hq.sinajs.cn/list=rt_hk03690",
-        "sha256": "449512a3e8f053222a765de9d56f4397dd5ba541079a8a9578d64254b783f3d0"
+        "sha256": "a31f9bd825a545b18a7e208e429f8777523e315dbfc80ef2ed2f15ff7aa8cb72"
       }
     ],
     "limitations": [
